@@ -4,7 +4,7 @@ import * as path from "path";
 import {createServer} from 'http';
 
 const app = express();
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3030);
 
 let http = createServer(app);
 // set up socket.io and bind it to our
@@ -23,6 +23,6 @@ io.on("connection", function(socket: Socket) {
   socket.emit('test', 'Success!');
 });
 
-const server = http.listen(3000, function() {
-  console.log("listening on *:3000");
+const server = http.listen(3030, function() {
+  console.log("listening on *:3030");
 });
