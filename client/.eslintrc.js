@@ -22,5 +22,6 @@ module.exports = {
     'no-console': 'warn',
     'jsx-quotes': [1, 'prefer-double'],
     "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
   },
 };
