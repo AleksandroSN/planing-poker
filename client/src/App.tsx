@@ -1,8 +1,6 @@
 import logo from "./logo.svg";
 import "./App.scss";
 
-console.log("HA!");
-
 function App() {
   return (
     <div className="App">

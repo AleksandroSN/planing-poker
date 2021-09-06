@@ -6,3 +6,13 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+button {
+  background-color: transparent;
+  border-width: 0;
+  cursor: pointer;
+}
+
+img {
+  width: auto;
+  height: 100%;
+}
