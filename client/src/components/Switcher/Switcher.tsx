@@ -12,10 +12,10 @@ export const Switcher: React.FC<SwitcherProps> = ({
   return (
     <div className="switcher">
       <p className="switcher__text">{labelText}</p>
-      <label htmlFor="userRole" className="switcher__label">
+      <label htmlFor="switcherBox" className="switcher__label">
         <input
           type="checkbox"
-          name="userRole"
+          name="switcherBox"
           className="switcher__input"
           checked={isObserver}
         />

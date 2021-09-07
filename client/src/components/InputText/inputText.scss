@@ -1,0 +1,18 @@
+@import "../../styles/utils/variables";
+
+.input-text {
+  margin-bottom: 15px;
+
+  &__label {
+    display: flex;
+  }
+
+  &__input {
+    background: #ffffff;
+    border: 1px solid #2b3a67;
+    box-sizing: border-box;
+    box-shadow: inset $mainShadow;
+    border-radius: 0px 0px 0px 10px;
+    margin-left: auto;
+  }
+}
