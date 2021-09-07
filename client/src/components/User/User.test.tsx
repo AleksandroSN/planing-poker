@@ -1,17 +1,16 @@
 import { render } from "@testing-library/react";
 import { User } from "./User";
 
+const testData = {
+  firstName: "Saimon",
+  lastName: "Aleksandrov",
+  jobPosition: "Junior Front-end",
+};
+
 describe("test User component", () => {
   it("check render", () => {
     const { getByText } = render(
-      <User
-        firstName="Saimon"
-        lastName="Aleksandrov"
-        jobPosition="Junior Front-end"
-        isYou={true}
-        avatar="SA"
-        isChat={false}
-      />
+      <User {...testData} isYou={true} isChat={false} avatar="SA" />
     );
     const phrase = getByText(/you/i);
     expect(phrase).toBeInTheDocument();
@@ -19,12 +18,10 @@ describe("test User component", () => {
   it("avatar is image", () => {
     const { getByAltText } = render(
       <User
-        firstName="Saimon"
-        lastName="Aleksandrov"
-        jobPosition="Junior Front-end"
+        {...testData}
         isYou={true}
-        avatar="./img/avatar.png"
         isChat={false}
+        avatar="./img/avatar.png"
       />
     );
     const imageRender = getByAltText(/avatar/i);
@@ -32,14 +29,7 @@ describe("test User component", () => {
   });
   it("other member, not you", () => {
     const { getByAltText } = render(
-      <User
-        firstName="Saimon"
-        lastName="Aleksandrov"
-        jobPosition="Junior Front-end"
-        isYou={false}
-        avatar="./img/avatar.png"
-        isChat={true}
-      />
+      <User {...testData} isYou={false} isChat={true} avatar="SA" />
     );
     const buttonRender = getByAltText(/cancel/i);
     expect(buttonRender).toBeInTheDocument();
