@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 import "./switcher.scss";
 
 interface SwitcherProps {
   labelText: string;
 }
 
-export const Switcher: React.FC<SwitcherProps> = ({
+export const Switcher: FunctionComponent<SwitcherProps> = ({
   labelText,
 }: SwitcherProps) => {
   const [isObserver, setIsObserver] = useState<boolean>(false);

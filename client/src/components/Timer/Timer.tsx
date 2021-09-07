@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react";
 import "./timer.scss";
 import { TimerClasses } from "./timerHelper";
 
@@ -6,7 +7,7 @@ interface TimerProps {
   settings?: boolean;
 }
 
-export const Timer: React.FC<TimerProps> = () => {
+export const Timer: FunctionComponent<TimerProps> = () => {
   // const classes = TimerClasses(settings);
 
   return (
