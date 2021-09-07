@@ -1,0 +1,47 @@
+@import "../../styles/utils/variables";
+@import "../../styles/base/typography";
+@import "../../styles/base/colorPalete";
+
+.timer {
+  width: 200px;
+  height: 80px;
+  background: $colorWhite;
+  box-shadow: $mainShadow;
+  border-radius: 4px;
+  color: $colorBlack;
+  display: flex;
+
+  &--settings {
+    margin-left: auto;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__minutes,
+  &__seconds {
+    display: flex;
+  }
+
+  &__label {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  &__input[type="text"] {
+    width: 75px;
+    height: 55px;
+    background: $colorWhite;
+    border-width: 0;
+    border-radius: 6px;
+    padding-top: 5px;
+    text-align: right;
+
+    &:focus {
+      outline: none;
+      box-shadow: inset $mainShadow;
+    }
+  }
+}

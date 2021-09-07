@@ -36,6 +36,11 @@
   src: local(""), url("../../assets/fonts/roboto-bold.woff2") format("woff2");
 }
 
+.text-xxl {
+  font-size: 64px;
+  @include calcLineHeight(64px);
+}
+
 .text-xl {
   font-size: 30px;
   @include calcLineHeight(30px);

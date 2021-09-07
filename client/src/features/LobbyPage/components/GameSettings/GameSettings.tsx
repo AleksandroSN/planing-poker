@@ -1,19 +1,19 @@
-// import { useState } from "react";
-import { InputText } from "../../../../components/InputText/InputText";
-import { Switcher } from "../../../../components/Switcher/Switcher";
+import { InputText, Switcher, Timer } from "../../../../components";
+import "./gameSettings.scss";
 
 export const GameSettings: React.FC = () => {
-  // const [isObserver, setIsObserver] = useState<boolean>(false);
-
+  const test = true;
   return (
-    <div>
-      <h2>Game Settings</h2>
-      <div>
+    <>
+      <div className="game-settings">
         <Switcher labelText="Scram master as player:" />
         <Switcher labelText="Changing card in round end:" />
         <Switcher labelText="Is timer needed:" />
         <InputText labelText="Score type:" />
+        <div className="game-settings__timer">
+          Round time: <Timer settings={test} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
