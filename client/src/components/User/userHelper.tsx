@@ -1,4 +1,17 @@
-export const userClassesHelper = (chat: boolean) => {
+interface UserClassesMode {
+  user: string;
+  wrapper: string;
+  avatar: string;
+  body: string;
+  valid: string;
+  name: string;
+  job: string;
+  button: string;
+  buttonBody: string;
+  buttonImg: string;
+}
+
+export const userClassesHelper = (chat: boolean): UserClassesMode => {
   const classes = {
     user: chat ? "user" : "user",
     wrapper: chat ? "user__wrapper user__wrapper--chat" : "user__wrapper",
@@ -18,4 +31,15 @@ export const userClassesHelper = (chat: boolean) => {
       : "user__button-img",
   };
   return classes;
+};
+
+export const renderUserAvatar = (avatar: string): JSX.Element => {
+  if (avatar.length === 2) {
+    return (
+      <span className="user__avatar--span text-xl text-bold">{`${avatar}`}</span>
+    );
+  }
+  return (
+    <img src={`${avatar}`} alt="Your avatar" className="user__avatar--img" />
+  );
 };

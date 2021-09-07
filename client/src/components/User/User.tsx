@@ -1,5 +1,5 @@
 import "./user.scss";
-import { userClassesHelper } from "./userHelper";
+import { renderUserAvatar, userClassesHelper } from "./userHelper";
 
 interface UserProps {
   avatar: string;
@@ -19,12 +19,7 @@ export const User: React.FC<UserProps> = ({
   isChat,
 }: UserProps) => {
   const userClasses = userClassesHelper(isChat);
-  const userAvatar: JSX.Element =
-    avatar.length === 2 ? (
-      <span className="user__avatar--span text-xl text-bold">{`${avatar}`}</span>
-    ) : (
-      <img src={`${avatar}`} alt="Your avatar" className="user__avatar--img" />
-    );
+  const userAvatar = renderUserAvatar(avatar);
 
   return (
     <div className={userClasses.user}>
