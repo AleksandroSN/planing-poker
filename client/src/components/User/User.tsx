@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react";
 import "./user.scss";
 import { renderUserAvatar, userClassesHelper } from "./userHelper";
 
@@ -10,7 +11,7 @@ interface UserProps {
   isChat: boolean;
 }
 
-export const User: React.FC<UserProps> = ({
+export const User: FunctionComponent<UserProps> = ({
   firstName,
   lastName,
   jobPosition,

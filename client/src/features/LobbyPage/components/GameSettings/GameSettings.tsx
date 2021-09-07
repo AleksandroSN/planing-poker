@@ -1,7 +1,8 @@
+import { FunctionComponent } from "react";
 import { InputText, Switcher, Timer } from "../../../../components";
 import "./gameSettings.scss";
 
-export const GameSettings: React.FC = () => {
+export const GameSettings: FunctionComponent = () => {
   return (
     <>
       <div className="game-settings">

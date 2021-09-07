@@ -1,10 +1,11 @@
+import { FunctionComponent } from "react";
 import "./inputText.scss";
 
 interface InputTextProps {
   labelText: string;
 }
 
-export const InputText: React.FC<InputTextProps> = ({
+export const InputText: FunctionComponent<InputTextProps> = ({
   labelText,
 }: InputTextProps) => {
   return (
