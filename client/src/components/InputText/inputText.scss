@@ -12,8 +12,12 @@
     background: $colorWhite;
     border: 1px solid $colorDarkBlue;
     box-sizing: border-box;
-    box-shadow: inset $mainShadow;
     border-radius: 0px 0px 0px 10px;
     margin-left: auto;
+
+    &:focus {
+      outline: none;
+      box-shadow: inset $mainShadow;
+    }
   }
 }

@@ -2,16 +2,15 @@ import "./timer.scss";
 import { TimerClasses } from "./timerHelper";
 
 interface TimerProps {
-  // minutes?: number;
-  // seconds?: number;
-  settings: boolean;
+  seconds?: number;
+  settings?: boolean;
 }
 
-export const Timer: React.FC<TimerProps> = ({ settings }: TimerProps) => {
-  // const regex = /^[0-9\b]+$/;
-  const classes = TimerClasses(settings);
+export const Timer: React.FC<TimerProps> = () => {
+  // const classes = TimerClasses(settings);
+
   return (
-    <div className={classes.main}>
+    <div className="timer timer__settings">
       <div className="timer__wrapper">
         <div className="timer__minutes">
           <label
