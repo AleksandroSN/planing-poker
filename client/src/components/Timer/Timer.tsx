@@ -10,7 +10,7 @@ export const Timer: React.FC<TimerProps> = () => {
   // const classes = TimerClasses(settings);
 
   return (
-    <div className="timer timer__settings">
+    <div className="timer timer--settings">
       <div className="timer__wrapper">
         <div className="timer__minutes">
           <label
