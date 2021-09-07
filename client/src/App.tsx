@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import "./App.scss";
-import { GameSettings } from "./features/LobbyPage";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         >
           Learn React
         </a>
-        <GameSettings />
       </header>
     </div>
   );
