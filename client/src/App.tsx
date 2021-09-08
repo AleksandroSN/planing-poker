@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.scss";
 import { Chat } from "./components";
 
-export const App: FunctionComponent = () => {
+export const App: FunctionComponent = (): JSX.Element => {
   return (
     <div className="App">
       <header className="App-header">

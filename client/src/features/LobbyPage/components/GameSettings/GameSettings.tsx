@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { InputText, Switcher, Timer } from "../../../../components";
 import "./gameSettings.scss";
 
-export const GameSettings: FunctionComponent = () => {
+export const GameSettings: FunctionComponent = (): JSX.Element => {
   return (
     <>
       <div className="game-settings">

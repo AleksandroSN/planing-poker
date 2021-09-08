@@ -7,7 +7,7 @@ interface SwitcherProps {
 
 export const Switcher: FunctionComponent<SwitcherProps> = ({
   labelText,
-}: SwitcherProps) => {
+}: SwitcherProps): JSX.Element => {
   const [isObserver, setIsObserver] = useState<boolean>(false);
   return (
     <div className="switcher">

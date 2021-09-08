@@ -7,7 +7,7 @@ interface TimerProps {
   settings?: boolean;
 }
 
-export const Timer: FunctionComponent<TimerProps> = () => {
+export const Timer: FunctionComponent<TimerProps> = (): JSX.Element => {
   // const classes = TimerClasses(settings);
 
   return (

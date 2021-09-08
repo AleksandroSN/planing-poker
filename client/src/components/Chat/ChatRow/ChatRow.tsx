@@ -7,7 +7,9 @@ interface ChatRowProps {
 
 const test = true;
 
-export const ChatRow: FunctionComponent<ChatRowProps> = ({ message }) => {
+export const ChatRow: FunctionComponent<ChatRowProps> = ({
+  message,
+}): JSX.Element => {
   return (
     <div className="chat__row">
       <p className="chat__user-message test-light text-s">{message}</p>

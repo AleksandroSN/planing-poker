@@ -18,7 +18,7 @@ export const User: FunctionComponent<UserProps> = ({
   isYou,
   avatar,
   isChat,
-}: UserProps) => {
+}: UserProps): JSX.Element => {
   const userClasses = userClassesHelper(isChat);
   const userAvatar = renderUserAvatar(avatar);
 
