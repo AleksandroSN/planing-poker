@@ -1,0 +1,20 @@
+@import "../../styles/base/colorPalete";
+@import "../../styles//base/typography";
+@import "../../styles/utils/variables";
+
+.chat {
+  background-color: $colorWhite;
+  
+  &__row {
+    display: flex;
+    color: $colorBlack;
+  }
+
+  &__user-message {
+    flex: 0 1 50%;
+    text-align: left;
+    padding: 10px 0 10px 5px;
+    box-shadow: $mainShadow;
+    border-radius: 4px;
+  }
+}
