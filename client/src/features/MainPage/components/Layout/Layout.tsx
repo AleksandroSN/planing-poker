@@ -1,11 +1,10 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
+import planningPocker from "../../../../assets/images/planning-pocker.png";
+import { Button } from "../../../../components/Button/Button";
+import { Modal } from "../Modal/Modal";
 import "./style.scss";
 
-interface LayoutProps {
-  message?: string;
-}
-
-export const Layout: FunctionComponent<LayoutProps> = (): JSX.Element => {
+export const Layout: FunctionComponent = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleConnect = () => {
@@ -21,14 +20,12 @@ export const Layout: FunctionComponent<LayoutProps> = (): JSX.Element => {
         <div className="main-page__content">
           <h2>Start your planning:</h2>
           <div className="new-session">
-            <label htmlFor="newGame">
-              Create session:
-              <Button
-                text="Start New Game"
-                onClick={() => setIsOpen(true)}
-                classes="button-start"
-              />
-            </label>
+            Create session:
+            <Button
+              text="Start New Game"
+              onClick={() => setIsOpen(true)}
+              classes="button-start"
+            />
           </div>
           <div className="connect-game">
             <h2>OR</h2>
@@ -51,8 +48,12 @@ export const Layout: FunctionComponent<LayoutProps> = (): JSX.Element => {
         </div>
       </div>
       <div>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-          Connect to lobby
+        <Modal
+          open={isOpen}
+          close={() => setIsOpen(false)}
+          heading="Connect to lobby"
+        >
+          Test
         </Modal>
       </div>
     </>
