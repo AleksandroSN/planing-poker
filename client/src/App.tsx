@@ -1,7 +1,9 @@
+import { FunctionComponent } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import { Chat } from "./components";
 
-function App() {
+export const App: FunctionComponent = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -17,9 +19,8 @@ function App() {
         >
           Learn React
         </a>
+        <Chat />
       </header>
     </div>
   );
-}
-
-export default App;
+};

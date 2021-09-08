@@ -3,5 +3,6 @@ import { Switcher } from "./Switcher/Switcher";
 import { InputText } from "./InputText/InputText";
 import { Timer } from "./Timer/Timer";
 import { TimerClasses } from "./Timer/timerHelper";
+import { Chat } from "./Chat";
 
-export { User, Switcher, InputText, Timer, TimerClasses };
+export { User, Switcher, InputText, Timer, TimerClasses, Chat };
