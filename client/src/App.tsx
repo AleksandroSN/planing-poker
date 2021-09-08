@@ -1,7 +1,8 @@
+import { FunctionComponent } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
 
-function App() {
+export const App: FunctionComponent = (): JSX.Element => {
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +21,4 @@ function App() {
       </header>
     </div>
   );
-}
-
-export default App;
+};
