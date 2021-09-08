@@ -1,3 +1,3 @@
 export interface Super {
-  test: string
+  test: string;
 }
