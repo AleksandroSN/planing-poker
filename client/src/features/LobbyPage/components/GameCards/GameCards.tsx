@@ -9,11 +9,11 @@ import "./gameCards.scss";
 
 export const GameCards: FunctionComponent = () => {
   return (
-    <section className="game-cards text-l">
-      <h2 className="game-cards__title">Game Cards</h2>
+    <section className="game-cards">
+      <h2 className="game-cards__title text-xl">Game Cards</h2>
       <div className="game-cards__container">
         <div className="game-cards__cover">
-          <h2 className="game-cards__cover-title">Select cover:</h2>
+          <h2 className="game-cards__cover-title text-24">Select cover:</h2>
           <div className="game-cards__cover-container">
             <CardsCover imgNumber={1} />
             <CardsCover imgNumber={2} />
@@ -23,7 +23,9 @@ export const GameCards: FunctionComponent = () => {
       </div>
       <div className="game-cards__container">
         <div className="game-cards__cards-value">
-          <h2 className="game-cards__cards-value__title">Add card values</h2>
+          <h2 className="game-cards__cards-value-title text-24">
+            Add card values
+          </h2>
           <div className="game-cards__cards-value__container">
             <CardsWithValue ScoreTypeShort="SP" value="12" />
             <CardsWithValue ScoreTypeShort="SP" value="1" />

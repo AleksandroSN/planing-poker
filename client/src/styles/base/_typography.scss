@@ -46,6 +46,11 @@
   @include calcLineHeight(30px);
 }
 
+.text-24 {
+  font-size: 24px;
+  @include calcLineHeight(24px);
+}
+
 .text-l {
   font-size: 20px;
   @include calcLineHeight(20px);

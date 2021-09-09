@@ -1,0 +1,64 @@
+@import "../../../../styles/utils/variables";
+
+.game-cards {
+  &__container {
+    margin-bottom: 20px;
+  }
+
+  &__cover {
+    &-container {
+      display: flex;
+      gap: 15px;
+    }
+
+    &-title {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    &-item {
+      width: 100px;
+      height: 160px;
+      overflow: hidden;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+  }
+
+  &__cards-value {
+    &-title {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    &__container {
+      color: #000;
+      display: flex;
+      gap: 20px;
+    }
+
+    &-item {
+      width: 100px;
+      height: 160px;
+      background-color: #fff;
+      border: 3px solid #eeeeee;
+      box-sizing: border-box;
+      box-shadow: $mainShadow;
+      border-radius: 15px;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+
+      &__header,
+      &__footer {
+        text-align: left;
+      }
+
+      &__footer {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
