@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import { GameCards } from "./features/LobbyPage/components/GameCards/GameCards";
 
 export const App: FunctionComponent = (): JSX.Element => {
   return (
@@ -18,6 +19,7 @@ export const App: FunctionComponent = (): JSX.Element => {
         >
           Learn React
         </a>
+        <GameCards />
       </header>
     </div>
   );
