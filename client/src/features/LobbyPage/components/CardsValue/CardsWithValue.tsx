@@ -11,11 +11,11 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
 }): JSX.Element => {
   return (
     <div className="game-cards__cards-value-item">
-      <div className="game-cards__cards-value-item__header">{value}</div>
+      <div className="game-cards__cards-value-item__header text-s">{value}</div>
       <div className="game-cards__cards-value-item__body text-xxl text-bold">
         {ScoreTypeShort}
       </div>
-      <div className="game-cards__cards-value-item__footer">{value}</div>
+      <div className="game-cards__cards-value-item__footer text-s">{value}</div>
     </div>
   );
 };
