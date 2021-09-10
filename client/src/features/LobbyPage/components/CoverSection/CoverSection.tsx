@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { CoversDataModel } from "../../types/interface";
-import { CardsCover } from "../CardsCover/CardsCover";
+import { CardsCover } from "../CardsCover";
 import { coversData } from "./coverSectionHelper";
 import "./style.scss";
 
