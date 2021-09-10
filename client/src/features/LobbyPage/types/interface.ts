@@ -1,3 +1,4 @@
-export interface Super {
-  test: string;
+export interface CoversDataModel {
+  idx: number;
+  selected: null | boolean;
 }
