@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from "react";
-import { CardsWithValue } from "../CardsValue/CardsWithValue";
+import { FunctionComponent } from "react";
+import { CardsWithValue } from "../CardsValue";
+import { arrCardsWithValue } from "./addCardSectionhelper";
 import "./style.scss";
 
 // interface AddCardSectionProps {
@@ -10,6 +11,15 @@ import "./style.scss";
 // TO-DO if we click on exist card, we can modify this card value
 
 export const AddCardSection: FunctionComponent = (): JSX.Element => {
+  const dataForRender = arrCardsWithValue.map(({ value, scoreTypeShort }) => {
+    return (
+      <CardsWithValue
+        key={value}
+        value={value}
+        scoreTypeShort={scoreTypeShort}
+      />
+    );
+  });
   return (
     <div className="game-cards__container">
       <div className="game-cards__cards-value">
@@ -17,10 +27,7 @@ export const AddCardSection: FunctionComponent = (): JSX.Element => {
           Add card values
         </h2>
         <div className="game-cards__cards-value__container">
-          <CardsWithValue ScoreTypeShort="SP" value="12" />
-          <CardsWithValue ScoreTypeShort="SP" value="1" />
-          <CardsWithValue ScoreTypeShort="SP" value="3" />
-          <CardsWithValue ScoreTypeShort="SP" value="14" />
+          {dataForRender}
         </div>
       </div>
     </div>

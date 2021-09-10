@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 
 interface CardsCoverProps {
   imgNumber: number;
@@ -11,10 +11,7 @@ export const CardsCover: FunctionComponent<CardsCoverProps> = ({
   selected,
   addInState,
 }): JSX.Element => {
-  // const [select, setSelect] = useState<boolean>(false);
-
   const handlerClick = () => {
-    // setSelect((prev) => !prev);
     addInState(`./img/cover${imgNumber}.png`, imgNumber);
   };
 
