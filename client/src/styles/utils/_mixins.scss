@@ -1,0 +1,7 @@
+@mixin calcLineHeight($fontSize) {
+  line-height: $fontSize * 1.15;
+}
+
+@mixin randomBgr() {
+  background-color: rgb(random(255), random(255), random(255));
+}
