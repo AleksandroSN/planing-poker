@@ -8,7 +8,6 @@ import "./style.scss";
 // }
 
 // TO-DO add create card component. onClick create card component add value in input, then this card go in state.
-// TO-DO if we click on exist card, we can modify this card value
 
 export const AddCardSection: FunctionComponent = (): JSX.Element => {
   const dataForRender = arrCardsWithValue.map(({ value, scoreTypeShort }) => {
