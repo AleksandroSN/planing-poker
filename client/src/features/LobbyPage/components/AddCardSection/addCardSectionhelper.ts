@@ -1,6 +1,6 @@
 import { CardsValueModel } from "../../types/interface";
 
-export const arrCardsWithValue: CardsValueModel[] = [
+export const cardsMocks: CardsValueModel[] = [
   {
     scoreTypeShort: "SP",
     value: "15",

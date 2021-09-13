@@ -80,6 +80,10 @@
       flex-direction: column;
       justify-content: space-between;
 
+      &__img {
+        cursor: pointer;
+      }
+
       &__header,
       &__footer {
         text-align: left;

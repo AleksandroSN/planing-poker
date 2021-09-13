@@ -1,14 +1,17 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { CardsValueModel } from "../../types/interface";
 import { searchEnterKey } from "./cardsWithValueHelper";
 
 interface CardsWithValueProps {
   value: string;
   scoreTypeShort: string;
+  updateCards: (newData: CardsValueModel) => void;
 }
 
 export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
   value,
   scoreTypeShort,
+  updateCards,
 }): JSX.Element => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [cardValue, setCardValue] = useState<string>("");
@@ -19,7 +22,11 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
   }, [value]);
 
   const toggleState = (): void => {
-    setEditMode((x) => !x);
+    setEditMode(false);
+    updateCards({
+      value: cardValue,
+      scoreTypeShort,
+    });
   };
 
   return (
@@ -46,7 +53,7 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
           alt="edit card icon"
           className="game-cards__cards-value-item__header-icon"
           role="none"
-          onClick={toggleState}
+          onClick={() => setEditMode(true)}
         />
       </div>
       <div className="game-cards__cards-value-item__body text-xxl text-bold">
