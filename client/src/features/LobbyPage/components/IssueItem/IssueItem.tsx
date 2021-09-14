@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
-import "./style.scss";
+import "./issue.scss";
 
 interface IssueProps {
   issueName: string;
   priority: string;
 }
 
-export const Issue: FunctionComponent<IssueProps> = ({
+export const IssueItem: FunctionComponent<IssueProps> = ({
   issueName,
   priority,
 }): JSX.Element => {
@@ -15,8 +15,12 @@ export const Issue: FunctionComponent<IssueProps> = ({
       <div className="issues__item-row">
         <div className="issues__item-name">{`Issue ${issueName}`}</div>
         <div className="issues__item-buttons">
-          <button type="button">1</button>
-          <button type="button">2</button>
+          <button type="button">
+            <img src="./icons/edit.svg" alt="edit issue" />
+          </button>
+          <button type="button">
+            <img src="./icons/trash.svg" alt="delete issue" />
+          </button>
         </div>
       </div>
       <div className="issues__item-subrow">{`${priority} priority`}</div>
