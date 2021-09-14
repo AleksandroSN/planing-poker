@@ -1,0 +1,23 @@
+@import "../../../../styles/utils/variables";
+
+.issues__item {
+  background: #FFFFFF;
+  box-shadow: $mainShadow;
+  border-radius: 4px;
+  max-width: 300px;
+  width: 100%;
+  padding: 10px;
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-subrow {
+    font-weight: 300;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: left;
+  }
+}
