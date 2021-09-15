@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
-import { AddIssue, IssueItem } from ".";
+import { IssueItem } from "./IssueItem";
+import { AddIssue } from "./AddIssue";
 import { IssuesModel } from "../../types/interface";
 import "./issue.scss";
 

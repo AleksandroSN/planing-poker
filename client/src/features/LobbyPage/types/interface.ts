@@ -7,3 +7,8 @@ export interface CardsValueModel {
   scoreTypeShort: string;
   value: string;
 }
+export interface IssuesModel {
+  title: string;
+  link: string;
+  priority: string;
+}
