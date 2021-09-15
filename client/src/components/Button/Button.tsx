@@ -9,15 +9,11 @@ interface ButtonProps {
 export const Button: FunctionComponent<ButtonProps> = ({
   onClick,
   text,
-  classes,
+  classes = "button-start",
 }): JSX.Element => {
   return (
     <button type="button" onClick={onClick} className={classes}>
       {text}
     </button>
   );
-};
-
-Button.defaultProps = {
-  classes: "button-start",
 };

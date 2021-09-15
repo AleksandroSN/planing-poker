@@ -51,9 +51,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         <Modal
           open={isOpen}
           close={() => setIsOpen(false)}
+          handler={() => setIsOpen(false)}
           heading="Connect to lobby"
+          buttonTextConfirm="Confirm"
+          buttonTextReject="Cancel"
         >
-          Test
+          <p>Test</p>
         </Modal>
       </div>
     </>

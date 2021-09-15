@@ -2,15 +2,18 @@ import { IssuesModel } from "../../types/interface";
 
 export const issuesMocks: IssuesModel[] = [
   {
-    name: "542",
+    title: "542",
+    link: "https://google.com",
     priority: "Low",
   },
   {
-    name: "241",
+    title: "241",
+    link: "https://habr.com",
     priority: "High",
   },
   {
-    name: "666",
+    title: "666",
+    link: "https://reactjs.org",
     priority: "Medium",
   },
 ];
