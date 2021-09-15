@@ -3,14 +3,16 @@ import { IssuesModel } from "../../types/interface";
 import "./issue.scss";
 
 interface IssueProps {
+  id: number;
   issueName: string;
   link: string;
   priority: string;
-  deleteIssue: () => void;
+  deleteIssue: (data: IssuesModel) => void;
   updateIssues: (data: IssuesModel) => void;
 }
 
 export const IssueItem: FunctionComponent<IssueProps> = ({
+  id,
   issueName,
   link,
   priority,
@@ -25,12 +27,17 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
           <button
             type="button"
             onClick={() =>
-              updateIssues({ title: "randomName", link, priority })
+              updateIssues({ title: "999", link, priority: "Low", id })
             }
           >
             <img src="./icons/edit.svg" alt="edit issue" />
           </button>
-          <button type="button" onClick={deleteIssue}>
+          <button
+            type="button"
+            onClick={() =>
+              deleteIssue({ title: issueName, link, priority, id })
+            }
+          >
             <img src="./icons/trash.svg" alt="delete issue" />
           </button>
         </div>

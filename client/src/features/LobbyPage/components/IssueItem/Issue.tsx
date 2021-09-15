@@ -1,32 +1,31 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { IssueItem } from "./IssueItem";
 import { AddIssue } from "./AddIssue";
-import { IssuesModel } from "../../types/interface";
 import "./issue.scss";
+import { IssueContext } from "../../lib/context/issueContext";
 
 interface IssueProps {
+  id: number;
   issueName: string;
   link: string;
   priority: string;
-  toggleModal: () => void;
-  deleteIssue: () => void;
-  updateIssues: (data: IssuesModel) => void;
 }
 
 export const Issue: FunctionComponent<IssueProps> = ({
+  id,
   issueName,
   link,
   priority,
-  toggleModal,
-  deleteIssue,
-  updateIssues,
 }): JSX.Element => {
+  const { toggleIsOpen, deleteIssue, updateIssues } = useContext(IssueContext);
+
   if (!issueName) {
-    return <AddIssue toggleModal={toggleModal} />;
+    return <AddIssue toggleModal={toggleIsOpen} />;
   }
   return (
     <IssueItem
       key={issueName}
+      id={id}
       issueName={issueName}
       link={link}
       priority={priority}

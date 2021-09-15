@@ -6,7 +6,7 @@ import "./style.scss";
 interface ModalProps {
   open: boolean;
   close: () => void;
-  handler: () => void;
+  handler?: () => void;
   heading: string;
   children: JSX.Element;
   footer?: JSX.Element;
@@ -39,7 +39,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
             <div className="modal-buttons">
               <Button
                 text={buttonTextConfirm}
-                onClick={handler}
+                onClick={() => console.log("confirm")}
                 classes="button-start"
               />
               <Button

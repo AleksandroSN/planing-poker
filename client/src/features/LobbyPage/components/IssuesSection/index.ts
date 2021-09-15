@@ -1,2 +1,1 @@
-// export { IssuesSection } from "./IssuesSection";
-export {};
+export { IssuesSection } from "./IssuesSection";

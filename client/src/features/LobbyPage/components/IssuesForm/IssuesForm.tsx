@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { InputSelect, InputText } from "../../../../components";
 import { IssuesModel } from "../../types/interface";
 import "./style.scss";
