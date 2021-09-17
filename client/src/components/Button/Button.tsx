@@ -1,19 +1,25 @@
 import { FunctionComponent } from "react";
 
 interface ButtonProps {
-  onClick: () => void;
-  text: string;
+  type: "button" | "submit" | "reset";
+  onClick?: () => void;
   classes?: string | undefined;
+  children: React.ReactNode;
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
+  children,
   onClick,
-  text,
+  type = "button",
   classes = "button-start",
 }): JSX.Element => {
   return (
-    <button type="button" onClick={onClick} className={classes}>
-      {text}
+    <button
+      type={type === "submit" ? "submit" : "button"}
+      onClick={onClick}
+      className={classes}
+    >
+      {children}
     </button>
   );
 };

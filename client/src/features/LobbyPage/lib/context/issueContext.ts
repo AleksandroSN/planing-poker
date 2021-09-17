@@ -6,6 +6,7 @@ const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,
   toggleIsOpen: () => {},
   issues: [],
+  newIssue: {},
   addIssue: () => {},
   deleteIssue: () => {},
   updateIssues: () => {},
@@ -17,6 +18,7 @@ export const IssueContext =
 export const IssueContextHelper = (): IssueContextModel => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [issues, setIssues] = useState<IssuesModel[]>(issuesMocks);
+  const [newIssue, setNewIssue] = useState<Record<string, IssuesModel>>({});
   const toggleIsOpen = useCallback(() => {
     setIsOpen((x) => !x);
   }, []);
@@ -48,6 +50,7 @@ export const IssueContextHelper = (): IssueContextModel => {
     isOpen,
     toggleIsOpen,
     issues,
+    newIssue,
     addIssue,
     deleteIssue,
     updateIssues,

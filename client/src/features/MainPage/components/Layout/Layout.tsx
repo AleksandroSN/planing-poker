@@ -22,10 +22,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <div className="new-session">
             Create session:
             <Button
-              text="Start New Game"
+              // text="Start New Game"
               onClick={() => setIsOpen(true)}
+              type="button"
               classes="button-start"
-            />
+            >
+              New Game
+            </Button>
           </div>
           <div className="connect-game">
             <h2>OR</h2>
@@ -38,24 +41,20 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   onChange={() => console.log(`work`)}
                 />
                 <Button
-                  text="Connect"
+                  // text="Connect"
                   onClick={handleConnect}
+                  type="button"
                   classes="button-start"
-                />
+                >
+                  Connect
+                </Button>
               </div>
             </label>
           </div>
         </div>
       </div>
       <div>
-        <Modal
-          open={isOpen}
-          close={() => setIsOpen(false)}
-          handler={() => setIsOpen(false)}
-          heading="Connect to lobby"
-          buttonTextConfirm="Confirm"
-          buttonTextReject="Cancel"
-        >
+        <Modal open={isOpen} heading="Connect to lobby">
           <p>Test</p>
         </Modal>
       </div>

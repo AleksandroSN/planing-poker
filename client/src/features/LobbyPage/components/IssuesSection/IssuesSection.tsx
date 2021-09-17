@@ -6,7 +6,7 @@ import { IssuesForm } from "../IssuesForm";
 import "./issueSection.scss";
 
 export const IssuesSection: FunctionComponent = (): JSX.Element => {
-  const { issues, isOpen, toggleIsOpen } = useContext(IssueContext);
+  const { issues, isOpen } = useContext(IssueContext);
 
   const renderIssues = issues.map(({ id, title, link, priority }) => {
     return (
@@ -23,15 +23,10 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
     ...renderIssues,
     <Issue key={0} id={0} issueName="" link="" priority="" />,
   ];
+
   return (
     <>
-      <Modal
-        open={isOpen}
-        close={toggleIsOpen}
-        heading="Create new Issue"
-        buttonTextConfirm="Yes"
-        buttonTextReject="No"
-      >
+      <Modal open={isOpen} heading="Create new Issue">
         <IssuesForm />
       </Modal>
       <div className="issues__wrapper">{renderAll}</div>

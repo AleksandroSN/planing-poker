@@ -18,6 +18,7 @@ export interface IssueContextModel {
   isOpen: boolean;
   toggleIsOpen: () => void;
   issues: IssuesModel[];
+  newIssue: Record<string, IssuesModel>;
   addIssue: (data: IssuesModel) => void;
   deleteIssue: (data: IssuesModel) => void;
   updateIssues: (data: IssuesModel) => void;
