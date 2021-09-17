@@ -20,7 +20,7 @@ export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
   return (
     <div className="chat">
       {messages}
-      <InputText labelText="" updateMessages={updateMessages} />
+      <InputText updateMessages={updateMessages} />
     </div>
   );
 };

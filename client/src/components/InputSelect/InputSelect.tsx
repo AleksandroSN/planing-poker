@@ -1,21 +1,20 @@
 import { FunctionComponent } from "react";
+import { InputSelectProps } from "./types";
 import "./inputSelect.scss";
 
-interface InputTextProps {
-  labelText: string;
-}
-
-export const InputSelect: FunctionComponent<InputTextProps> = ({
+export const InputSelect: FunctionComponent<InputSelectProps> = ({
   labelText,
-}: InputTextProps): JSX.Element => {
+  register,
+}: InputSelectProps): JSX.Element => {
   return (
     <div className="input-select">
       <label htmlFor="inputSelect" className="input-select__label">
         {labelText}
         <select
-          name="inputSelect"
           id="inputSelect"
           className="input-select__input"
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...register!(labelText!)}
         >
           <option value="low">Low</option>
           <option value="middle">Middle</option>

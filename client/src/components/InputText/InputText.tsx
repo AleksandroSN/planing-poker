@@ -1,13 +1,10 @@
 import { FunctionComponent } from "react";
+import { InputTextProps } from "./types";
 import "./inputText.scss";
-
-interface InputTextProps {
-  labelText: string;
-  updateMessages?: (text: string) => void;
-}
 
 export const InputText: FunctionComponent<InputTextProps> = ({
   labelText,
+  register,
   updateMessages,
 }: InputTextProps): JSX.Element => {
   const getInputValue = (ev: React.KeyboardEvent<HTMLInputElement>) => {
@@ -26,9 +23,11 @@ export const InputText: FunctionComponent<InputTextProps> = ({
         {labelText}
         <input
           type="text"
-          name="inputText"
+          id="inputText"
           className="input-text__input"
           onKeyDown={(ev) => getInputValue(ev)}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...register!(labelText!)}
         />
       </label>
     </div>
