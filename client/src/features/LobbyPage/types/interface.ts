@@ -18,8 +18,10 @@ export interface IssueContextModel {
   isOpen: boolean;
   toggleIsOpen: () => void;
   issues: IssuesModel[];
-  newIssue: Record<string, IssuesModel>;
+  currentIssue: IssuesModel | undefined;
   addIssue: (data: IssuesModel) => void;
   deleteIssue: (data: IssuesModel) => void;
   updateIssues: (data: IssuesModel) => void;
+  findIssue: (id: number) => void;
+  clearCurrentIssue: () => void;
 }

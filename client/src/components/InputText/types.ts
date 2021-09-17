@@ -3,6 +3,6 @@ import { FormValues } from "../../types/interface";
 
 export interface InputTextProps {
   labelText?: Path<FormValues>;
+  defaultValue: string;
   register?: UseFormRegister<FormValues>;
-  updateMessages?: (text: string) => void;
 }

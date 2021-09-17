@@ -1,19 +1,10 @@
-import { User } from "./User/User";
-import { Switcher } from "./Switcher/Switcher";
-import { InputText } from "./InputText/InputText";
-import { InputSelect } from "./InputSelect";
-import { Timer } from "./Timer/Timer";
-import { TimerClasses } from "./Timer/timerHelper";
-import { Chat } from "./Chat/Chat";
 import { Button } from "./Button";
+import { Chat } from "./Chat/Chat";
+import { InputSelect } from "./InputSelect";
+import { InputText } from "./InputText/InputText";
+import { Modal } from "./Modal";
+import { Switcher } from "./Switcher/Switcher";
+import { Timer } from "./Timer/Timer";
+import { User } from "./User/User";
 
-export {
-  User,
-  Switcher,
-  InputText,
-  InputSelect,
-  Timer,
-  TimerClasses,
-  Chat,
-  Button,
-};
+export { Button, Chat, InputSelect, InputText, Modal, Switcher, Timer, User };

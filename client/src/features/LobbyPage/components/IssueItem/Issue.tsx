@@ -1,8 +1,8 @@
 import { FunctionComponent, useContext } from "react";
 import { IssueItem } from "./IssueItem";
 import { AddIssue } from "./AddIssue";
-import "./issue.scss";
 import { IssueContext } from "../../lib/context/issueContext";
+import "./issue.scss";
 
 interface IssueProps {
   id: number;
@@ -17,7 +17,7 @@ export const Issue: FunctionComponent<IssueProps> = ({
   link,
   priority,
 }): JSX.Element => {
-  const { toggleIsOpen, deleteIssue, updateIssues } = useContext(IssueContext);
+  const { toggleIsOpen } = useContext(IssueContext);
 
   if (!issueName) {
     return <AddIssue toggleModal={toggleIsOpen} />;
@@ -29,8 +29,6 @@ export const Issue: FunctionComponent<IssueProps> = ({
       issueName={issueName}
       link={link}
       priority={priority}
-      deleteIssue={deleteIssue}
-      updateIssues={updateIssues}
     />
   );
 };

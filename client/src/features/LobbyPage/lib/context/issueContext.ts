@@ -6,10 +6,17 @@ const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,
   toggleIsOpen: () => {},
   issues: [],
-  newIssue: {},
+  currentIssue: {
+    id: 0,
+    title: "",
+    link: "",
+    priority: "low",
+  },
   addIssue: () => {},
   deleteIssue: () => {},
   updateIssues: () => {},
+  findIssue: () => {},
+  clearCurrentIssue: () => {},
 };
 
 export const IssueContext =
@@ -18,7 +25,7 @@ export const IssueContext =
 export const IssueContextHelper = (): IssueContextModel => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [issues, setIssues] = useState<IssuesModel[]>(issuesMocks);
-  const [newIssue, setNewIssue] = useState<Record<string, IssuesModel>>({});
+  const [currentIssue, setCurrentIssue] = useState<IssuesModel>();
   const toggleIsOpen = useCallback(() => {
     setIsOpen((x) => !x);
   }, []);
@@ -46,13 +53,27 @@ export const IssueContextHelper = (): IssueContextModel => {
     },
     [issues]
   );
+  const findIssue = useCallback(
+    (id: number) => {
+      const curIs = issues.find((el) => el.id === id);
+      if (curIs) {
+        setCurrentIssue(curIs);
+      }
+    },
+    [issues]
+  );
+  const clearCurrentIssue = useCallback(() => {
+    setCurrentIssue(undefined);
+  }, []);
   return {
     isOpen,
     toggleIsOpen,
     issues,
-    newIssue,
     addIssue,
     deleteIssue,
     updateIssues,
+    currentIssue,
+    findIssue,
+    clearCurrentIssue,
   };
 };

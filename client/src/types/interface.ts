@@ -12,6 +12,6 @@ export interface FormValues {
 
 enum FormPriority {
   low = "low",
-  middle = "middle",
+  middle = "medium",
   high = "high",
 }

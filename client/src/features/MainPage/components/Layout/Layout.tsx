@@ -1,7 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import planningPocker from "../../../../assets/images/planning-pocker.png";
-import { Button } from "../../../../components/Button/Button";
-import { Modal } from "../Modal/Modal";
+import { Button, Modal } from "../../../../components";
 import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {

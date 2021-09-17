@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
-import { IssuesModel } from "../../types/interface";
+import { FunctionComponent, useContext } from "react";
+import { IssueContext } from "../../lib/context/issueContext";
 import "./issue.scss";
 
 interface IssueProps {
@@ -7,8 +7,6 @@ interface IssueProps {
   issueName: string;
   link: string;
   priority: string;
-  deleteIssue: (data: IssuesModel) => void;
-  updateIssues: (data: IssuesModel) => void;
 }
 
 export const IssueItem: FunctionComponent<IssueProps> = ({
@@ -16,20 +14,20 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   issueName,
   link,
   priority,
-  deleteIssue,
-  updateIssues,
 }): JSX.Element => {
+  const { toggleIsOpen, deleteIssue, findIssue } = useContext(IssueContext);
+
+  const updateIssue = () => {
+    findIssue(id);
+    toggleIsOpen();
+  };
+
   return (
     <div className="issues__item">
       <div className="issues__item-row">
         <a href={link} className="issues__item-name">{`Issue ${issueName}`}</a>
         <div className="issues__item-buttons">
-          <button
-            type="button"
-            onClick={() =>
-              updateIssues({ title: "999", link, priority: "Low", id })
-            }
-          >
+          <button type="button" onClick={updateIssue}>
             <img src="./icons/edit.svg" alt="edit issue" />
           </button>
           <button

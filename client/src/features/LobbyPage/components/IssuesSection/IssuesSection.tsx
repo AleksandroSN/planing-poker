@@ -1,13 +1,12 @@
 import { FunctionComponent, useContext } from "react";
-import { Modal } from "../../../MainPage";
+import { Modal } from "../../../../components";
 import { IssueContext } from "../../lib/context/issueContext";
 import { Issue } from "../IssueItem/Issue";
 import { IssuesForm } from "../IssuesForm";
 import "./issueSection.scss";
 
 export const IssuesSection: FunctionComponent = (): JSX.Element => {
-  const { issues, isOpen } = useContext(IssueContext);
-
+  const { issues, isOpen, currentIssue } = useContext(IssueContext);
   const renderIssues = issues.map(({ id, title, link, priority }) => {
     return (
       <Issue
@@ -26,7 +25,14 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
 
   return (
     <>
-      <Modal open={isOpen} heading="Create new Issue">
+      <Modal
+        open={isOpen}
+        heading={
+          currentIssue
+            ? `Update Issue ${currentIssue.title}`
+            : "Create new Issue"
+        }
+      >
         <IssuesForm />
       </Modal>
       <div className="issues__wrapper">{renderAll}</div>

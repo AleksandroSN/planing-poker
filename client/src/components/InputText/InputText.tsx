@@ -4,19 +4,9 @@ import "./inputText.scss";
 
 export const InputText: FunctionComponent<InputTextProps> = ({
   labelText,
+  defaultValue,
   register,
-  updateMessages,
 }: InputTextProps): JSX.Element => {
-  const getInputValue = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    if (ev.key !== "Enter") return;
-    const inputValue = (ev.target as HTMLInputElement).value;
-    if (updateMessages) {
-      updateMessages(inputValue);
-    }
-    // eslint-disable-next-line no-param-reassign
-    (ev.target as HTMLInputElement).value = "";
-  };
-
   return (
     <div className="input-text">
       <label htmlFor="inputText" className="input-text__label">
@@ -25,7 +15,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
           type="text"
           id="inputText"
           className="input-text__input"
-          onKeyDown={(ev) => getInputValue(ev)}
+          defaultValue={defaultValue}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register!(labelText!)}
         />
