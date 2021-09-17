@@ -19,7 +19,6 @@ export const App: FunctionComponent = (): JSX.Element => {
         >
           Learn React
         </a>
-        <Issues />
       </header>
     </div>
   );

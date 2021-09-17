@@ -10,9 +10,9 @@ interface ChatProps {
 export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
   const [message, setMessage] = useState<string[]>(["Heelo", "Muhahaha"]);
 
-  const updateMessages = (text: string) => {
-    setMessage((arr) => [...arr, text]);
-  };
+  // const updateMessages = (text: string) => {
+  //   setMessage((arr) => [...arr, text]);
+  // };
 
   const messages = message.map((mes) => {
     return <ChatRow message={mes} />;
@@ -20,7 +20,7 @@ export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
   return (
     <div className="chat">
       {messages}
-      <InputText updateMessages={updateMessages} defaultValue="" />
+      <InputText defaultValue="" />
     </div>
   );
 };
