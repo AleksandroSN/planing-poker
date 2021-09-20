@@ -25,7 +25,13 @@ export const Modal: FunctionComponent<ModalProps> = ({
           <section>
             <h1>{heading}</h1>
           </section>
+<<<<<<< HEAD
           <main>{children}</main>
+=======
+          <main>
+            <form>{children}</form>
+          </main>
+>>>>>>> 7eff4ae (fix: fix img src, change input to InputText)
           {footer && <section>{footer}</section>}
         </div>
       </div>

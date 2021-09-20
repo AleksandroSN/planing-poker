@@ -19,7 +19,11 @@ const Footer: FC = (): JSX.Element => {
         <div className="copyright">Copyright ©2021</div>
         <div className="rs-logo">
           <a href="https://rs.school/react/">
-            <img src="../../../public/img/rs_school_js.svg" alt="rs school" />
+            <img
+              src="./img/rs_school_js.svg"
+              alt="rs school"
+              className="rs-logo__img"
+            />
           </a>
         </div>
       </div>
