@@ -49,7 +49,7 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
           </p>
         )}
         <img
-          src="./img/edit.svg"
+          src="./icons/edit.svg"
           alt="edit card icon"
           className="game-cards__cards-value-item__header-icon"
           role="none"

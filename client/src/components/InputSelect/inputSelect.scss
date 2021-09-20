@@ -1,0 +1,24 @@
+@import "../../styles/utils/variables";
+@import "../../styles/base/colorPalete";
+
+.input-select {
+  margin-bottom: 15px;
+
+  &__label {
+    display: flex;
+  }
+
+  &__input {
+    background: $colorWhite;
+    border: 1px solid $colorDarkBlue;
+    box-sizing: border-box;
+    border-radius: 0px 0px 0px 10px;
+    margin-left: auto;
+    width: 30%;
+
+    &:focus {
+      outline: none;
+      box-shadow: inset $mainShadow;
+    }
+  }
+}

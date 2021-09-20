@@ -9,8 +9,8 @@ export const GameSettings: FunctionComponent = (): JSX.Element => {
         <Switcher labelText="Scram master as player:" />
         <Switcher labelText="Changing card in round end:" />
         <Switcher labelText="Is timer needed:" />
-        <InputText labelText="Score type:" />
-        <InputText labelText="Score type (Short):" />
+        <InputText labelText="Score type:" defaultValue="" />
+        <InputText labelText="Score type (Short):" defaultValue="" />
         <div className="game-settings__timer">
           Round time: <Timer />
         </div>

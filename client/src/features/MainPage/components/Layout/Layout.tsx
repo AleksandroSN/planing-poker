@@ -1,7 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import planningPocker from "../../../../assets/images/planning-pocker.png";
-import { Button } from "../../../../components/Button/Button";
-import { Modal } from "../Modal/Modal";
+import { Button, Modal } from "../../../../components";
 import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
@@ -22,10 +21,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <div className="new-session">
             Create session:
             <Button
-              text="Start New Game"
+              // text="Start New Game"
               onClick={() => setIsOpen(true)}
+              type="button"
               classes="button-start"
-            />
+            >
+              New Game
+            </Button>
           </div>
           <div className="connect-game">
             <h2>OR</h2>
@@ -38,22 +40,21 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   onChange={() => console.log(`work`)}
                 />
                 <Button
-                  text="Connect"
+                  // text="Connect"
                   onClick={handleConnect}
+                  type="button"
                   classes="button-start"
-                />
+                >
+                  Connect
+                </Button>
               </div>
             </label>
           </div>
         </div>
       </div>
       <div>
-        <Modal
-          open={isOpen}
-          close={() => setIsOpen(false)}
-          heading="Connect to lobby"
-        >
-          Test
+        <Modal open={isOpen} heading="Connect to lobby">
+          <p>Test</p>
         </Modal>
       </div>
     </>
