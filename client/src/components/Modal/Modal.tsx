@@ -29,17 +29,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
             <h1>{heading}</h1>
           </section>
           <main>
-            <form>
-              {children}
-              <div className="modal-buttons">
-                <Button
-                  text="Confirm"
-                  onClick={() => console.log(`confirm`)}
-                  classes="button-start"
-                />
-                <Button text="Cancel" onClick={close} classes="button-cancel" />
-              </div>
-            </form>
+            <form>{children}</form>
           </main>
           {footer && <section>{footer}</section>}
         </div>
