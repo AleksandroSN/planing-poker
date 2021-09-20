@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
+import { useParams } from "react-router-dom";
 import "./style.scss";
+import { ParamsGamePage } from "./types";
 
 interface GamePageViewProps {
   message?: string;
@@ -8,5 +10,6 @@ interface GamePageViewProps {
 export const GamePageView: FunctionComponent<GamePageViewProps> = ({
   message = "Hello",
 }): JSX.Element => {
-  return <div>{message}</div>;
+  const { id } = useParams<ParamsGamePage>();
+  return <div>{`${message} ${id}`}</div>;
 };

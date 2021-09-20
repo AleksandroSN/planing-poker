@@ -5,7 +5,7 @@ import { MainPage } from "../features/MainPage";
 
 export const listRoutes = [
   { path: "/", name: "Home", Component: MainPage },
-  { path: "/lobby/:id", name: "About", Component: LobbyPage },
-  { path: "/details/:name", name: "Details", Component: GamePage },
+  { path: "/lobby/:id", name: "Lobby", Component: LobbyPage },
+  { path: "/game/:id", name: "Game", Component: GamePage },
   { path: "*", name: "404", Component: Page404 },
 ];

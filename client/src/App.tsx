@@ -1,11 +1,13 @@
 import { FunctionComponent } from "react";
-import logo from "./logo.svg";
-import "./App.scss";
+import { BrowserRouter as Router } from "react-router-dom";
+import { RoutesConfig } from "./routes/RoutesConfig";
+// import logo from "./logo.svg";
+// import "./App.scss";
 
 export const App: FunctionComponent = (): JSX.Element => {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,7 +20,10 @@ export const App: FunctionComponent = (): JSX.Element => {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <Router>
+        <RoutesConfig />
+      </Router>
     </div>
   );
 };

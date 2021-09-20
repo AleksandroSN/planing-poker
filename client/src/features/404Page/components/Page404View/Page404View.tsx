@@ -6,7 +6,7 @@ interface Page404ViewProps {
 }
 
 export const Page404View: FunctionComponent<Page404ViewProps> = ({
-  message = "Hello",
+  message = "404 PAGE",
 }): JSX.Element => {
   return <div>{message}</div>;
 };
