@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
-import { Button } from "../../../../components/Button/Button/Button";
+import { Button } from "../Button/Button/Button";
 import "./style.scss";
 
 interface ModalProps {
@@ -29,15 +29,17 @@ export const Modal: FunctionComponent<ModalProps> = ({
             <h1>{heading}</h1>
           </section>
           <main>
-            {children}
-            <div className="modal-buttons">
-              <Button
-                text="Confirm"
-                onClick={() => console.log(`confirm`)}
-                classes="button-start"
-              />
-              <Button text="Cancel" onClick={close} classes="button-cancel" />
-            </div>
+            <form>
+              {children}
+              <div className="modal-buttons">
+                <Button
+                  text="Confirm"
+                  onClick={() => console.log(`confirm`)}
+                  classes="button-start"
+                />
+                <Button text="Cancel" onClick={close} classes="button-cancel" />
+              </div>
+            </form>
           </main>
           {footer && <section>{footer}</section>}
         </div>
