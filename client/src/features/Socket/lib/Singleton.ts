@@ -1,5 +1,9 @@
+import { SocketAPI } from "./SocketAPI";
+
 export class SocketSingleton {
   protected static instance: SocketSingleton = new SocketSingleton();
+
+  protected socket = new SocketAPI();
 
   constructor() {
     if (SocketSingleton.instance) {
@@ -11,5 +15,9 @@ export class SocketSingleton {
 
   public static getInstance(): SocketSingleton {
     return SocketSingleton.instance;
+  }
+
+  public getSocket(): SocketAPI {
+    return this.socket;
   }
 }

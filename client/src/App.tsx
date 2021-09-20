@@ -1,10 +1,12 @@
 import { FunctionComponent } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import { Socket } from "./features/Socket/components/Socket";
 
 export const App: FunctionComponent = (): JSX.Element => {
   return (
     <div className="App">
+      <Socket />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

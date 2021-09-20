@@ -11,3 +11,49 @@ export enum SocketActions {
   RECIEVE_NEW_MESSAGE = "recieve new message",
   NOTIFY_ABOUT_NEW_MEMBER = "notify about new member",
 }
+
+export type Player = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  jpbPosition: string;
+  avatarImage: string;
+  role: string;
+  lobbyId: string;
+};
+
+export type NewPlayer = {
+  firstName: string;
+  lastName: string;
+  jpbPosition: string;
+  avatarImage: string;
+  role: string;
+};
+
+export type Issue = {
+  id: string;
+  title: string;
+  link: string;
+  priority: "Low" | "Middle" | "Hight";
+  lobbyId: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  messageText: string;
+  messageTime: string;
+  playerId: string;
+  lobbyId: string;
+};
+
+export type LobbySetting = {
+  masterIsPlayer: boolean;
+  isTimerNeed: boolean;
+  changingCardInRoundEnd: boolean;
+  scoreType: string;
+  scoreTypeShort: string;
+  roundTime: number;
+  cardValues: string[];
+  lobbyId: string;
+  masterId: string;
+};
