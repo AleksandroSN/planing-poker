@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
 
+import "./Button.scss";
+
 interface ButtonProps {
   type: "button" | "submit" | "reset";
   onClick?: () => void;
