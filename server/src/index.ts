@@ -41,7 +41,10 @@ io.on("connection", function (socket: Socket) {
     SocketActions.CREATE_NEW_ROOM,
     async function (
       master: NewPlayer,
-      callback: (player: Player, initLobbySettings: LobbySetting) => void
+      callback: (response: {
+        player: Player;
+        initLobbySettings: LobbySetting;
+      }) => void
     ) {
       await createNewRoom(socket, master, callback);
     }
@@ -51,15 +54,18 @@ io.on("connection", function (socket: Socket) {
     async function (
       newTeamMember: NewPlayer,
       lobbyId: string,
-      callback: (player: Player, initLobbySettings: LobbySetting | null) => void
+      callback: (response: {
+        player: Player;
+        initLobbySettings: LobbySetting;
+      }) => void
     ) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
     }
   );
   socket.on(
     SocketActions.GET_LOBBY_MEMBERS,
-    async function (lobbyId: string, callback: (members: Player[]) => void) {
-      await getLobbyMembers(lobbyId, callback);
+    async function (player: Player, callback: (members: Player[]) => void) {
+      await getLobbyMembers(player, callback);
     }
   );
   socket.on(SocketActions.ADD_NEW_ISSUE, async function (newIssie: NewIssue) {

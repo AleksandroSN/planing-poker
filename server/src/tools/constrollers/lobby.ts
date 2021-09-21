@@ -7,7 +7,10 @@ import { initialLobbySettings } from "../../config/initialization";
 export const createNewRoom = async (
   socket: Socket,
   master: NewPlayer,
-  callback: (player: Player, initLobbySettings: LobbySetting) => void
+  callback: (response: {
+    player: Player;
+    initLobbySettings: LobbySetting;
+  }) => void
 ): Promise<void> => {
   const newLobby = uuidv4();
   socket.join(newLobby);
@@ -18,7 +21,7 @@ export const createNewRoom = async (
     masterId: player.id,
   };
   await setLobbySettings(initLobbySettings);
-  callback(player, initLobbySettings);
+  callback({ player, initLobbySettings });
 };
 
 export const reconnectToLobby = async (
