@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 import { Server, Socket } from "socket.io";
 import * as path from "path";
 import { createServer } from "http";
@@ -25,6 +26,7 @@ import {
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
+app.use(cors());
 
 const http = createServer(app);
 // set up socket.io and bind it to our
