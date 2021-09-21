@@ -13,8 +13,12 @@ export const PrivateRoutes: FunctionComponent<SomeProps> = ({
   Component,
 }) => {
   return (
-    <Route exact key={path} path={path}>
-      {isLogin ? <Component /> : <Redirect to="/" />}
-    </Route>
+    <Route
+      key={path}
+      path={path}
+      render={() => {
+        return isLogin ? <Component /> : <Redirect to="/" />;
+      }}
+    />
   );
 };

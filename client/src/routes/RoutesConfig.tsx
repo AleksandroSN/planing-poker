@@ -1,15 +1,14 @@
 import { FunctionComponent } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { listRoutes } from "./listRoutes";
+import { PrivateRoutes } from "./privateRoute";
+import { PublicRoutes } from "./publicRoute";
 
 const routesList = listRoutes.map(({ path, Component }) => {
-  return (
-    <Route key={path} exact path={path}>
-      <div className="App-main__anime-page">
-        <Component />
-      </div>
-    </Route>
-  );
+  if (path === "/" || path === "*") {
+    return <PublicRoutes path={path} Component={Component} exact />;
+  }
+  return <PrivateRoutes path={path} Component={Component} />;
 });
 
 export const RoutesConfig: FunctionComponent = (): JSX.Element => {

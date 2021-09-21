@@ -3,12 +3,14 @@ import { Route } from "react-router-dom";
 
 interface SomeProps {
   path: string;
-  Component: React.FunctionComponent;
+  Component: FunctionComponent;
+  exact: boolean;
 }
 
 export const PublicRoutes: FunctionComponent<SomeProps> = ({
   path,
   Component,
+  exact,
 }) => {
-  return <Route exact key={path} path={path} render={() => <Component />} />;
+  return <Route key={path} path={path} exact={exact} component={Component} />;
 };

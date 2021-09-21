@@ -1,1 +1,1 @@
-export {};
+export { Socket } from "./components";
