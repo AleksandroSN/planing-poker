@@ -8,7 +8,7 @@ interface SwitcherProps {
 export const Switcher: FunctionComponent<SwitcherProps> = ({
   labelText,
 }: SwitcherProps): JSX.Element => {
-  const [isObserver, setIsObserver] = useState<boolean>(false);
+  const [isObserver, setIsObserver] = useState<boolean>(true);
   return (
     <div className="switcher">
       <p className="switcher__text">{labelText}</p>
