@@ -8,6 +8,8 @@ export interface FormValues {
   "Title:": string;
   "Link:": string;
   "Priority:": FormPriority;
+  minutes: string;
+  seconds: string;
 }
 
 enum FormPriority {
