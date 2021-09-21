@@ -38,7 +38,7 @@ export const User: FunctionComponent<UserProps> = ({
           {!isYou && (
             <button type="button" className={userClasses.buttonBody}>
               <img
-                src="./icons/cancel.svg"
+                src="../icons/cancel.svg"
                 alt="cancel button"
                 className={userClasses.buttonImg}
               />

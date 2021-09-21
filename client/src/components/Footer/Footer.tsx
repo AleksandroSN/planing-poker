@@ -20,7 +20,7 @@ const Footer: FC = (): JSX.Element => {
         <div className="rs-logo">
           <a href="https://rs.school/react/">
             <img
-              src="./img/rs_school_js.svg"
+              src="../img/rs_school_js.svg"
               alt="rs school"
               className="rs-logo__img"
             />
