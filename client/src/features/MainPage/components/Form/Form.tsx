@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC } from "react";
+import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { InputText } from "../../../../components";
-import { Button } from "../../../../components/Button/Button";
+import { InputText, Button } from "../../../../components";
 import "./Form.scss";
 
 type FormData = {
@@ -12,7 +11,7 @@ type FormData = {
   avatarUpload: string | Blob;
 };
 
-const Form: FC = (): JSX.Element => {
+export const MainPageForm: FunctionComponent = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -32,6 +31,7 @@ const Form: FC = (): JSX.Element => {
         //   maxLength: 20,
         //   pattern: /^[A-Za-z]+$/i,
         // })}
+        register={register}
       />
       {errors?.firstName?.type === "required" && <p>This field is required</p>}
       {errors?.firstName?.type === "maxLength" && (
@@ -44,6 +44,7 @@ const Form: FC = (): JSX.Element => {
         labelText="Your last name"
         defaultValue=""
         // {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+        register={register}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -52,6 +53,7 @@ const Form: FC = (): JSX.Element => {
         labelText="Your Job position"
         defaultValue=""
         // {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
+        register={register}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -69,7 +71,7 @@ const Form: FC = (): JSX.Element => {
         </Button>
         <Button
           type="reset"
-          onClick={() => console.log("test")}
+          onClick={() => console.log(`close`)}
           classes="button-cancel"
         >
           Cancel
@@ -78,5 +80,3 @@ const Form: FC = (): JSX.Element => {
     </form>
   );
 };
-
-export { Form };
