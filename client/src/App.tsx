@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Socket } from "./features/Socket";
 import { Footer, Header } from "./components";
 import { RoutesConfig } from "./routes";
+import { GameSettings } from "./features/LobbyPage/components";
 import "./App.scss";
 
 export const App: FunctionComponent = (): JSX.Element => {
@@ -10,6 +11,7 @@ export const App: FunctionComponent = (): JSX.Element => {
     <div className="App">
       <Socket />
       <Header />
+      <GameSettings />
       <Router>
         <RoutesConfig />
       </Router>
