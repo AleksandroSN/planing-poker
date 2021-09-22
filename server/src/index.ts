@@ -26,12 +26,20 @@ import {
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const http = createServer(app);
 // set up socket.io and bind it to our
 // http server.
-const io = new Server(http);
+const io = new Server(http, {
+  cors: {
+    origin: "*",
+  },
+});
 
 app.get("/", (req: Request, res: Response) => {
   console.log("http connection happened");
@@ -100,6 +108,12 @@ io.on("connection", function (socket: Socket) {
     SocketActions.RECONNECT_TO_LOBBY,
     async function (player: Player, callback: (success: boolean) => void) {
       await reconnectToLobby(socket, player, callback);
+    }
+  );
+  socket.on(
+    SocketActions.MANAGE_TIMER,
+    function (manager: { command: "start" | "stop" }, player: Player) {
+      console.log("TIMER REQUEST");
     }
   );
 });
