@@ -17,9 +17,9 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
   const addNewIssue = (data: FormValues) => {
     const newIssue: IssuesModel = {
       id: issues.length + 1,
-      link: data["Link:"],
-      title: data["Title:"],
-      priority: data["Priority:"],
+      link: data.Link,
+      title: data.Title,
+      priority: data.Priority,
     };
     addIssue(newIssue);
     toggleIsOpen();
@@ -28,9 +28,9 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
   const updateIssue = (data: FormValues) => {
     const newIssue: IssuesModel = {
       id: currentIssue?.id as number,
-      link: data["Link:"],
-      title: data["Title:"],
-      priority: data["Priority:"],
+      link: data.Link,
+      title: data.Title,
+      priority: data.Priority,
     };
     updateIssues(newIssue);
     clearCurrentIssue();
