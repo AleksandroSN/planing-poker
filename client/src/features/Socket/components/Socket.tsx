@@ -14,33 +14,33 @@ export const Socket = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       if (localStorage.player) {
-        dispatch({ action: "IS_LOADING_DATA", payload: true });
+        dispatch({ type: "IS_LOADING_DATA", payload: true });
 
         const localPlayer = JSON.parse(localStorage.player) as Player;
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
-          dispatch({ action: "ADD_PLAYER", payload: player });
+          dispatch({ type: "ADD_PLAYER", payload: player });
         });
         socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
-          dispatch({ action: "ADD_ISSUE", payload: issue });
+          dispatch({ type: "ADD_ISSUE", payload: issue });
         });
         socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
-          dispatch({ action: "ADD_CHAT_MESSAGE", payload: message });
+          dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
         });
         const lobbyMembers = await getLobbyPlayers(socket, localPlayer);
-        dispatch({ action: "UPDATE_PLAYERS", payload: lobbyMembers });
+        dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });
         const lobbyIssues = await getLobbyIssues(socket, localPlayer);
-        dispatch({ action: "UPDATE_ISSUES", payload: lobbyIssues });
+        dispatch({ type: "UPDATE_ISSUES", payload: lobbyIssues });
         const lobbyMessages = await getLobbyMessages(
           socket,
           localPlayer,
           "0",
           20
         );
-        dispatch({ action: "UPDATE_CHAT_MESSAGES", payload: lobbyMessages });
+        dispatch({ type: "UPDATE_CHAT_MESSAGES", payload: lobbyMessages });
 
-        dispatch({ action: "IS_LOADING_DATA", payload: false });
+        dispatch({ type: "IS_LOADING_DATA", payload: false });
       }
     })();
   });

@@ -69,4 +69,6 @@ export enum SocketActions {
   RECONNECT_TO_LOBBY = "reconnect to lobby",
   RECIEVE_NEW_MESSAGE = "recieve new message",
   NOTIFY_ABOUT_NEW_MEMBER = "notify about new member",
+  MANAGE_TIMER = "manage timer",
+  TIK_TAK = "tik tak",
 }
