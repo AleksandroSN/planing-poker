@@ -31,6 +31,8 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
     }
   }, [avatarImg]);
 
+  const userAvatar = renderUserAvatar("SG");
+
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="register-form__left-wrapper">
