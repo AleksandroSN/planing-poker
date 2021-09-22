@@ -1,6 +1,4 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { FormValues } from "../../types/interface";
 import { InputText } from "../InputText";
 import { splitStr, timerClasses } from "./timerHelper";
 import { TimerProps } from "./types";
@@ -10,9 +8,9 @@ export const Timer: FunctionComponent<TimerProps> = ({
   time,
   isSettings,
   isTimer,
+  register,
 }): JSX.Element => {
   const [splitTime, setSplitTime] = useState<Array<string>>([]);
-  const { register } = useForm<FormValues>();
   const classes = timerClasses(isSettings);
 
   useEffect(() => {

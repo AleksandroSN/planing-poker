@@ -1,1 +1,3 @@
-export {};
+import { AnimeMount } from "./animation";
+
+export { AnimeMount };

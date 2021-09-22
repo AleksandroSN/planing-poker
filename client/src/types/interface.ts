@@ -8,6 +8,9 @@ export interface FormValues {
   "Title:": string;
   "Link:": string;
   "Priority:": FormPriority;
+  "Scram master as player:": string;
+  "Changing card in round end:": string;
+  "Is timer needed:": string;
   minutes: string;
   seconds: string;
 }
