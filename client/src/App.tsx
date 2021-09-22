@@ -7,13 +7,13 @@ import "./App.scss";
 
 export const App: FunctionComponent = (): JSX.Element => {
   return (
-    <div className="App">
+    <>
       <Socket />
       <Header />
       <Router>
         <RoutesConfig />
       </Router>
       <Footer />
-    </div>
+    </>
   );
 };

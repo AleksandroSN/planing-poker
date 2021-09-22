@@ -1,0 +1,1 @@
+export { MainPageForm } from "./Form";

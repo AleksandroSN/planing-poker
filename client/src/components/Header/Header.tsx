@@ -4,19 +4,23 @@ import "./Header.scss";
 export const Header: FC = (): JSX.Element => {
   const isLoggedIn = false;
   return (
-    <div className="header">
-      <div className="header-logo">
-        <a href="/">
-          <img src="../img/logo.png" alt="logo" />
+    <header className="App-header">
+      <div className="App-header__logo">
+        <a className="App-header__logo-lik" href="/">
+          <img
+            className="App-header__logo-img"
+            src="../img/logo.png"
+            alt="logo"
+          />
         </a>
       </div>
       {isLoggedIn && (
-        <div className="chat-button">
+        <div className="App-header__chat-button">
           <button type="button">
             <img src="../icons/chat-icon.png" alt="chat" />
           </button>
         </div>
       )}
-    </div>
+    </header>
   );
 };
