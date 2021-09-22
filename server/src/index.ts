@@ -23,6 +23,7 @@ import {
   reconnectToLobby,
   sendChatMessage,
 } from "./tools/constrollers";
+import { timersDb } from "./tools/timeCounter.ts";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -45,6 +46,8 @@ app.get("/", (req: Request, res: Response) => {
   console.log("http connection happened");
   res.sendFile(path.resolve("./client/index.html"));
 });
+
+const timers = timersDb(io);
 
 io.on("connection", function (socket: Socket) {
   socket.on(
@@ -112,8 +115,11 @@ io.on("connection", function (socket: Socket) {
   );
   socket.on(
     SocketActions.MANAGE_TIMER,
-    function (manager: { command: "start" | "stop" }, player: Player) {
-      console.log("TIMER REQUEST");
+    function (
+      manager: { command: "start" | "stop" | "pause"; timerLimit?: number },
+      player: Player
+    ) {
+      timers(player.lobbyId, manager.command, manager.timerLimit);
     }
   );
 });
