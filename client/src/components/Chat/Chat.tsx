@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import { InputText } from "../InputText/InputText";
+import { InputText } from "../InputText";
 import "./chat.scss";
 import { ChatRow } from "./ChatRow/ChatRow";
 

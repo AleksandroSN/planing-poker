@@ -1,0 +1,1 @@
+export { AnimeMount } from "./animeMount";
