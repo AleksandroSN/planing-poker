@@ -23,7 +23,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
       <div className="modal-overlay">
         <div className="modal">
           <section>
-            <h1>{heading}</h1>
+            <h2 className="modal__title">{heading}</h2>
           </section>
           <main>{children}</main>
           {footer && <section>{footer}</section>}

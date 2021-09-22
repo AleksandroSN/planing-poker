@@ -1,0 +1,1 @@
+export { renderUserAvatar } from "./renderAvatar";

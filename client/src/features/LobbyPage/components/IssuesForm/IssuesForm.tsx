@@ -17,17 +17,17 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
       }
     >
       <InputText
-        labelText="Title:"
+        labelText="Title"
         register={register}
         defaultValue={currentIssue ? currentIssue.title : ""}
       />
       <InputText
-        labelText="Link:"
+        labelText="Link"
         register={register}
         defaultValue={currentIssue ? currentIssue.link : ""}
       />
       <InputSelect
-        labelText="Priority:"
+        labelText="Priority"
         register={register}
         defaultValue={currentIssue ? currentIssue.priority : ""}
       />

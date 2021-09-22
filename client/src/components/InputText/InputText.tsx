@@ -16,7 +16,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
         htmlFor="inputText"
         className={labelClasses || "input-text__label"}
       >
-        {labelText}
+        {labelText} :
         <input
           type="text"
           id="inputText"
