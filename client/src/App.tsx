@@ -8,7 +8,7 @@ import "./App.scss";
 export const App: FunctionComponent = (): JSX.Element => {
   return (
     <>
-      {/* <Socket /> */}
+      <Socket />
       <Header />
       <Router>
         <RoutesConfig />
