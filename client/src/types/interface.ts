@@ -13,6 +13,7 @@ export interface FormValues {
   "Is timer needed:": string;
   minutes: string;
   seconds: string;
+  "Choose file": string | FileList;
 }
 
 enum FormPriority {
