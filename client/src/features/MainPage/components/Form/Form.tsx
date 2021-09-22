@@ -1,28 +1,31 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputText, Button, Switcher } from "../../../../components";
 import { renderUserAvatar } from "../../../../lib";
+import { FormValues } from "../../../../types/interface";
 import "./Form.scss";
-
-type FormData = {
-  firstName: string;
-  lastName: string;
-  jobPosition: string;
-  avatarUpload: string | Blob;
-};
 
 export const MainPageForm: FunctionComponent = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm<FormData>();
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
-  };
+  } = useForm<FormValues>();
+  const onSubmit = (data: FormValues) => console.log(data);
+  const [inputFileLaber, setInputFileLabel] = useState<string>("Choose file");
+  const [avatar, setAvatar] = useState<string>("SG");
+  const avatarImg = watch("Choose file") as FileList;
+  const userAvatar = renderUserAvatar(avatar);
 
-  const userAvatar = renderUserAvatar("SG");
+  useEffect(() => {
+    // console.log(avatarImg);
+    if (avatarImg && avatarImg.length > 0) {
+      setInputFileLabel(avatarImg[0].name);
+      setAvatar(URL.createObjectURL(avatarImg[0]));
+    }
+  }, [avatarImg]);
 
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
@@ -31,52 +34,52 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
           labelText="Your first name"
           labelClasses="register-form__label"
           defaultValue=""
-          // {...register("firstName", {
-          //   required: true,
-          //   maxLength: 20,
-          //   pattern: /^[A-Za-z]+$/i,
-          // })}
           register={register}
+          options={{
+            required: true,
+            maxLength: 20,
+            pattern: /^[A-Za-z]+$/i,
+          }}
         />
-        {errors?.firstName?.type === "required" && (
+        {errors?.["Your first name"]?.type === "required" && (
           <p>This field is required</p>
         )}
-        {errors?.firstName?.type === "maxLength" && (
+        {errors?.["Your first name"]?.type === "maxLength" && (
           <p>First name cannot exceed 20 characters</p>
         )}
-        {errors?.firstName?.type === "pattern" && (
+        {errors?.["Your first name"]?.type === "pattern" && (
           <p>Alphabetical characters only</p>
         )}
         <InputText
           labelText="Your last name"
           labelClasses="register-form__label"
           defaultValue=""
-          // {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+          options={{ pattern: /^[A-Za-z]+$/i }}
           register={register}
         />
-        {errors?.lastName?.type === "pattern" && (
+        {errors?.["Your last name"]?.type === "pattern" && (
           <p>Alphabetical characters only</p>
         )}
         <InputText
           labelText="Your Job position"
           labelClasses="register-form__label"
           defaultValue=""
-          // {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
+          options={{ pattern: /^[A-Za-z]+$/i }}
           register={register}
         />
-        {errors?.lastName?.type === "pattern" && (
+        {errors?.["Your last name"]?.type === "pattern" && (
           <p>Alphabetical characters only</p>
         )}
         <div className="register-form__label register-form__label--mb">
           Image :
           <label className="register-form__label--file" htmlFor="avatarUpload">
-            Choose file
+            {inputFileLaber}
             <input
               type="file"
               id="avatarUpload"
               accept=".jpg, .jpeg, .png"
               hidden
-              {...register("avatarUpload")}
+              {...register("Choose file")}
             />
           </label>
         </div>
@@ -90,15 +93,11 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
         />
       </div>
       <div className="modal-buttons">
-        <Button
-          onClick={() => console.log(`confirm`)}
-          classes="button-start"
-          type="submit"
-        >
+        <Button classes="button-start" type="submit">
           Confirm
         </Button>
         <Button
-          type="reset"
+          type="button"
           onClick={() => console.log(`close`)}
           classes="button-cancel"
         >

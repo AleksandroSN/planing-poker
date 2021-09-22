@@ -23,7 +23,7 @@
       font-weight: 300;
       font-size: 24px;
       line-height: 28px;
-      padding: 10px;
+      padding: 10px 10px 10px 50px;
       margin-top: 10px;
 
       &::after {
@@ -69,6 +69,7 @@
   &__left-wrapper {
     width: 60%;
     position: relative;
+    padding-bottom: 50px;
     input {
       margin: 10px 0 0 0;
     }
