@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC } from "react";
+import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { InputText } from "../../../../components";
-import { Button } from "../../../../components/Button/Button";
+import { InputText, Button } from "../../../../components";
 import "./Form.scss";
 
 type FormData = {
@@ -12,7 +11,7 @@ type FormData = {
   avatarUpload: string | Blob;
 };
 
-const Form: FC = (): JSX.Element => {
+export const MainPageForm: FunctionComponent = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -27,11 +26,12 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your first name"
         defaultValue=""
-        {...register("firstName", {
-          required: true,
-          maxLength: 20,
-          pattern: /^[A-Za-z]+$/i,
-        })}
+        // {...register("firstName", {
+        //   required: true,
+        //   maxLength: 20,
+        //   pattern: /^[A-Za-z]+$/i,
+        // })}
+        register={register}
       />
       {errors?.firstName?.type === "required" && <p>This field is required</p>}
       {errors?.firstName?.type === "maxLength" && (
@@ -43,7 +43,8 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your last name"
         defaultValue=""
-        {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+        // {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+        register={register}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -51,7 +52,8 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your Job position"
         defaultValue=""
-        {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
+        // {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
+        register={register}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -67,12 +69,14 @@ const Form: FC = (): JSX.Element => {
         >
           Confirm
         </Button>
-        <Button type="reset" onClick={close} classes="button-cancel">
+        <Button
+          type="reset"
+          onClick={() => console.log(`close`)}
+          classes="button-cancel"
+        >
           Cancel
         </Button>
       </div>
     </form>
   );
 };
-
-export { Form };
