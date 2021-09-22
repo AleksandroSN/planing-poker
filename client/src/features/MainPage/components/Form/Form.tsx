@@ -42,6 +42,8 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
   // dispatch({ type: "ADD_PLAYER", payload: player });
   // });
 
+  const userAvatar = renderUserAvatar("SG");
+
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="register-form__left-wrapper">
