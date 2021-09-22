@@ -3,14 +3,15 @@ export interface FormValues {
   "Your first name": string;
   "Your last name": string;
   "Your Job position": string;
-  "Score type:": string;
-  "Score type (Short):": string;
-  "Title:": string;
-  "Link:": string;
-  "Priority:": FormPriority;
-  "Scram master as player:": string;
-  "Changing card in round end:": string;
-  "Is timer needed:": string;
+  "Score type": string;
+  "Score type (Short)": string;
+  Title: string;
+  Link: string;
+  Priority: FormPriority;
+  "Scram master as player": string;
+  "Changing card in round end": string;
+  "Is timer needed": string;
+  "Connect as Observer": string;
   minutes: string;
   seconds: string;
 }
