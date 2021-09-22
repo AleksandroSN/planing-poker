@@ -1,5 +1,8 @@
 .button-start {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat: add styles for main page form
   margin-left: 110px;
   padding: 5px 25px;
   background: #2b3a67;
@@ -7,13 +10,17 @@
   box-sizing: border-box;
   border-radius: 3px;
   color: #fff;
+<<<<<<< HEAD
   font-family: Ruda;
+=======
+>>>>>>> feat: add styles for main page form
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
   line-height: 30px;
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+<<<<<<< HEAD
 }
 
 .button-cancel {
@@ -60,4 +67,21 @@
     text-align: center;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 >>>>>>> refactor: refactor scss and add semantics
+=======
+}
+
+.button-cancel {
+  padding: 5px 25px;
+  background: #fff;
+  border: 1px solid #496a81;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #2b3a67;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+>>>>>>> feat: add styles for main page form
 }
