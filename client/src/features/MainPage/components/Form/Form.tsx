@@ -50,7 +50,13 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
     }
   }, [avatarImg]);
 
-  const userAvatar = renderUserAvatar("SG");
+  useEffect(() => {
+    // console.log(avatarImg);
+    if (avatarImg && avatarImg.length > 0) {
+      setInputFileLabel(avatarImg[0].name);
+      setAvatar(URL.createObjectURL(avatarImg[0]));
+    }
+  }, [avatarImg]);
 
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
