@@ -25,7 +25,7 @@ export const CardsCover: FunctionComponent<CardsCoverProps> = ({
         handlerClick();
       }}
     >
-      <img src={`./img/cover${imgNumber}.png`} alt="card cover" />
+      <img src={`../img/cover${imgNumber}.png`} alt="card cover" />
     </div>
   );
 };

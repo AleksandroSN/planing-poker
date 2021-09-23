@@ -43,6 +43,7 @@
 
 .text-xl {
   font-size: 30px;
+  margin-bottom: 20px;
   @include calcLineHeight(30px);
 }
 

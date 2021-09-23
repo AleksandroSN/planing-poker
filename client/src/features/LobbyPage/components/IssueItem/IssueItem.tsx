@@ -28,7 +28,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
         <a href={link} className="issues__item-name">{`Issue ${issueName}`}</a>
         <div className="issues__item-buttons">
           <button type="button" onClick={updateIssue}>
-            <img src="./icons/edit.svg" alt="edit issue" />
+            <img src="../icons/edit.svg" alt="edit issue" />
           </button>
           <button
             type="button"
@@ -36,7 +36,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
               deleteIssue({ title: issueName, link, priority, id })
             }
           >
-            <img src="./icons/trash.svg" alt="delete issue" />
+            <img src="../icons/trash.svg" alt="delete issue" />
           </button>
         </div>
       </div>
