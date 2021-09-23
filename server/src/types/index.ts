@@ -71,4 +71,5 @@ export enum SocketActions {
   NOTIFY_ABOUT_NEW_MEMBER = "notify about new member",
   MANAGE_TIMER = "manage timer",
   TIK_TAK = "tik tak",
+  TIMER_IS_STOPPED = "timer is stoped",
 }
