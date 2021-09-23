@@ -27,11 +27,11 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your first name"
         defaultValue=""
-        {...register("firstName", {
-          required: true,
-          maxLength: 20,
-          pattern: /^[A-Za-z]+$/i,
-        })}
+        // {...register("firstName", {
+        //   required: true,
+        //   maxLength: 20,
+        //   pattern: /^[A-Za-z]+$/i,
+        // })}
       />
       {errors?.firstName?.type === "required" && <p>This field is required</p>}
       {errors?.firstName?.type === "maxLength" && (
@@ -43,7 +43,7 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your last name"
         defaultValue=""
-        {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
+        // {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -51,7 +51,7 @@ const Form: FC = (): JSX.Element => {
       <InputText
         labelText="Your Job position"
         defaultValue=""
-        {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
+        // {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
       />
       {errors?.lastName?.type === "pattern" && (
         <p>Alphabetical characters only</p>
@@ -67,7 +67,11 @@ const Form: FC = (): JSX.Element => {
         >
           Confirm
         </Button>
-        <Button type="reset" onClick={close} classes="button-cancel">
+        <Button
+          type="reset"
+          onClick={() => console.log("test")}
+          classes="button-cancel"
+        >
           Cancel
         </Button>
       </div>
