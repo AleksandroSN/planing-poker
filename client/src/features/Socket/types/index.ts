@@ -16,7 +16,7 @@ export type Player = {
   id: string;
   firstName: string;
   lastName: string;
-  jpbPosition: string;
+  jobPosition: string;
   avatarImage: string;
   role: string;
   lobbyId: string;
@@ -25,7 +25,7 @@ export type Player = {
 export type NewPlayer = {
   firstName: string;
   lastName: string;
-  jpbPosition: string;
+  jobPosition: string;
   avatarImage: string;
   role: string;
 };

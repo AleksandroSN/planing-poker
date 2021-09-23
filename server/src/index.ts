@@ -130,6 +130,7 @@ io.on("connection", function (socket: Socket) {
       manager: { command: "start" | "stop" | "pause"; timerLimit?: number },
       player: Player
     ) {
+      console.log(player.lobbyId, manager.command, manager.timerLimit);
       timers(player.lobbyId, manager.command, manager.timerLimit);
     }
   );

@@ -1,14 +1,17 @@
 import { FunctionComponent, useState } from "react";
+import { useLocation } from "react-router-dom";
 import planningPocker from "../../../../assets/images/planning-pocker.png";
 import { Button, Modal } from "../../../../components";
 import { MainPageForm } from "../Form";
 import "./style.scss";
+import { MainPageLocationProps } from "./types";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
+  const { state } = useLocation<MainPageLocationProps>();
 
-  const handleConnect = () => {
-    console.log("connect");
+  const toggleState = () => {
+    setIsOpen((x) => !x);
   };
 
   return (
@@ -21,11 +24,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <h2 className="main-page__title">Start your planning:</h2>
           <div className="main-page__new-session">
             Create session:
-            <Button
-              onClick={() => setIsOpen(true)}
-              type="button"
-              classes="button-start"
-            >
+            <Button onClick={toggleState} type="button" classes="button-start">
               Start New Game
             </Button>
           </div>
@@ -37,12 +36,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             <div className="main-page__connect-game__input">
               <input
                 type="text"
-                value=" "
+                defaultValue={state ? `/lobby/${state.idGame}` : `/lobby/`}
                 onChange={() => console.log(`work`)}
               />
               <Button
                 // text="Connect"
-                onClick={handleConnect}
+                onClick={toggleState}
                 type="button"
                 classes="button-start"
               >
@@ -55,7 +54,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       </main>
       <div>
         <Modal open={isOpen} heading="Connect to lobby">
-          <MainPageForm />
+          <MainPageForm toggleState={toggleState} />
         </Modal>
       </div>
     </>

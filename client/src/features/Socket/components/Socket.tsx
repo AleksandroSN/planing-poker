@@ -11,6 +11,9 @@ import { ChatMessage, Issue, Player, SocketActions } from "../types";
 export const Socket = (): JSX.Element => {
   const dispatch = useDispatch();
 
+  // TO DO add data for timer in redux
+  // add socket tik-tak
+
   useEffect(() => {
     (async () => {
       if (localStorage.player) {

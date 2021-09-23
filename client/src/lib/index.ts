@@ -1,1 +1,4 @@
-export { renderUserAvatar } from "./renderAvatar";
+import { renderUserAvatar } from "./renderAvatar";
+import { findID } from "./findUrlID";
+
+export { renderUserAvatar, findID };
