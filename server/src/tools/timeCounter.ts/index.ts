@@ -15,7 +15,10 @@ const createTimer = (io: Server, lobbyId: string, timerLimit: number) => {
       timer = setInterval(() => {
         const minutes = Math.floor(startTime / 60);
         const seconds = startTime - minutes * 60;
-        const time = `${minutes} : ${seconds}`;
+        const time = [
+          minutes < 10 ? `0${minutes}` : `${minutes}`,
+          seconds < 10 ? `0${seconds}` : `${seconds}`,
+        ];
         io.to(lobbyId).emit(SocketActions.TIK_TAK, time);
         if (startTime >= timerLimit) {
           io.to(lobbyId).emit(SocketActions.TIMER_IS_STOPPED, true);
