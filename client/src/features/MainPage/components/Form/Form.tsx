@@ -1,12 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 import { InputText, Button, Switcher } from "../../../../components";
 import { renderUserAvatar } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
 import "./Form.scss";
+import { MainPageFormProps } from "./types";
 
-export const MainPageForm: FunctionComponent = (): JSX.Element => {
+export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
+  toggleState,
+}): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -93,14 +97,12 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
         />
       </div>
       <div className="modal-buttons">
-        <Button classes="button-start" type="submit">
-          Confirm
-        </Button>
-        <Button
-          type="button"
-          onClick={() => console.log(`close`)}
-          classes="button-cancel"
-        >
+        <NavLink to="/lobby/sssss">
+          <Button classes="button-start" type="submit">
+            Confirm
+          </Button>
+        </NavLink>
+        <Button type="button" onClick={toggleState} classes="button-cancel">
           Cancel
         </Button>
       </div>
