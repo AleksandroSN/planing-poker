@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useLocation } from "react-router-dom";
+import { findID } from "../lib";
 
 interface SomeProps {
   path: string;
@@ -12,12 +13,18 @@ export const PrivateRoutes: FunctionComponent<SomeProps> = ({
   path,
   Component,
 }) => {
+  const { pathname } = useLocation();
+  const idGame = findID(pathname);
   return (
     <Route
       key={path}
       path={path}
       render={() => {
-        return isLogin ? <Component /> : <Redirect to="/" />;
+        return isLogin ? (
+          <Component />
+        ) : (
+          <Redirect to={{ pathname: "/", state: { idGame } }} />
+        );
       }}
     />
   );
