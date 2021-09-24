@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { LobbySetting, NewPlayer, Player } from "../../types";
+import { LobbySetting, NewPlayer, Player, SocketActions } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import { createNewPlayer, getPlayerById, setLobbySettings } from "../models";
 import { initialLobbySettings } from "../../config/initialization";
@@ -35,4 +35,17 @@ export const reconnectToLobby = async (
     socket.join(player.lobbyId);
     callback(true);
   } else callback(false);
+};
+
+export const changeLobbySettings = async (
+  socket: Socket,
+  lobbySettings: LobbySetting,
+  callback: (response: { newLobbySettings: LobbySetting } | null) => void,
+  emitter: string
+): Promise<void> => {
+  const isChanged = await setLobbySettings(lobbySettings);
+  if (isChanged) {
+    callback({ newLobbySettings: lobbySettings });
+  } else callback(null);
+  socket.to(lobbySettings.lobbyId).emit(emitter, lobbySettings);
 };

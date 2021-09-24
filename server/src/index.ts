@@ -16,16 +16,17 @@ import {
 import {
   addNewIssue,
   addNewTeamMember,
+  changeLobbySettings,
   createNewRoom,
   getChatMessages,
   getLobbyIssues,
   getLobbyMembers,
   reconnectToLobby,
   sendChatMessage,
-} from "./tools/constrollers";
+} from "./tools/controllers";
 import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
-import { routerFiles } from "./tools/constrollers/router-file";
+import { routerFiles } from "./tools/controllers/router-file";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -130,6 +131,34 @@ io.on("connection", function (socket: Socket) {
       player: Player
     ) {
       timers(player.lobbyId, manager.command, manager.timerLimit);
+    }
+  );
+  socket.on(
+    SocketActions.UPDATE_SETTINGS,
+    async function (
+      newSettings: LobbySetting,
+      callback: (response: { newLobbySettings: LobbySetting } | null) => void
+    ) {
+      await changeLobbySettings(
+        socket,
+        newSettings,
+        callback,
+        SocketActions.NOTIFY_ABOUT_NEW_SETTINGS
+      );
+    }
+  );
+  socket.on(
+    SocketActions.CHANGE_APP_STAGE,
+    async function (
+      newSettings: LobbySetting,
+      callback: (response: { newLobbySettings: LobbySetting } | null) => void
+    ) {
+      await changeLobbySettings(
+        socket,
+        newSettings,
+        callback,
+        SocketActions.NOTIFY_ABOUT_APP_STAGE
+      );
     }
   );
 });

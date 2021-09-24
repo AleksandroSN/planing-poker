@@ -41,6 +41,7 @@ export type LobbySetting = {
   cardValues: string[];
   lobbyId: string;
   masterId: string;
+  appStage: "lobby" | "game";
 };
 
 export type ChatMessage = {
@@ -72,4 +73,8 @@ export enum SocketActions {
   MANAGE_TIMER = "manage timer",
   TIK_TAK = "tik tak",
   TIMER_IS_STOPPED = "timer is stoped",
+  UPDATE_SETTINGS = "update settings",
+  NOTIFY_ABOUT_NEW_SETTINGS = "notify about new settings",
+  CHANGE_APP_STAGE = "change app stage",
+  NOTIFY_ABOUT_APP_STAGE = "notify about app stage",
 }
