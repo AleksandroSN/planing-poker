@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { LobbySetting, NewPlayer, Player, SocketActions } from "../../types";
+import { LobbySetting, NewPlayer, Player } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import { createNewPlayer, getPlayerById, setLobbySettings } from "../models";
 import { initialLobbySettings } from "../../config/initialization";
