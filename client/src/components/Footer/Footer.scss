@@ -5,6 +5,12 @@
 }
 
 .footer-wrapper {
+  width: 100%;
+  height: auto;
+  background: #2b3a67;
+}
+
+.footer-content-wrapper {
   max-width: 1000px;
   display: flex;
   justify-content: space-between;

@@ -15,7 +15,7 @@ export const CardsWithoutValue: FunctionComponent<CardsWithoutValueProps> = ({
     >
       <img
         className="game-cards__cards-value-item__img"
-        src="./icons/cross.svg"
+        src="../icons/cross.svg"
         alt="Add new card"
       />
     </div>
