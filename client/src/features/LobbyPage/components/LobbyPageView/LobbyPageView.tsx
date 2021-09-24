@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
 import { useParams } from "react-router-dom";
 import { Layout } from "../Layout";
-import "./style.scss";
 import { ParamsLobbyPage } from "./types";
+import "./style.scss";
 
 interface LobbyPageViewProps {
   message?: string;

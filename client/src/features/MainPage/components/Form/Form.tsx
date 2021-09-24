@@ -39,7 +39,7 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
 
   // const x = await SocketMethods.createNewLobby(socket,Player);
   // socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
-  //   dispatch({ type: "ADD_PLAYER", payload: player });
+  // dispatch({ type: "ADD_PLAYER", payload: player });
   // });
 
   return (
