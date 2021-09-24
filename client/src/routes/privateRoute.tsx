@@ -7,7 +7,7 @@ interface SomeProps {
   Component: React.FunctionComponent;
 }
 
-const isLogin = true;
+const isLogin = false;
 
 export const PrivateRoutes: FunctionComponent<SomeProps> = ({
   path,
