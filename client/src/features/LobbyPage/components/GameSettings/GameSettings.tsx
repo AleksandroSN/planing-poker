@@ -17,7 +17,7 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
         <Switcher
           register={register}
           id="switcherBox1"
-          labelText="Scrum master as player:"
+          labelText="Scrum master as player"
         />
         <Switcher
           register={register}

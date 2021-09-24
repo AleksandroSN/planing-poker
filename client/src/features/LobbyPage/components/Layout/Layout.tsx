@@ -19,7 +19,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
 
   return (
     <>
-      <div className="content-wrapper">
+      <div className="content__wrapper">
         <form className="lobby-page-wrapper">
           <div>
             <h1 className="lobby-page__title text-xl">Issue</h1>
