@@ -1,30 +1,55 @@
 import { FunctionComponent, useState } from "react";
-import { useLocation } from "react-router-dom";
-import planningPocker from "../../../../assets/images/planning-pocker.png";
+import { Redirect, useLocation } from "react-router-dom";
 import { Button, Modal } from "../../../../components";
 import { MainPageForm } from "../Form";
-import "./style.scss";
 import { MainPageLocationProps } from "./types";
+import "./style.scss";
+import { GameSettingsState, useAppSelector } from "../../../../redux/store";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
+  const lobbyId = useAppSelector(GameSettingsState);
   const [isOpen, setIsOpen] = useState(false);
+  const [role, setRole] = useState("");
+  const [isAuth, setIsAuth] = useState<boolean>(false);
   const { state } = useLocation<MainPageLocationProps>();
 
   const toggleState = () => {
     setIsOpen((x) => !x);
   };
 
+  const setMasterRole = () => {
+    setRole("Dealer");
+    toggleState();
+  };
+
+  const setMemberRole = () => {
+    setRole("Member");
+    toggleState();
+  };
+
+  const toggleAuth = () => {
+    setIsAuth((x) => !x);
+  };
+
+  if (isAuth) {
+    return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
+  }
+
   return (
     <>
       <main className="content__wrapper">
         <div className="main-page__logo">
-          <img src={planningPocker} alt="planning pocker" />
+          <img src="../img/planning-pocker.png" alt="planning pocker" />
         </div>
         <div className="main-page__content">
           <h2 className="main-page__title">Start your planning:</h2>
           <div className="main-page__new-session">
             Create session:
-            <Button onClick={toggleState} type="button" classes="button-start">
+            <Button
+              onClick={setMasterRole}
+              type="button"
+              classes="button-start"
+            >
               Start New Game
             </Button>
           </div>
@@ -37,24 +62,25 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <input
                 type="text"
                 defaultValue={state ? `/lobby/${state.idGame}` : `/lobby/`}
-                onChange={() => console.log(`work`)}
               />
               <Button
-                // text="Connect"
-                onClick={toggleState}
+                onClick={setMemberRole}
                 type="button"
                 classes="button-start"
               >
                 Connect
               </Button>
             </div>
-            {/* </p> */}
           </div>
         </div>
       </main>
       <div>
         <Modal open={isOpen} heading="Connect to lobby">
-          <MainPageForm toggleState={toggleState} />
+          <MainPageForm
+            toggleState={toggleState}
+            role={role}
+            toggleAuth={toggleAuth}
+          />
         </Modal>
       </div>
     </>
