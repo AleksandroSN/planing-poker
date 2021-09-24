@@ -24,6 +24,8 @@ import {
   sendChatMessage,
 } from "./tools/constrollers";
 import { timersDb } from "./tools/timeCounter.ts";
+import fileUpload from "express-fileupload";
+import { routerFiles } from "./tools/constrollers/router-file";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -41,6 +43,14 @@ const io = new Server(http, {
     origin: "*",
   },
 });
+
+const staticFilesPath = path.resolve(__dirname, "../wwwroot");
+
+app.use(fileUpload());
+
+app.use("/", express.static(staticFilesPath));
+
+app.use("/upload", routerFiles);
 
 app.get("/", (req: Request, res: Response) => {
   console.log("http connection happened");
