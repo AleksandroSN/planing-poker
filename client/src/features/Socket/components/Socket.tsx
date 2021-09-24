@@ -5,7 +5,7 @@ import {
   getLobbyMessages,
   getLobbyPlayers,
 } from "../lib/getAndPutData";
-import { SocketSingleton } from "../lib/Singleton";
+import { SocketSingleton } from "../lib";
 import { ChatMessage, Issue, Player, SocketActions } from "../types";
 
 export const Socket = (): JSX.Element => {

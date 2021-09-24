@@ -5,6 +5,8 @@ import { NavLink } from "react-router-dom";
 import { InputText, Button, Switcher } from "../../../../components";
 import { renderUserAvatar } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
+import { SocketMethods } from "../../../Socket";
+import { SocketSingleton } from "../../../Socket/lib";
 import "./Form.scss";
 import { MainPageFormProps } from "./types";
 
@@ -31,13 +33,14 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
     }
   }, [avatarImg]);
 
-  useEffect(() => {
-    // console.log(avatarImg);
-    if (avatarImg && avatarImg.length > 0) {
-      setInputFileLabel(avatarImg[0].name);
-      setAvatar(URL.createObjectURL(avatarImg[0]));
-    }
-  }, [avatarImg]);
+  // to do add in callback and call in click
+  // const socket = SocketSingleton.getInstance().getSocket();
+  // await socket.connect();
+
+  // const x = await SocketMethods.createNewLobby(socket,Player);
+  // socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
+  //   dispatch({ type: "ADD_PLAYER", payload: player });
+  // });
 
   return (
     <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
@@ -105,11 +108,11 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
         />
       </div>
       <div className="modal-buttons">
-        <NavLink to="/lobby/sssss">
-          <Button classes="button-start" type="submit">
-            Confirm
-          </Button>
-        </NavLink>
+        {/* <NavLink to="/lobby/sssss"> */}
+        <Button classes="button-start" type="submit">
+          Confirm
+        </Button>
+        {/* </NavLink> */}
         <Button type="button" onClick={toggleState} classes="button-cancel">
           Cancel
         </Button>
