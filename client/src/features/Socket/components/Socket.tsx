@@ -24,13 +24,13 @@ export const Socket = (): JSX.Element => {
         await socket.connect();
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
           dispatch({ type: "ADD_PLAYER", payload: player });
-        });
+        }); // update members
         socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
           dispatch({ type: "ADD_ISSUE", payload: issue });
-        });
+        }); // update issue
         socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
           dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
-        });
+        }); // update messages
         const lobbyMembers = await getLobbyPlayers(socket, localPlayer);
         dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });
         const lobbyIssues = await getLobbyIssues(socket, localPlayer);
