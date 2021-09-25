@@ -22,3 +22,8 @@ enum FormPriority {
   middle = "medium",
   high = "high",
 }
+
+export interface UploadResponse {
+  name: string;
+  path: string;
+}

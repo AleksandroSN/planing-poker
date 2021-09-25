@@ -18,7 +18,7 @@ export type Player = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: string; // to do add 3 roles
   lobbyId: string;
 };
 
@@ -27,7 +27,7 @@ export type NewPlayer = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: string; // to do add 3 roles
 };
 
 export type Issue = {
