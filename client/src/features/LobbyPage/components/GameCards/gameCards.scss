@@ -9,6 +9,7 @@
     &-container {
       display: flex;
       gap: 15px;
+      flex-wrap: wrap;
     }
 
     &-title {
@@ -65,6 +66,7 @@
       color: #000;
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     &-item {

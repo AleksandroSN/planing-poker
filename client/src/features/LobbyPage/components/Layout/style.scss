@@ -1,18 +1,80 @@
 .lobby-page-wrapper {
-    padding: 0px 35px 100px;
-
+  padding: 0px 35px 100px;
 }
 
 .master-card__title {
-    text-align: left;
+  text-align: left;
 }
 
-.master-card, 
+.master-card,
 .members__block,
-.issues__block {
-    margin-bottom: 65px;
+.issues__block,
+.start-game__block {
+  margin-bottom: 65px;
+}
+
+.start-game__button-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.start-game__button-block button {
+  margin-left: 0;
+}
+
+.link__block {
+  display: flex;
+  margin-bottom: 30px;
+  align-items: flex-end;
+}
+
+.link__block button {
+  margin-left: 0;
+}
+
+.lobby-page-link__input {
+  width: 270px;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #2b3a67;
+  box-sizing: border-box;
+  border-radius: 0px 0px 0px 10px;
+  margin-left: auto;
+  padding: 13px 0;
+}
+
+.lobby-link__label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.copy-link__button {
+  height: 47px;
+  padding: 0px 50px;
+  margin-bottom: 15px;
+  background: #2b3a67;
+  border: 1px solid #496a81;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #fff;
+  font-family: Ruda;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .settings__block {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.exit-game__block {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 65px;
 }
