@@ -36,3 +36,16 @@ export const reconnectToLobby = async (
     callback(true);
   } else callback(false);
 };
+
+export const changeLobbySettings = async (
+  socket: Socket,
+  lobbySettings: LobbySetting,
+  callback: (response: { newLobbySettings: LobbySetting } | null) => void,
+  emitter: string
+): Promise<void> => {
+  const isChanged = await setLobbySettings(lobbySettings);
+  if (isChanged) {
+    callback({ newLobbySettings: lobbySettings });
+  } else callback(null);
+  socket.to(lobbySettings.lobbyId).emit(emitter, lobbySettings);
+};
