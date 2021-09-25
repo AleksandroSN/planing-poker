@@ -7,3 +7,13 @@
     align-items: center;
   }
 }
+
+@media (max-width: 600px) {
+  .game-settings {
+    width: 450px;
+  }
+
+  .game-settings .input-text__label {
+    text-align: left;
+  }
+}
