@@ -8,7 +8,7 @@ interface GameSettingsState {
   scoreType: string;
   scoreTypeShort: string;
   roundTime: number;
-  cardValues: Array<string>;
+  cardValues: Array<string>; // to do rework
   lobbyId: string;
   masterId: string;
 }
@@ -21,8 +21,8 @@ const initialGameSettingsState: GameSettingsState = {
   scoreTypeShort: "SP",
   roundTime: 140,
   cardValues: [""],
-  lobbyId: "2be7d3c0-4b9a-490f-b063-a5eadbc390f1",
-  masterId: "03e02f09-32ee-40da-93e7-5b6fc50891c7",
+  lobbyId: "",
+  masterId: "",
 };
 
 export const gameSettingsReducer = (
