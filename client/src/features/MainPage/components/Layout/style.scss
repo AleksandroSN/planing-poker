@@ -23,6 +23,7 @@
   }
 
   &__new-session {
+    display: flex;
     padding-top: 90px;
     font-weight: 300;
     font-size: 24px;
@@ -57,7 +58,7 @@
       font-size: 18px;
       font-weight: 700;
       margin-top: 10px;
-      width: 276px;
+      width: 385px;
       height: 47px;
       background: #ffffff;
       border: 1px solid #2b3a67;

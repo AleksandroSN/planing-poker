@@ -3,11 +3,12 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { InputText, Button, Switcher } from "../../../../components";
-import { renderUserAvatar, spltName } from "../../../../lib";
+import { BASE, renderUserAvatar, spltName } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
 import { MainPageFormProps } from "./types";
 import { createMaster } from "../../../Socket/lib/createMaster";
 import { NewPlayer } from "../../../Socket/types";
+import { CreateNewFile } from "../../lib";
 import "./Form.scss";
 
 export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
@@ -29,18 +30,25 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
   const firstNameField = watch("Your first name");
   const lastNameField = watch("Your last name");
   const userAvatar = renderUserAvatar(avatar);
-  const onSubmit = (data: FormValues) => {
-    const observerRole = data["Connect as Observer"] && "Observer";
-    const player: NewPlayer = {
-      firstName: data["Your first name"],
-      lastName: data["Your last name"],
-      jobPosition: data["Your Job position"],
-      avatarImage: "",
-      role: observerRole || role,
-    };
-    setNewPlayer(player);
-    toggleState();
+  const onSubmit = async (data: FormValues) => {
+    const files = data["Choose file"] as FileList;
+    const file = files[0];
+    const fileName = files[0].name;
+    if (files) {
+      const res = await CreateNewFile(file, fileName);
+      const observerRole = data["Connect as Observer"] && "Observer";
+      const player: NewPlayer = {
+        firstName: data["Your first name"],
+        lastName: data["Your last name"],
+        jobPosition: data["Your Job position"],
+        avatarImage: `${BASE}${res[0].path}`,
+        role: observerRole || role,
+      };
+      setNewPlayer(player);
+      toggleState();
+    }
   };
+
   useEffect(() => {
     if (firstNameField || lastNameField) {
       const avaString = spltName(firstNameField, lastNameField);

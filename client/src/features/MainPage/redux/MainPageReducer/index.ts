@@ -1,1 +1,1 @@
-export {};
+export { MainPageReducer } from "./reducer";
