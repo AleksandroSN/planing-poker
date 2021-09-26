@@ -22,10 +22,10 @@ import {
   getLobbyMembers,
   reconnectToLobby,
   sendChatMessage,
-} from "./tools/constrollers";
+} from "./tools/controllers";
 import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
-import { routerFiles } from "./tools/constrollers/router-file";
+import { routerFiles } from "./tools/controllers/router-file";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
