@@ -22,4 +22,6 @@ export const handlersMainPageContext: HandlersMainPageContextModel = {
   setStrToAvatar: () => {},
   setImgToAvatar: () => {},
   submitData: () => {},
+  validateLobby: () => {},
+  registerMember: () => {},
 };

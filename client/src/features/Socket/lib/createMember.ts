@@ -22,6 +22,7 @@ export const createMember = async (
     currentLobby
   );
   dispatch({ type: "ADD_PLAYER", payload: lobby.player });
+  dispatch({ type: "UPDATE_SETTINGS", payload: lobby.initLobbySettings });
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
     dispatch({ type: "ADD_PLAYER", payload: player });
   }); // update members

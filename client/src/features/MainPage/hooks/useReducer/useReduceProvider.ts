@@ -93,6 +93,16 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   };
 
+  const validateLobby = (link: string) => {
+    // send value to server
+    reduxDispatch({ type: "UPDATE_SETTINGS", payload: { lobbyId: link } });
+  };
+
+  const registerMember = (link: string) => {
+    setMemberRole();
+    validateLobby(link);
+  };
+
   return {
     MainPageState,
     setMasterRole,
@@ -102,5 +112,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     setStrToAvatar,
     setImgToAvatar,
     submitData,
+    validateLobby,
+    registerMember,
   };
 };

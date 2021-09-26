@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { GameSettingsState, useAppSelector } from "../../../../redux/store";
 import { Button, Modal } from "../../../../components";
@@ -10,8 +10,15 @@ import "./style.scss";
 export const Layout: FunctionComponent = (): JSX.Element => {
   const lobbyId = useAppSelector(GameSettingsState);
   const { state } = useLocation<MainPageLocationProps>();
+  const [link, setLink] = useState<string>("");
 
-  const { MainPageState, setMasterRole, setMemberRole } =
+  useEffect(() => {
+    if (state) {
+      setLink(state.idGame);
+    }
+  }, [state]);
+
+  const { MainPageState, setMasterRole, registerMember } =
     useContext(MainPageContext);
 
   if (MainPageState.isAuth) {
@@ -45,9 +52,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <input
                 type="text"
                 defaultValue={state ? `/lobby/${state.idGame}` : `/lobby/`}
+                onChange={(ev) => setLink(ev.target.value)}
               />
               <Button
-                onClick={setMemberRole}
+                onClick={() => registerMember(link)}
                 type="button"
                 classes="button-start"
               >
@@ -65,3 +73,5 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     </>
   );
 };
+
+// onClick =>1. send value to validate + 2.if succces => 2.1 dispatch data(lobbyId, role, openModal) else open error window

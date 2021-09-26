@@ -20,4 +20,6 @@ export interface HandlersMainPageContextModel {
   setStrToAvatar: (str: string) => void;
   setImgToAvatar: (img: string, label: string) => void;
   submitData: (data: FormValues) => void;
+  validateLobby: (link: string) => void;
+  registerMember: (link: string) => void;
 }
