@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { ReducerProvider } from "../../lib/context/mainPageContext";
 import { Layout } from "../Layout";
 import "./style.scss";
 
@@ -9,7 +10,9 @@ import "./style.scss";
 export const MainPageView: FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <Layout />
+      <ReducerProvider>
+        <Layout />
+      </ReducerProvider>
     </>
   );
 };

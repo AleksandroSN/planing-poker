@@ -1,76 +1,47 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FunctionComponent, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { InputText, Button, Switcher } from "../../../../components";
-import { BASE, renderUserAvatar, spltName } from "../../../../lib";
+import { renderUserAvatar, spltName } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
-import { MainPageFormProps } from "./types";
-import { createMaster } from "../../../Socket/lib/createMaster";
-import { NewPlayer } from "../../../Socket/types";
-import { CreateNewFile } from "../../lib";
+import { MainPageContext } from "../../lib/context/mainPageContext";
 import "./Form.scss";
 
-export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
-  toggleState,
-  role,
-  toggleAuth,
-}): JSX.Element => {
+export const MainPageForm: FunctionComponent = (): JSX.Element => {
+  const {
+    MainPageState,
+    toggleModal,
+    setStrToAvatar,
+    setImgToAvatar,
+    submitData,
+  } = useContext(MainPageContext);
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<FormValues>();
-  const [inputFileLabel, setInputFileLabel] = useState<string>("Choose file");
-  const [avatar, setAvatar] = useState<string>("NN");
-  const [newPlayer, setNewPlayer] = useState<NewPlayer>();
-
   const avatarImg = watch("Choose file") as FileList;
   const firstNameField = watch("Your first name");
   const lastNameField = watch("Your last name");
-  const userAvatar = renderUserAvatar(avatar);
-  const onSubmit = async (data: FormValues) => {
-    const files = data["Choose file"] as FileList;
-    const file = files[0];
-    const fileName = files[0].name;
-    if (files) {
-      const res = await CreateNewFile(file, fileName);
-      const observerRole = data["Connect as Observer"] && "Observer";
-      const player: NewPlayer = {
-        firstName: data["Your first name"],
-        lastName: data["Your last name"],
-        jobPosition: data["Your Job position"],
-        avatarImage: `${BASE}${res[0].path}`,
-        role: observerRole || role,
-      };
-      setNewPlayer(player);
-      toggleState();
-    }
-  };
+  const userAvatar = renderUserAvatar(MainPageState.avatar);
 
   useEffect(() => {
     if (firstNameField || lastNameField) {
       const avaString = spltName(firstNameField, lastNameField);
-      setAvatar(avaString);
+      setStrToAvatar(avaString);
     }
     if (avatarImg && avatarImg.length > 0) {
-      setInputFileLabel(avatarImg[0].name);
-      setAvatar(URL.createObjectURL(avatarImg[0]));
+      setImgToAvatar(URL.createObjectURL(avatarImg[0]), avatarImg[0].name);
     }
-  }, [avatarImg, firstNameField, lastNameField]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    (async () => {
-      if (newPlayer) {
-        await createMaster(newPlayer, dispatch);
-        toggleAuth();
-      }
-    })();
-    return () => {};
-  }, [dispatch, newPlayer, toggleAuth]);
+  }, [
+    avatarImg,
+    firstNameField,
+    lastNameField,
+    setImgToAvatar,
+    setStrToAvatar,
+  ]);
 
   useEffect(() => {
     // console.log(avatarImg);
@@ -89,7 +60,7 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
   }, [avatarImg]);
 
   return (
-    <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="register-form" onSubmit={handleSubmit(submitData)}>
       <div className="register-form__left-wrapper">
         <InputText
           labelText="Your first name"
@@ -134,7 +105,7 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
         <div className="register-form__label register-form__label--mb">
           Image :
           <label className="register-form__label--file" htmlFor="avatarUpload">
-            {inputFileLabel}
+            {MainPageState.inputFileLabel}
             <input
               type="file"
               id="avatarUpload"
@@ -146,7 +117,7 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
         </div>
         <div className="register-form__avatar">{userAvatar}</div>
       </div>
-      {role === "Member" && (
+      {MainPageState.role === "Member" && (
         <div className="register-form__right-wrapper">
           <Switcher
             labelText="Connect as Observer"
@@ -159,7 +130,7 @@ export const MainPageForm: FunctionComponent<MainPageFormProps> = ({
         <Button classes="button-start" type="submit">
           Confirm
         </Button>
-        <Button type="button" onClick={toggleState} classes="button-cancel">
+        <Button type="button" onClick={toggleModal} classes="button-cancel">
           Cancel
         </Button>
       </div>
