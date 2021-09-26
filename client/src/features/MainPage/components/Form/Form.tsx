@@ -1,82 +1,123 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FC } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { InputText } from "../../../../components";
-import { Button } from "../../../../components/Button/Button";
+import { InputText, Button, Switcher } from "../../../../components";
+import { renderUserAvatar, spltName } from "../../../../lib";
+import { FormValues } from "../../../../types/interface";
+import { MainPageContext } from "../../lib/context/mainPageContext";
 import "./Form.scss";
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-  jobPosition: string;
-  avatarUpload: string | Blob;
-};
+export const MainPageForm: FunctionComponent = (): JSX.Element => {
+  const {
+    MainPageState,
+    toggleModal,
+    setStrToAvatar,
+    setImgToAvatar,
+    submitData,
+  } = useContext(MainPageContext);
 
-const Form: FC = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm<FormData>();
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
-  };
+  } = useForm<FormValues>();
+  const avatarImg = watch("Choose file") as FileList;
+  const firstNameField = watch("Your first name");
+  const lastNameField = watch("Your last name");
+  const userAvatar = renderUserAvatar(MainPageState.avatar);
+
+  useEffect(() => {
+    if (firstNameField || lastNameField) {
+      const avaString = spltName(firstNameField, lastNameField);
+      setStrToAvatar(avaString);
+    }
+    if (avatarImg && avatarImg.length > 0) {
+      setImgToAvatar(URL.createObjectURL(avatarImg[0]), avatarImg[0].name);
+    }
+  }, [
+    avatarImg,
+    firstNameField,
+    lastNameField,
+    setImgToAvatar,
+    setStrToAvatar,
+  ]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputText
-        labelText="Your first name"
-        defaultValue=""
-        // {...register("firstName", {
-        //   required: true,
-        //   maxLength: 20,
-        //   pattern: /^[A-Za-z]+$/i,
-        // })}
-      />
-      {errors?.firstName?.type === "required" && <p>This field is required</p>}
-      {errors?.firstName?.type === "maxLength" && (
-        <p>First name cannot exceed 20 characters</p>
+    <form className="register-form" onSubmit={handleSubmit(submitData)}>
+      <div className="register-form__left-wrapper">
+        <InputText
+          labelText="Your first name"
+          labelClasses="register-form__label"
+          defaultValue=""
+          register={register}
+          options={{
+            required: true,
+            maxLength: 20,
+            pattern: /^[A-Za-z]+$/i,
+          }}
+        />
+        {errors?.["Your first name"]?.type === "required" && (
+          <p>This field is required</p>
+        )}
+        {errors?.["Your first name"]?.type === "maxLength" && (
+          <p>First name cannot exceed 20 characters</p>
+        )}
+        {errors?.["Your first name"]?.type === "pattern" && (
+          <p>Alphabetical characters only</p>
+        )}
+        <InputText
+          labelText="Your last name"
+          labelClasses="register-form__label"
+          defaultValue=""
+          options={{ pattern: /^[A-Za-z]+$/i }}
+          register={register}
+        />
+        {errors?.["Your last name"]?.type === "pattern" && (
+          <p>Alphabetical characters only</p>
+        )}
+        <InputText
+          labelText="Your Job position"
+          labelClasses="register-form__label"
+          defaultValue=""
+          options={{ pattern: /^[A-Za-z]+$/i }}
+          register={register}
+        />
+        {errors?.["Your last name"]?.type === "pattern" && (
+          <p>Alphabetical characters only</p>
+        )}
+        <div className="register-form__label register-form__label--mb">
+          Image :
+          <label className="register-form__label--file" htmlFor="avatarUpload">
+            {MainPageState.inputFileLabel}
+            <input
+              type="file"
+              id="avatarUpload"
+              accept=".jpg, .jpeg, .png"
+              hidden
+              {...register("Choose file")}
+            />
+          </label>
+        </div>
+        <div className="register-form__avatar">{userAvatar}</div>
+      </div>
+      {MainPageState.role === "Member" && (
+        <div className="register-form__right-wrapper">
+          <Switcher
+            labelText="Connect as Observer"
+            id="switcherBox4"
+            register={register}
+          />
+        </div>
       )}
-      {errors?.firstName?.type === "pattern" && (
-        <p>Alphabetical characters only</p>
-      )}
-      <InputText
-        labelText="Your last name"
-        defaultValue=""
-        // {...register("lastName", { pattern: /^[A-Za-z]+$/i })}
-      />
-      {errors?.lastName?.type === "pattern" && (
-        <p>Alphabetical characters only</p>
-      )}
-      <InputText
-        labelText="Your Job position"
-        defaultValue=""
-        // {...register("jobPosition", { pattern: /^[A-Za-z]+$/i })}
-      />
-      {errors?.lastName?.type === "pattern" && (
-        <p>Alphabetical characters only</p>
-      )}
-      <label htmlFor="avatarUpload">
-        <input {...register} type="file" name="avatarUpload" />
-      </label>
       <div className="modal-buttons">
-        <Button
-          onClick={() => console.log(`confirm`)}
-          classes="button-start"
-          type="submit"
-        >
+        <Button classes="button-start" type="submit">
           Confirm
         </Button>
-        <Button
-          type="reset"
-          onClick={() => console.log("test")}
-          classes="button-cancel"
-        >
+        <Button type="button" onClick={toggleModal} classes="button-cancel">
           Cancel
         </Button>
       </div>
     </form>
   );
 };
-
-export { Form };

@@ -8,6 +8,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
   inputClasses,
   labelClasses,
   isTimer,
+  options,
   register,
 }: InputTextProps): JSX.Element => {
   return (
@@ -16,7 +17,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
         htmlFor="inputText"
         className={labelClasses || "input-text__label"}
       >
-        {labelText}
+        {labelText} :
         <input
           type="text"
           id="inputText"
@@ -24,7 +25,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
           defaultValue={defaultValue}
           disabled={isTimer || false}
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register!(labelText!)}
+          {...register!(labelText, options)}
         />
       </label>
     </div>

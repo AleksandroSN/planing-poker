@@ -17,26 +17,22 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
         <Switcher
           register={register}
           id="switcherBox1"
-          labelText="Scrum master as player:"
+          labelText="Scrum master as player"
         />
         <Switcher
           register={register}
           id="switcherBox2"
-          labelText="Changing card in round end:"
+          labelText="Changing card in round end"
         />
         <Switcher
           register={register}
           toggleTimer={toggleTimer}
           id="switcherBox3"
-          labelText="Is timer needed:"
+          labelText="Is timer needed"
         />
+        <InputText labelText="Score type" defaultValue="" register={register} />
         <InputText
-          labelText="Score type:"
-          defaultValue=""
-          register={register}
-        />
-        <InputText
-          labelText="Score type (Short):"
+          labelText="Score type (Short)"
           defaultValue=""
           register={register}
         />

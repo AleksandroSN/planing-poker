@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
+import { renderUserAvatar } from "../../lib";
+import { userClassesHelper } from "./userHelper";
 import "./user.scss";
-import { renderUserAvatar, userClassesHelper } from "./userHelper";
 
 interface UserProps {
   avatar: string;

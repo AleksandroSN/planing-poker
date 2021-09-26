@@ -46,7 +46,7 @@ export const getLobbyMessages = async (
   return promise;
 };
 
-export type CreateNewRoomResponse = {
+export type LobbyResponse = {
   player: Player;
   initLobbySettings: LobbySetting;
 };
@@ -54,11 +54,24 @@ export type CreateNewRoomResponse = {
 export const createNewLobby = async (
   socket: SocketAPI,
   master: NewPlayer
-): Promise<CreateNewRoomResponse> => {
+): Promise<LobbyResponse> => {
   const promise = socket.emit(
     SocketActions.CREATE_NEW_ROOM,
     [master],
     true
-  ) as Promise<CreateNewRoomResponse>;
+  ) as Promise<LobbyResponse>;
+  return promise;
+};
+
+export const connectToLobby = async (
+  socket: SocketAPI,
+  newPlayer: NewPlayer,
+  lobby: LobbySetting
+): Promise<LobbyResponse> => {
+  const promise = socket.emit(
+    SocketActions.ADD_NEW_TEAM_MEMBER,
+    [newPlayer, lobby.lobbyId],
+    true
+  ) as Promise<LobbyResponse>;
   return promise;
 };

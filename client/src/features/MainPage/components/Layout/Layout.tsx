@@ -1,60 +1,65 @@
-import { FunctionComponent, useState } from "react";
-import planningPocker from "../../../../assets/images/planning-pocker.png";
+import { FunctionComponent, useContext } from "react";
+import { Redirect, useLocation } from "react-router-dom";
+import { GameSettingsState, useAppSelector } from "../../../../redux/store";
 import { Button, Modal } from "../../../../components";
+import { MainPageContext } from "../../lib/context/mainPageContext";
+import { MainPageLocationProps } from "./types";
+import { MainPageForm } from "../Form";
 import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false);
+  const lobbyId = useAppSelector(GameSettingsState);
+  const { state } = useLocation<MainPageLocationProps>();
 
-  const handleConnect = () => {
-    console.log("connect");
-  };
+  const { MainPageState, setMasterRole, setMemberRole } =
+    useContext(MainPageContext);
+
+  if (MainPageState.isAuth) {
+    return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
+  }
 
   return (
     <>
-      <div className="content-wrapper">
+      <main className="content__wrapper">
         <div className="main-page__logo">
-          <img src={planningPocker} alt="planning pocker" />
+          <img src="../img/planning-pocker.png" alt="planning pocker" />
         </div>
         <div className="main-page__content">
-          <h2>Start your planning:</h2>
-          <div className="new-session">
+          <h2 className="main-page__title">Start your planning:</h2>
+          <div className="main-page__new-session">
             Create session:
             <Button
-              // text="Start New Game"
-              onClick={() => setIsOpen(true)}
+              onClick={setMasterRole}
               type="button"
               classes="button-start"
             >
-              New Game
+              Start New Game
             </Button>
           </div>
-          <div className="connect-game">
-            <h2>OR</h2>
-            <label htmlFor="connectGame">
-              Connect to lobby by <span>URL</span>:
-              <div className="connect-game__input">
-                <input
-                  type="text"
-                  value=" "
-                  onChange={() => console.log(`work`)}
-                />
-                <Button
-                  // text="Connect"
-                  onClick={handleConnect}
-                  type="button"
-                  classes="button-start"
-                >
-                  Connect
-                </Button>
-              </div>
-            </label>
+          <div className="main-page__connect-game">
+            <p className="main-page__connect-game__choose">OR :</p>
+            <p className="main-page__connect-game__title">
+              Connect to lobby by <span>URL</span> :
+            </p>
+            <div className="main-page__connect-game__input">
+              <input
+                type="text"
+                defaultValue={state ? `/lobby/${state.idGame}` : `/lobby/`}
+              />
+              <Button
+                onClick={setMemberRole}
+                type="button"
+                classes="button-start"
+              >
+                Connect
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
       <div>
-        <Modal open={isOpen} heading="Connect to lobby">
-          <p>Test</p>
+        <Modal open={MainPageState.openModal} heading="Connect to lobby">
+          <MainPageForm />
         </Modal>
       </div>
     </>

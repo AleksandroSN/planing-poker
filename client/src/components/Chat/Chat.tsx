@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import { InputText } from "../InputText";
-import "./chat.scss";
 import { ChatRow } from "./ChatRow/ChatRow";
+import "./chat.scss";
 
 interface ChatProps {
   message?: string;
@@ -20,7 +20,7 @@ export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
   return (
     <div className="chat">
       {messages}
-      <InputText defaultValue="" />
+      <InputText labelText="" defaultValue="" />
     </div>
   );
 };

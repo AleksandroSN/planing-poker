@@ -1,6 +1,6 @@
 export enum SocketActions {
   CREATE_NEW_ROOM = "create new room",
-  ADD_NEW_TEAM_MEMBER = "add new team member",
+  ADD_NEW_TEAM_MEMBER = "add new team member", // create member
   GET_LOBBY_MEMBERS = "get lobby members",
   ADD_NEW_ISSUE = "add new issue",
   RECIEVE_NEW_ISSUE = "recieve new issue",
@@ -16,18 +16,18 @@ export type Player = {
   id: string;
   firstName: string;
   lastName: string;
-  jpbPosition: string;
+  jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: string; // to do add 3 roles
   lobbyId: string;
 };
 
 export type NewPlayer = {
   firstName: string;
   lastName: string;
-  jpbPosition: string;
+  jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: string; // to do add 3 roles
 };
 
 export type Issue = {

@@ -1,79 +1,90 @@
-.content-wrapper {
-  max-width: 1000px;
-  margin: 0 auto 25px;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+.main-page {
+  &__logo {
+    display: flex;
+    justify-content: center;
+    padding: 130px 0 40px;
+    & img {
+      max-width: 551px;
+      width: 70vw;
+    }
+  }
 
-.main-page__logo {
-  display: flex;
-  justify-content: center;
-  padding: 130px 0 40px;
-}
+  &__content {
+    padding-left: 26px;
+    padding-bottom: 232px;
+    max-width: 550px;
+  }
 
-.main-page__logo img {
-  max-width: 551px;
-  width: 70vw;
-}
+  &__title {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    color: #66999b;
+  }
 
-.main-page__content {
-  padding-left: 26px;
-  padding-bottom: 232px;
-
-  label {
+  &__new-session {
+    display: flex;
+    padding-top: 90px;
     font-weight: 300;
     font-size: 24px;
     line-height: 28px;
   }
-}
 
-.new-session {
-  padding-top: 90px;
-}
+  &__connect-game {
+    padding-top: 35px;
 
-.connect-game {
-  padding-top: 35px;
-
-  h2 {
-    padding-left: 190px;
-    margin-bottom: 50px;
-  }
-
-  span {
-    color: #66999b;
-    font-weight: bold;
-  }
-
-  input {
-    margin-top: 10px;
-    width: 276px;
-    height: 47px;
-    background: #ffffff;
-    border: 1px solid #2b3a67;
-    box-sizing: border-box;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 0px 0px 0px 10px;
-  }
-
-  button {
-    margin-left: 0;
-    height: 47px;
-    border: 1px solid #496a81;
-    box-sizing: border-box;
-    border-radius: 0px 3px 3px 0px;
-  }
-}
-
-.connect-game__input {
-  display: flex;
-  align-items: flex-end;
-}
-
-@media screen and (max-width: 770px) {
-  .new-session {
-    .button-start {
-      width: 50%;
-      margin-left: 40px;
+    &__choose {
+      font-weight: bold;
+      font-size: 64px;
+      line-height: 56px;
+      color: #66999b;
+      text-align: center;
+      margin-bottom: 50px;
     }
+
+    &__title {
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    & span {
+      color: #66999b;
+      font-weight: bold;
+    }
+
+    & input {
+      padding-left: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 10px;
+      width: 385px;
+      height: 47px;
+      background: #ffffff;
+      border: 1px solid #2b3a67;
+      box-sizing: border-box;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 0px 0px 0px 10px;
+    }
+
+    &__input {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    & button {
+      margin-left: 0;
+      height: 47px;
+      border: 1px solid #496a81;
+      box-sizing: border-box;
+      border-radius: 0px 3px 3px 0px;
+    }
+  }
+}
+
+.button-start {
+  @media screen and (max-width: 770px) {
+    width: 50%;
+    margin-left: 40px;
   }
 }
