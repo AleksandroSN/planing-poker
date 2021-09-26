@@ -7,9 +7,11 @@ import {
 } from "./reducer";
 import { uploadImage, BASE_SERVER } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
-import { CreateMaster } from "../../../Socket/lib/createMaster";
-import { NewPlayer } from "../../../Socket/types";
+import { createMaster } from "../../../Socket/lib/createMaster";
+import { NewPlayer, Player } from "../../../Socket/types";
 import { HandlersMainPageContextModel } from "../../types";
+import { useAppSelector, GameSettingsState } from "../../../../redux/store";
+import { createMember } from "../../../Socket/lib/createMember";
 
 export const useReducerProvider = (): HandlersMainPageContextModel => {
   const [MainPageState, dispatch] = useReducer(
@@ -17,6 +19,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     initialStateMainPage
   );
   const reduxDispatch = useDispatch();
+  const lobbyId = useAppSelector(GameSettingsState);
 
   const setMasterRole = () => {
     dispatch({
@@ -60,6 +63,15 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   }, []);
 
+  const createPlayer = async (player: NewPlayer): Promise<Player> => {
+    if (MainPageState.role === "Dealer") {
+      const res = await createMaster(player, reduxDispatch);
+      return res;
+    }
+    const res = await createMember(player, lobbyId, reduxDispatch);
+    return res;
+  };
+
   const submitData = async (data: FormValues) => {
     const srcAvatar = await uploadImage(data);
     const observerRole = data["Connect as Observer"] && "Observer";
@@ -70,7 +82,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
       avatarImage: srcAvatar ? `${BASE_SERVER}${srcAvatar.path}` : "",
       role: observerRole || MainPageState.role,
     };
-    const socketRes = await CreateMaster(player, reduxDispatch);
+    const socketRes = await createPlayer(player);
     localStorage.setItem("player", JSON.stringify(socketRes));
     dispatch({
       type: MainPageReducerActionType.submitForm,
