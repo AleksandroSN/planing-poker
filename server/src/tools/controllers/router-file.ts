@@ -5,23 +5,26 @@ import path from "path";
 export const routerFiles = Router();
 
 routerFiles.post("/img", async (req, res) => {
-  console.log(req);
   if (!req.files) {
     return res.status(500).send({ msg: "file is not found" });
   }
+  const allFiles = [];
   // accessing the file
-  const myFile = req.files.file as fileUpload.UploadedFile;
-  const staticFolder = path.resolve(__dirname, "../../../wwwroot");
-  //  mv() method places the file inside public directory
-  myFile.mv(`${staticFolder}/img/${myFile.name}`, function (err) {
-    if (err) {
-      console.log(err);
-      return res.status(500).send({ msg: "Error occured" });
-    }
-    // returing the response with file path and name
-    return res.send({
+  for (const key in req.files) {
+    const myFile = req.files[key] as fileUpload.UploadedFile;
+    allFiles.push({
       name: myFile.name,
       path: `/img/${myFile.name}`,
     });
-  });
+    const staticFolder = path.resolve(__dirname, "../../../wwwroot");
+    //  mv() method places the file inside public directory
+    myFile.mv(`${staticFolder}/img/${myFile.name}`, function (err) {
+      if (err) {
+        return res.status(500).send({ msg: "Error occured" });
+      }
+      // returing the response status
+      return res.status(200);
+    });
+  }
+  return res.send(allFiles);
 });
