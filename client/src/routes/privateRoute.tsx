@@ -7,7 +7,7 @@ interface SomeProps {
   Component: React.FunctionComponent;
 }
 
-const isLogin = false;
+const isLogin = localStorage.getItem("player"); // TO DO and search in redux
 
 export const PrivateRoutes: FunctionComponent<SomeProps> = ({
   path,

@@ -1,37 +1,20 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Redirect, useLocation } from "react-router-dom";
-import { Button, Modal } from "../../../../components";
-import { MainPageForm } from "../Form";
-import { MainPageLocationProps } from "./types";
-import "./style.scss";
 import { GameSettingsState, useAppSelector } from "../../../../redux/store";
+import { Button, Modal } from "../../../../components";
+import { MainPageContext } from "../../lib/context/mainPageContext";
+import { MainPageLocationProps } from "./types";
+import { MainPageForm } from "../Form";
+import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const lobbyId = useAppSelector(GameSettingsState);
-  const [isOpen, setIsOpen] = useState(false);
-  const [role, setRole] = useState("");
-  const [isAuth, setIsAuth] = useState<boolean>(false);
   const { state } = useLocation<MainPageLocationProps>();
 
-  const toggleState = () => {
-    setIsOpen((x) => !x);
-  };
+  const { MainPageState, setMasterRole, setMemberRole } =
+    useContext(MainPageContext);
 
-  const setMasterRole = () => {
-    setRole("Dealer");
-    toggleState();
-  };
-
-  const setMemberRole = () => {
-    setRole("Member");
-    toggleState();
-  };
-
-  const toggleAuth = () => {
-    setIsAuth((x) => !x);
-  };
-
-  if (isAuth) {
+  if (MainPageState.isAuth) {
     return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
   }
 
@@ -75,12 +58,8 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         </div>
       </main>
       <div>
-        <Modal open={isOpen} heading="Connect to lobby">
-          <MainPageForm
-            toggleState={toggleState}
-            role={role}
-            toggleAuth={toggleAuth}
-          />
+        <Modal open={MainPageState.openModal} heading="Connect to lobby">
+          <MainPageForm />
         </Modal>
       </div>
     </>

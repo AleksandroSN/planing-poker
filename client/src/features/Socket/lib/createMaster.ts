@@ -1,13 +1,11 @@
-// to do add in callback and call in click
-
 import { Dispatch } from "redux";
 import { SocketMethods, SocketSingleton } from ".";
 import { ChatMessage, Issue, NewPlayer, Player, SocketActions } from "../types";
 
-export const createMaster = async (
+export const CreateMaster = async (
   newPlayer: NewPlayer,
   dispatch: Dispatch
-): Promise<void> => {
+): Promise<Player> => {
   const socket = SocketSingleton.getInstance().getSocket();
   await socket.connect();
   const lobby = await SocketMethods.createNewLobby(socket, newPlayer);
@@ -24,4 +22,5 @@ export const createMaster = async (
   }); // update messages
   // TO DO change game status listener
   // update game setting master listener
+  return lobby.player;
 };
