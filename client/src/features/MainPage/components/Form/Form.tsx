@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { InputText, Button, Switcher } from "../../../../components";
 import { renderUserAvatar, spltName } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
-import { MainPageContext } from "../../lib/context/mainPageContext";
+import { MainPageContext } from "../../lib";
 import "./Form.scss";
 
 export const MainPageForm: FunctionComponent = (): JSX.Element => {

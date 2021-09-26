@@ -1,15 +1,6 @@
 // import { FSA } from "flux-standard-action";
-import { NewPlayer } from "../../../Socket/types";
+import { MainPageStateModel } from "../../types";
 import { MainPageReducerActionType } from "./actions";
-
-interface MainPageState {
-  inputFileLabel: string;
-  avatar: string;
-  newPlayer: NewPlayer | Record<string, never>;
-  isAuth: boolean;
-  role: "Dealer" | "Member" | "Observer" | "";
-  openModal: boolean;
-}
 
 export interface MainPageReducerAction {
   type: MainPageReducerActionType;
@@ -17,18 +8,18 @@ export interface MainPageReducerAction {
 }
 
 export const MainPageReducer = (
-  MainPageState: MainPageState,
+  MainPageState: MainPageStateModel,
   action: MainPageReducerAction
-): MainPageState => {
+): MainPageStateModel => {
   switch (action.type) {
     case MainPageReducerActionType.authorization:
       return {
         ...MainPageState,
-        ...{ isAuth: (action.payload as unknown as MainPageState).isAuth },
+        ...{ isAuth: (action.payload as unknown as MainPageStateModel).isAuth },
       };
     case MainPageReducerActionType.setRole: {
-      const newRole = (action.payload as unknown as MainPageState).role;
-      const toggleModal = (action.payload as unknown as MainPageState)
+      const newRole = (action.payload as unknown as MainPageStateModel).role;
+      const toggleModal = (action.payload as unknown as MainPageStateModel)
         .openModal;
       return {
         ...MainPageState,
@@ -42,22 +33,23 @@ export const MainPageReducer = (
       return {
         ...MainPageState,
         ...{
-          openModal: (action.payload as unknown as MainPageState).openModal,
+          openModal: (action.payload as unknown as MainPageStateModel)
+            .openModal,
         },
       };
     case MainPageReducerActionType.setStrToAvatar:
       return {
         ...MainPageState,
         ...{
-          avatar: (action.payload as unknown as MainPageState).avatar,
+          avatar: (action.payload as unknown as MainPageStateModel).avatar,
         },
       };
     case MainPageReducerActionType.setImgToAvatar:
       return {
         ...MainPageState,
         ...{
-          avatar: (action.payload as unknown as MainPageState).avatar,
-          inputFileLabel: (action.payload as unknown as MainPageState)
+          avatar: (action.payload as unknown as MainPageStateModel).avatar,
+          inputFileLabel: (action.payload as unknown as MainPageStateModel)
             .inputFileLabel,
         },
       };
@@ -65,8 +57,9 @@ export const MainPageReducer = (
       return {
         ...MainPageState,
         ...{
-          openModal: (action.payload as unknown as MainPageState).openModal,
-          isAuth: (action.payload as unknown as MainPageState).isAuth,
+          openModal: (action.payload as unknown as MainPageStateModel)
+            .openModal,
+          isAuth: (action.payload as unknown as MainPageStateModel).isAuth,
         },
       };
     default:
