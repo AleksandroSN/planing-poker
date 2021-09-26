@@ -1,12 +1,12 @@
 import io, { Socket } from "socket.io-client";
+import { BASE_SERVER } from "../../../lib";
 import { SocketActions } from "../types";
-import { IO_SOCKET_HOST } from "./config";
 
 export class SocketAPI {
   socket?: Socket;
 
   connect(): Promise<void> {
-    this.socket = io(IO_SOCKET_HOST);
+    this.socket = io(BASE_SERVER);
     return new Promise<void>((resolve, reject) => {
       this.socket?.on("connect", () => resolve());
       this.socket?.on("connect_error", (error) => reject(error));

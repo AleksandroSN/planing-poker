@@ -1,7 +1,18 @@
+import { BASE_CLIENT, BASE_SERVER } from "./baseHost";
 import { renderUserAvatar } from "./renderAvatar";
 import { findID } from "./findUrlID";
 import { spltName } from "./splitName";
-import { BASE } from "./baseHost";
-import { uploadData } from "./uploadImage";
+import { uploadData } from "./uploadData";
+import { CreateNewFile } from "./createFormData";
+import { uploadImage } from "./uploadImage";
 
-export { renderUserAvatar, findID, spltName, BASE, uploadData };
+export {
+  renderUserAvatar,
+  findID,
+  spltName,
+  uploadData,
+  BASE_SERVER,
+  BASE_CLIENT,
+  CreateNewFile,
+  uploadImage,
+};

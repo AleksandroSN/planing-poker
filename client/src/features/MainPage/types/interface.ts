@@ -4,6 +4,7 @@ import { NewPlayer } from "../../Socket/types";
 export interface MainPageStateModel {
   inputFileLabel: string;
   avatar: string;
+  srcAvatar: string;
   newPlayer: NewPlayer | Record<string, never>;
   isAuth: boolean;
   role: "Dealer" | "Member" | "Observer" | "";

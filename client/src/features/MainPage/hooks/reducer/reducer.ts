@@ -62,6 +62,14 @@ export const MainPageReducer = (
           isAuth: (action.payload as unknown as MainPageStateModel).isAuth,
         },
       };
+    case MainPageReducerActionType.setSrcAvatar:
+      return {
+        ...MainPageState,
+        ...{
+          srcAvatar: (action.payload as unknown as MainPageStateModel)
+            .srcAvatar,
+        },
+      };
     default:
       return MainPageState;
   }

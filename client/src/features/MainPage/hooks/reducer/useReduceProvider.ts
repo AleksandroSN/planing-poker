@@ -1,17 +1,15 @@
 import { useReducer, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import {
-  CreateNewFile,
-  initialStateMainPage,
   MainPageReducer,
+  initialStateMainPage,
   MainPageReducerActionType,
-} from "../lib";
-import { BASE } from "../../../lib";
-import { FormValues } from "../../../types/interface";
-import { NewPlayer } from "../../Socket/types";
-import { CreateMaster } from "../../Socket/lib/createMaster";
-
-import { HandlersMainPageContextModel } from "../types/interface";
+} from ".";
+import { BASE_SERVER, uploadImage } from "../../../../lib";
+import { FormValues } from "../../../../types/interface";
+import { CreateMaster } from "../../../Socket/lib/createMaster";
+import { NewPlayer } from "../../../Socket/types";
+import { HandlersMainPageContextModel } from "../../types";
 
 export const useReducerProvider = (): HandlersMainPageContextModel => {
   const [MainPageState, dispatch] = useReducer(
@@ -63,29 +61,24 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
   }, []);
 
   const submitData = async (data: FormValues) => {
-    const files = data["Choose file"] as FileList;
-    const file = files[0];
-    const fileName = files[0].name;
-    if (files) {
-      const res = await CreateNewFile(file, fileName);
-      const observerRole = data["Connect as Observer"] && "Observer";
-      const player: NewPlayer = {
-        firstName: data["Your first name"],
-        lastName: data["Your last name"],
-        jobPosition: data["Your Job position"],
-        avatarImage: `${BASE}${res[0].path}`,
-        role: observerRole || MainPageState.role,
-      };
-      const socketRes = await CreateMaster(player, reduxDispatch);
-      localStorage.setItem("player", JSON.stringify(socketRes));
-      dispatch({
-        type: MainPageReducerActionType.submitForm,
-        payload: {
-          openModal: !MainPageState.openModal,
-          isAuth: !MainPageState.isAuth,
-        },
-      });
-    }
+    const srcAvatar = await uploadImage(data);
+    const observerRole = data["Connect as Observer"] && "Observer";
+    const player: NewPlayer = {
+      firstName: data["Your first name"],
+      lastName: data["Your last name"],
+      jobPosition: data["Your Job position"],
+      avatarImage: srcAvatar ? `${BASE_SERVER}${srcAvatar.path}` : "",
+      role: observerRole || MainPageState.role,
+    };
+    const socketRes = await CreateMaster(player, reduxDispatch);
+    localStorage.setItem("player", JSON.stringify(socketRes));
+    dispatch({
+      type: MainPageReducerActionType.submitForm,
+      payload: {
+        openModal: !MainPageState.openModal,
+        isAuth: !MainPageState.isAuth,
+      },
+    });
   };
 
   return {

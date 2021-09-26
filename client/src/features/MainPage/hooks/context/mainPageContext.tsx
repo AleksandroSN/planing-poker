@@ -1,13 +1,15 @@
 import { createContext, FunctionComponent } from "react";
-import { useReducerProvider } from "../../hooks";
+// import { handlersMainPageContext } from "../../hooks";
+import { useReducerProvider } from "../reducer/useReduceProvider";
 import {
-  MainPageStateModel,
   HandlersMainPageContextModel,
+  MainPageStateModel,
 } from "../../types/interface";
 
 export const initialStateMainPage: MainPageStateModel = {
   inputFileLabel: "Choose file",
   avatar: "NN",
+  srcAvatar: "",
   newPlayer: {},
   isAuth: false,
   role: "",

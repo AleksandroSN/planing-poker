@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { ReducerProvider } from "../../lib/context/mainPageContext";
+import { ReducerProvider } from "../../hooks/context/mainPageContext";
 import { Layout } from "../Layout";
 import "./style.scss";
 
