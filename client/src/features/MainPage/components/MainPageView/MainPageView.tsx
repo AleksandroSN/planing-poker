@@ -1,11 +1,7 @@
 import { FunctionComponent } from "react";
-import { ReducerProvider } from "../../lib/context/mainPageContext";
+import { ReducerProvider } from "../../lib/context";
 import { Layout } from "../Layout";
 import "./style.scss";
-
-// interface MainPageViewProps {
-//     message?: string;
-// }
 
 export const MainPageView: FunctionComponent = (): JSX.Element => {
   return (

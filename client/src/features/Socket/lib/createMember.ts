@@ -1,14 +1,26 @@
 import { Dispatch } from "redux";
 import { SocketMethods, SocketSingleton } from ".";
-import { ChatMessage, Issue, NewPlayer, Player, SocketActions } from "../types";
+import {
+  ChatMessage,
+  Issue,
+  LobbySetting,
+  NewPlayer,
+  Player,
+  SocketActions,
+} from "../types";
 
-export const createMaster = async (
+export const createMember = async (
   newPlayer: NewPlayer,
+  currentLobby: LobbySetting,
   dispatch: Dispatch
 ): Promise<Player> => {
   const socket = SocketSingleton.getInstance().getSocket();
   await socket.connect();
-  const lobby = await SocketMethods.createNewLobby(socket, newPlayer);
+  const lobby = await SocketMethods.connectToLobby(
+    socket,
+    newPlayer,
+    currentLobby
+  );
   dispatch({ type: "ADD_PLAYER", payload: lobby.player });
   dispatch({ type: "UPDATE_SETTINGS", payload: lobby.initLobbySettings });
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {

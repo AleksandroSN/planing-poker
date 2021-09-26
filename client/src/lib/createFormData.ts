@@ -1,5 +1,5 @@
-import { uploadData } from "../../../lib";
-import { UploadResponse } from "../../../types/interface";
+import { UploadResponse } from "../types/interface";
+import { uploadData } from "./uploadData";
 
 export const CreateNewFile = async (
   file: string | Blob,
