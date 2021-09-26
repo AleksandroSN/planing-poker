@@ -1,5 +1,5 @@
 // import { FSA } from "flux-standard-action";
-import { MainPageStateModel } from "../../types";
+import { MainPageStateModel } from "../../../types";
 import { MainPageReducerActionType } from "./actions";
 
 export interface MainPageReducerAction {
@@ -60,14 +60,6 @@ export const MainPageReducer = (
           openModal: (action.payload as unknown as MainPageStateModel)
             .openModal,
           isAuth: (action.payload as unknown as MainPageStateModel).isAuth,
-        },
-      };
-    case MainPageReducerActionType.setSrcAvatar:
-      return {
-        ...MainPageState,
-        ...{
-          srcAvatar: (action.payload as unknown as MainPageStateModel)
-            .srcAvatar,
         },
       };
     default:

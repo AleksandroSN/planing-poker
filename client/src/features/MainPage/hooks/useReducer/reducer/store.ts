@@ -1,4 +1,7 @@
-import { MainPageStateModel, HandlersMainPageContextModel } from "../../types";
+import {
+  MainPageStateModel,
+  HandlersMainPageContextModel,
+} from "../../../types";
 
 export const initialStateMainPage: MainPageStateModel = {
   inputFileLabel: "Choose file",

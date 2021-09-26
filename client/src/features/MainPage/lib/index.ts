@@ -1,1 +1,1 @@
-export {};
+export { MainPageContext } from "./context";

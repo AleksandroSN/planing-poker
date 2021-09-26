@@ -4,8 +4,8 @@ import {
   MainPageReducer,
   initialStateMainPage,
   MainPageReducerActionType,
-} from ".";
-import { BASE_SERVER, uploadImage } from "../../../../lib";
+} from "./reducer";
+import { uploadImage, BASE_SERVER } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
 import { CreateMaster } from "../../../Socket/lib/createMaster";
 import { NewPlayer } from "../../../Socket/types";

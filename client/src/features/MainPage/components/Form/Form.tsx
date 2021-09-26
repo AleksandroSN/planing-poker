@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FunctionComponent, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { InputText, Button, Switcher } from "../../../../components";
+import { InputText, Switcher, Button } from "../../../../components";
 import { renderUserAvatar, spltName } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
-import { MainPageContext } from "../../hooks/context";
+import { MainPageContext } from "../../lib";
 import "./Form.scss";
 
 export const MainPageForm: FunctionComponent = (): JSX.Element => {
