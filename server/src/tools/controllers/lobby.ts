@@ -1,7 +1,13 @@
 import { Socket } from "socket.io";
 import { LobbySetting, NewPlayer, Player } from "../../types";
 import { v4 as uuidv4 } from "uuid";
-import { createNewPlayer, getPlayerById, setLobbySettings } from "../models";
+import {
+  createNewPlayer,
+  getPlayerById,
+  reconnectPlayer,
+  setLobbySettings,
+  validateLobbyMd,
+} from "../models";
 import { initialLobbySettings } from "../../config/initialization";
 
 export const createNewRoom = async (
@@ -14,7 +20,7 @@ export const createNewRoom = async (
 ): Promise<void> => {
   const newLobby = uuidv4();
   socket.join(newLobby);
-  const player = await createNewPlayer(master, newLobby);
+  const player = await createNewPlayer(master, newLobby, socket.id);
   const initLobbySettings = {
     ...initialLobbySettings,
     lobbyId: newLobby,
@@ -33,6 +39,7 @@ export const reconnectToLobby = async (
   const checkPlaer = await getPlayerById(player.id);
   if (checkPlaer) {
     socket.join(player.lobbyId);
+    reconnectPlayer(player.id, socket.id);
     callback(true);
   } else callback(false);
 };
@@ -48,4 +55,12 @@ export const changeLobbySettings = async (
     callback({ newLobbySettings: lobbySettings });
   } else callback(null);
   socket.to(lobbySettings.lobbyId).emit(emitter, lobbySettings);
+};
+
+export const validateLobby = async (
+  lobbyId: string,
+  callback: (isValidate: boolean) => void
+): Promise<void> => {
+  const isValidate = await validateLobbyMd(lobbyId);
+  callback(isValidate);
 };

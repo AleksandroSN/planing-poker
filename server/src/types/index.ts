@@ -41,7 +41,7 @@ export type LobbySetting = {
   cardValues: string[];
   lobbyId: string;
   masterId: string;
-  appStage: "lobby" | "game";
+  appStage: "lobby" | "game" | "out";
 };
 
 export type ChatMessage = {
@@ -77,4 +77,9 @@ export enum SocketActions {
   NOTIFY_ABOUT_NEW_SETTINGS = "notify about new settings",
   CHANGE_APP_STAGE = "change app stage",
   NOTIFY_ABOUT_APP_STAGE = "notify about app stage",
+  KICK_MEMBER = "kick member",
+  SUGGEST_ALL_TO_KICK_MEMBER = "suggest all to kick member",
+  CONFIRM_TO_KICK_MEMBER = "confirm to kick member",
+  NOTIFY_ABOUT_KICKING_MEMBER = "notify about kicking member",
+  VALIDATE_LOBBY = "validate_lobby",
 }
