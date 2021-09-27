@@ -23,6 +23,7 @@ import {
   getLobbyMembers,
   reconnectToLobby,
   sendChatMessage,
+  validateLobby,
 } from "./tools/controllers";
 import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
@@ -81,6 +82,7 @@ io.on("connection", function (socket: Socket) {
       callback: (response: {
         player: Player;
         initLobbySettings: LobbySetting;
+        allPlayers: Player[];
       }) => void
     ) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
@@ -160,6 +162,18 @@ io.on("connection", function (socket: Socket) {
         callback,
         SocketActions.NOTIFY_ABOUT_APP_STAGE
       );
+    }
+  );
+  socket.on(
+    SocketActions.VALIDATE_LOBBY,
+    async function (lobbyId: string, callback: (isValidate: boolean) => void) {
+      await validateLobby(lobbyId, callback);
+    }
+  );
+  socket.on(
+    SocketActions.KICK_MEMBER,
+    async function (requester: Player, victim: Player) {
+      console.log("KICK_MEMBER");
     }
   );
 });

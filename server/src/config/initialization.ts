@@ -19,3 +19,7 @@ export const initialLobbySettings: InitialLobbySettings = {
   cardValues: [""],
   appStage: "lobby",
 };
+
+export const KICK_VOTING_TIME = 30; // how much time is needed for votig to get any member out
+
+export const ISSUE_VOTING_TIME = 30;
