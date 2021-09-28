@@ -1,14 +1,13 @@
 import { FormValues } from "../../../types/interface";
-import { NewPlayer } from "../../Socket/types";
 
 export interface MainPageStateModel {
   inputFileLabel: string;
   avatar: string;
   srcAvatar: string;
-  newPlayer: NewPlayer | Record<string, never>;
   isAuth: boolean;
   role: "Dealer" | "Member" | "Observer" | "";
   openModal: boolean;
+  openModalError: boolean;
 }
 
 export interface HandlersMainPageContextModel {
@@ -19,5 +18,6 @@ export interface HandlersMainPageContextModel {
   setStrToAvatar: (str: string) => void;
   setImgToAvatar: (img: string, label: string) => void;
   submitData: (data: FormValues) => void;
-  registerMember: (link: string) => void;
+  validateLobby: (link: string) => Promise<void>;
+  toggleErrorModal: () => void;
 }

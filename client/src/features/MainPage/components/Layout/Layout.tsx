@@ -6,6 +6,7 @@ import { MainPageContext } from "../../lib";
 import { MainPageLocationProps } from "./types";
 import { MainPageForm } from "../Form";
 import "./style.scss";
+import { findID } from "../../../../lib";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const lobbyId = useAppSelector(GameSettingsState);
@@ -18,13 +19,19 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     }
   }, [state]);
 
-  const { MainPageState, setMasterRole, registerMember, toggleModal } =
-    useContext(MainPageContext);
+  const {
+    MainPageState,
+    setMasterRole,
+    validateLobby,
+    toggleModal,
+    toggleErrorModal,
+  } = useContext(MainPageContext);
 
   if (MainPageState.isAuth) {
     return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
   }
 
+  console.log(MainPageState);
   return (
     <>
       <main className="content__wrapper">
@@ -55,7 +62,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 onChange={(ev) => setLink(ev.target.value)}
               />
               <Button
-                onClick={() => registerMember(link)}
+                onClick={() => validateLobby(findID(link))}
                 type="button"
                 classes="button-start"
               >
@@ -73,6 +80,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           onCancel={toggleModal}
         >
           <MainPageForm />
+        </Modal>
+        <Modal
+          open={MainPageState.openModalError}
+          heading="LOBBY INVALID"
+          onCancel={toggleErrorModal}
+        >
+          <div> HA !</div>
         </Modal>
       </div>
     </>

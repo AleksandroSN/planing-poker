@@ -7,10 +7,10 @@ export const initialStateMainPage: MainPageStateModel = {
   inputFileLabel: "Choose file",
   avatar: "NN",
   srcAvatar: "",
-  newPlayer: {},
   isAuth: false,
   role: "",
   openModal: false,
+  openModalError: true,
 };
 
 export const handlersMainPageContext: HandlersMainPageContextModel = {
@@ -21,5 +21,6 @@ export const handlersMainPageContext: HandlersMainPageContextModel = {
   setStrToAvatar: () => {},
   setImgToAvatar: () => {},
   submitData: () => {},
-  registerMember: () => {},
+  validateLobby: async () => {},
+  toggleErrorModal: () => {},
 };
