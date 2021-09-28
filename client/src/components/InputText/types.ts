@@ -1,12 +1,26 @@
-import { Path, UseFormRegister } from "react-hook-form";
+import {
+  FieldError,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from "react-hook-form";
 import { FormValues } from "../../types/interface";
 
 export interface InputTextProps {
+  inputProps: InputTextDep;
+  hookForm?: HookFormDep;
+}
+
+export interface InputTextDep {
   labelText: Path<FormValues>;
-  defaultValue: string;
+  defaultValue?: string;
   labelClasses?: string;
   inputClasses?: string;
   isTimer?: boolean;
-  options?: any;
-  register?: UseFormRegister<FormValues>;
+}
+
+export interface HookFormDep {
+  regOptions?: RegisterOptions;
+  isError?: Record<string, FieldError> | undefined;
+  onRegister: UseFormRegister<FormValues>;
 }

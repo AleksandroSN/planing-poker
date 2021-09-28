@@ -15,9 +15,9 @@ const routesList = listRoutes.map(({ path, Component }) => {
 export const RoutesConfig: FunctionComponent = (): JSX.Element => {
   const location = useLocation();
   const transitions = useTransition(location, {
-    from: { opacity: 0, transform: "scale(1.1)" },
-    enter: { opacity: 1, transform: "scale(1)" },
-    leave: { opacity: 0, transform: "scale(0.9)" },
+    from: { opacity: 0, left: -4000 },
+    enter: { opacity: 1, position: "relative", left: 0 },
+    leave: { opacity: 0 },
   });
   return transitions((styles, item) => (
     <animated.div style={styles}>

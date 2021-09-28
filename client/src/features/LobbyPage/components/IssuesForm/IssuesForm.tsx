@@ -1,44 +1,56 @@
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { Button, InputSelect, InputText } from "../../../../components";
+import { InputSelect, InputText } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import { IssueFormHelper } from "./issueFormHelper";
 import "./style.scss";
 
 export const IssuesForm: FunctionComponent = (): JSX.Element => {
-  const { addNewIssue, updateIssue, clearIssue, currentIssue } =
-    IssueFormHelper();
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { addNewIssue, updateIssue, currentIssue } = IssueFormHelper();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   return (
     <form
+      id="issue-form"
       onSubmit={
         currentIssue ? handleSubmit(updateIssue) : handleSubmit(addNewIssue)
       }
     >
       <InputText
-        labelText="Title"
-        register={register}
-        defaultValue={currentIssue ? currentIssue.title : ""}
+        inputProps={{
+          labelText: "Title",
+          defaultValue: `${currentIssue ? currentIssue.title : ""}`,
+        }}
+        hookForm={{
+          onRegister: register,
+        }}
       />
       <InputText
-        labelText="Link"
-        register={register}
-        defaultValue={currentIssue ? currentIssue.link : ""}
+        inputProps={{
+          labelText: "Link",
+          defaultValue: `${currentIssue ? currentIssue.link : ""}`,
+        }}
+        hookForm={{
+          onRegister: register,
+          regOptions: {
+            pattern: {
+              value:
+                /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i,
+              message: "Link only",
+            },
+          },
+          isError: errors,
+        }}
       />
       <InputSelect
         labelText="Priority"
         register={register}
         defaultValue={currentIssue ? currentIssue.priority : ""}
       />
-      <div className="modal-buttons">
-        <Button type="submit" classes="button-start">
-          Yes
-        </Button>
-        <Button onClick={clearIssue} type="button" classes="button-cancel">
-          No
-        </Button>
-      </div>
     </form>
   );
 };

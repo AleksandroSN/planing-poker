@@ -18,7 +18,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     }
   }, [state]);
 
-  const { MainPageState, setMasterRole, registerMember } =
+  const { MainPageState, setMasterRole, registerMember, toggleModal } =
     useContext(MainPageContext);
 
   if (MainPageState.isAuth) {
@@ -66,7 +66,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         </div>
       </main>
       <div>
-        <Modal open={MainPageState.openModal} heading="Connect to lobby">
+        <Modal
+          idForm="main-form"
+          open={MainPageState.openModal}
+          heading="Connect to lobby"
+          onCancel={toggleModal}
+        >
           <MainPageForm />
         </Modal>
       </div>

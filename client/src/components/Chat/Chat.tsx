@@ -20,7 +20,7 @@ export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
   return (
     <div className="chat">
       {messages}
-      <InputText labelText="" defaultValue="" />
+      <InputText inputProps={{ labelText: "" }} />
     </div>
   );
 };
