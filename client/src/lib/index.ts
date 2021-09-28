@@ -5,6 +5,8 @@ import { spltName } from "./splitName";
 import { uploadData } from "./uploadData";
 import { CreateNewFile } from "./createFormData";
 import { uploadImage } from "./uploadImage";
+import { dictErrors } from "./inputErrorMessages";
+import { checkAuth } from "./checkAuth";
 
 export {
   renderUserAvatar,
@@ -15,4 +17,6 @@ export {
   BASE_CLIENT,
   CreateNewFile,
   uploadImage,
+  dictErrors,
+  checkAuth,
 };

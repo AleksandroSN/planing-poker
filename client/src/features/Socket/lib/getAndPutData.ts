@@ -75,3 +75,15 @@ export const connectToLobby = async (
   ) as Promise<LobbyResponse>;
   return promise;
 };
+
+export const validateLobby = async (
+  lobbyID: string,
+  socket: SocketAPI
+): Promise<boolean> => {
+  const promise = socket.emit(
+    SocketActions.VALIDATE_LOBBY,
+    [lobbyID],
+    true
+  ) as Promise<boolean>;
+  return promise;
+};

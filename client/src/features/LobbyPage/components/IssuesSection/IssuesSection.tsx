@@ -3,10 +3,12 @@ import { Modal } from "../../../../components";
 import { IssueContext } from "../../lib/context/issueContext";
 import { Issue } from "../IssueItem/Issue";
 import { IssuesForm } from "../IssuesForm";
+import { IssueFormHelper } from "../IssuesForm/issueFormHelper";
 import "./issueSection.scss";
 
 export const IssuesSection: FunctionComponent = (): JSX.Element => {
   const { issues, isOpen, currentIssue } = useContext(IssueContext);
+  const { clearIssue } = IssueFormHelper();
   const renderIssues = issues.map(({ id, title, link, priority }) => {
     return (
       <Issue
@@ -27,6 +29,10 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
     <>
       <Modal
         open={isOpen}
+        idForm="issue-form"
+        onCancel={clearIssue}
+        buttonTextConfirm={currentIssue ? `Update` : "Create"}
+        buttonTextCancel="Cancel"
         heading={
           currentIssue
             ? `Update Issue ${currentIssue.title}`

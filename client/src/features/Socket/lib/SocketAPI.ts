@@ -19,9 +19,11 @@ export class SocketAPI {
 
   emit(event: SocketActions, data: any[], isAckn: boolean): Promise<unknown> {
     if (isAckn) {
-      return new Promise<unknown>((resolve) => {
+      return new Promise<unknown>((resolve, reject) => {
         this.socket?.emit(event, ...data, (response: unknown) => {
-          if (response) resolve(response);
+          if (response) {
+            resolve(response);
+          } else reject(new Error("bad response from Sockets"));
         });
       });
     }

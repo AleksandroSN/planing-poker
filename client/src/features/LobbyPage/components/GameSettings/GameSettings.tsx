@@ -30,11 +30,13 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
           id="switcherBox3"
           labelText="Is timer needed"
         />
-        <InputText labelText="Score type" defaultValue="" register={register} />
         <InputText
-          labelText="Score type (Short)"
-          defaultValue=""
-          register={register}
+          inputProps={{ labelText: "Score type" }}
+          hookForm={{ onRegister: register }}
+        />
+        <InputText
+          inputProps={{ labelText: "Score type (Short)" }}
+          hookForm={{ onRegister: register }}
         />
         <AnimeMount mount={isTimerNeed} classes="game-settings__timer">
           <p className="timer__text">Round time:</p>

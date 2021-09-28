@@ -3,6 +3,15 @@
 
 .input-text {
   margin-bottom: 15px;
+  position: relative;
+
+  &__error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 5px;
+    position: absolute;
+    right: 0;
+  }
 
   &__label {
     display: flex;

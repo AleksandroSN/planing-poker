@@ -62,6 +62,14 @@ export const MainPageReducer = (
           isAuth: (action.payload as unknown as MainPageStateModel).isAuth,
         },
       };
+    case MainPageReducerActionType.validateLobby:
+      return {
+        ...MainPageState,
+        ...{
+          openModalError: (action.payload as unknown as MainPageStateModel)
+            .openModalError,
+        },
+      };
     default:
       return MainPageState;
   }

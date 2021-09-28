@@ -1,33 +1,36 @@
 import { FunctionComponent } from "react";
 import { InputTextProps } from "./types";
+import { handlerErrors } from "./inputTextHelper";
 import "./inputText.scss";
 
 export const InputText: FunctionComponent<InputTextProps> = ({
-  labelText,
-  defaultValue,
-  inputClasses,
-  labelClasses,
-  isTimer,
-  options,
-  register,
+  inputProps,
+  hookForm,
 }: InputTextProps): JSX.Element => {
+  const errors = handlerErrors({ hookForm, inputProps });
   return (
     <div className="input-text">
+      {errors}
       <label
         htmlFor="inputText"
-        className={labelClasses || "input-text__label"}
+        className={inputProps.labelClasses || "input-text__label"}
       >
-        {labelText} :
+        {inputProps.labelText} :
         <input
           type="text"
           id="inputText"
-          className={inputClasses || "input-text__input"}
-          defaultValue={defaultValue}
-          disabled={isTimer || false}
+          className={inputProps.inputClasses || "input-text__input"}
+          defaultValue={inputProps.defaultValue}
+          disabled={inputProps.isTimer || false}
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register!(labelText, options)}
+          {...hookForm!.onRegister(inputProps.labelText, hookForm!.regOptions)}
         />
       </label>
     </div>
   );
 };
+
+//   {
+//   ...hookForm!.regOptions,
+//   pattern: hookForm?.regOptions?.pattern || /^[A-Za-z]+$/i,
+// }

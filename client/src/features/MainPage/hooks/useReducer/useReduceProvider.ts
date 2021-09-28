@@ -12,6 +12,7 @@ import { NewPlayer, Player } from "../../../Socket/types";
 import { HandlersMainPageContextModel } from "../../types";
 import { useAppSelector, GameSettingsState } from "../../../../redux/store";
 import { createMember } from "../../../Socket/lib/createMember";
+import { checkValidityLobby } from "../../../Socket/lib/checkValidityLobby";
 
 export const useReducerProvider = (): HandlersMainPageContextModel => {
   const [MainPageState, dispatch] = useReducer(
@@ -83,7 +84,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
       role: observerRole || MainPageState.role,
     };
     const socketRes = await createPlayer(player);
-    localStorage.setItem("player", JSON.stringify(socketRes));
+    sessionStorage.setItem("player", JSON.stringify(socketRes));
     dispatch({
       type: MainPageReducerActionType.submitForm,
       payload: {
@@ -93,26 +94,33 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   };
 
-  const validateLobby = (link: string) => {
-    // send value to server
-    reduxDispatch({ type: "UPDATE_SETTINGS", payload: { lobbyId: link } });
+  const toggleErrorModal = () => {
+    dispatch({
+      type: MainPageReducerActionType.validateLobby,
+      payload: {
+        openModalError: !MainPageState.openModalError,
+      },
+    });
   };
-
-  const registerMember = (link: string) => {
-    setMemberRole();
-    validateLobby(link);
+  const validateLobby = async (link: string) => {
+    const isValid = await checkValidityLobby(link);
+    if (isValid) {
+      reduxDispatch({ type: "UPDATE_SETTINGS", payload: { lobbyId: link } });
+      setMemberRole();
+    } else {
+      toggleErrorModal();
+    }
   };
 
   return {
     MainPageState,
     setMasterRole,
-    setMemberRole,
     toggleModal,
     toggleAuth,
     setStrToAvatar,
     setImgToAvatar,
     submitData,
     validateLobby,
-    registerMember,
+    toggleErrorModal,
   };
 };

@@ -1,11 +1,12 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { GameSettingsState, useAppSelector } from "../../../../redux/store";
-import { Button, Modal } from "../../../../components";
+import { Button, ErrorWindow, Modal } from "../../../../components";
 import { MainPageContext } from "../../lib";
 import { MainPageLocationProps } from "./types";
 import { MainPageForm } from "../Form";
 import "./style.scss";
+import { findID } from "../../../../lib";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const lobbyId = useAppSelector(GameSettingsState);
@@ -18,8 +19,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     }
   }, [state]);
 
-  const { MainPageState, setMasterRole, registerMember } =
-    useContext(MainPageContext);
+  const {
+    MainPageState,
+    setMasterRole,
+    validateLobby,
+    toggleModal,
+    toggleErrorModal,
+  } = useContext(MainPageContext);
 
   if (MainPageState.isAuth) {
     return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
@@ -55,7 +61,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 onChange={(ev) => setLink(ev.target.value)}
               />
               <Button
-                onClick={() => registerMember(link)}
+                onClick={() => validateLobby(findID(link))}
                 type="button"
                 classes="button-start"
               >
@@ -66,12 +72,26 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         </div>
       </main>
       <div>
-        <Modal open={MainPageState.openModal} heading="Connect to lobby">
+        <Modal
+          idForm="main-form"
+          open={MainPageState.openModal}
+          heading="Connect to lobby"
+          onCancel={toggleModal}
+          buttonTextConfirm="Confirm"
+          buttonTextCancel="Cancel"
+        >
           <MainPageForm />
+        </Modal>
+        <Modal
+          open={MainPageState.openModalError}
+          heading="LOBBY INVALID"
+          onCancel={toggleErrorModal}
+          buttonTextCancel="Close"
+          buttonTextConfirm="Close"
+        >
+          <ErrorWindow message="Please enter an existing room id" />
         </Modal>
       </div>
     </>
   );
 };
-
-// onClick =>1. send value to validate + 2.if succces => 2.1 dispatch data(lobbyId, role, openModal) else open error window

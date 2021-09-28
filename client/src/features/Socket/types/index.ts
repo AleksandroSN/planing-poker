@@ -10,6 +10,18 @@ export enum SocketActions {
   RECONNECT_TO_LOBBY = "reconnect to lobby",
   RECIEVE_NEW_MESSAGE = "recieve new message",
   NOTIFY_ABOUT_NEW_MEMBER = "notify about new member",
+  MANAGE_TIMER = "manage timer",
+  TIK_TAK = "tik tak",
+  TIMER_IS_STOPPED = "timer is stoped",
+  UPDATE_SETTINGS = "update settings",
+  NOTIFY_ABOUT_NEW_SETTINGS = "notify about new settings",
+  CHANGE_APP_STAGE = "change app stage",
+  NOTIFY_ABOUT_APP_STAGE = "notify about app stage",
+  KICK_MEMBER = "kick member",
+  SUGGEST_ALL_TO_KICK_MEMBER = "suggest all to kick member",
+  CONFIRM_TO_KICK_MEMBER = "confirm to kick member",
+  NOTIFY_ABOUT_KICKING_MEMBER = "notify about kicking member",
+  VALIDATE_LOBBY = "validate_lobby",
 }
 
 export type Player = {
