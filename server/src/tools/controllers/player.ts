@@ -20,6 +20,7 @@ export const addNewTeamMember = async (
   const initLobbySettings = (await getLobbySettings(
     player.lobbyId
   )) as LobbySetting;
+  // return { player , initLobbySeetings } || null
   callback({ player, initLobbySettings });
   socket.to(lobbyId).emit(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, player);
 };

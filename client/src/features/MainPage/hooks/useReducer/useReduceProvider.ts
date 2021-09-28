@@ -106,13 +106,13 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
   return {
     MainPageState,
     setMasterRole,
-    setMemberRole,
+    // setMemberRole,
     toggleModal,
     toggleAuth,
     setStrToAvatar,
     setImgToAvatar,
     submitData,
-    validateLobby,
+    // validateLobby,
     registerMember,
   };
 };

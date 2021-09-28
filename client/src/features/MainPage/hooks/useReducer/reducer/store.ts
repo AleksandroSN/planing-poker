@@ -16,12 +16,10 @@ export const initialStateMainPage: MainPageStateModel = {
 export const handlersMainPageContext: HandlersMainPageContextModel = {
   MainPageState: initialStateMainPage,
   setMasterRole: () => {},
-  setMemberRole: () => {},
   toggleModal: () => {},
   toggleAuth: () => {},
   setStrToAvatar: () => {},
   setImgToAvatar: () => {},
   submitData: () => {},
-  validateLobby: () => {},
   registerMember: () => {},
 };
