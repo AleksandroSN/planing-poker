@@ -4,16 +4,27 @@ import { Switch, useLocation } from "react-router-dom";
 import { listRoutes } from "./listRoutes";
 import { PrivateRoutes } from "./privateRoute";
 import { PublicRoutes } from "./publicRoute";
-
-const routesList = listRoutes.map(({ path, Component }) => {
-  if (path === "/" || path === "*") {
-    return <PublicRoutes path={path} Component={Component} exact />;
-  }
-  return <PrivateRoutes path={path} Component={Component} />;
-});
+import { findID, checkAuth } from "../lib";
 
 export const RoutesConfig: FunctionComponent = (): JSX.Element => {
   const location = useLocation();
+  const idGame = findID(location.pathname);
+  const isLogin = checkAuth(idGame);
+
+  const routesList = listRoutes.map(({ path, Component }) => {
+    if (path === "/" || path === "*") {
+      return <PublicRoutes path={path} Component={Component} exact />;
+    }
+    return (
+      <PrivateRoutes
+        path={path}
+        Component={Component}
+        isLogin={isLogin}
+        idGame={idGame}
+      />
+    );
+  });
+
   const transitions = useTransition(location, {
     from: { opacity: 0, left: -4000 },
     enter: { opacity: 1, position: "relative", left: 0 },

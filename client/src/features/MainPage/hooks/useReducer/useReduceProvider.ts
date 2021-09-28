@@ -84,7 +84,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
       role: observerRole || MainPageState.role,
     };
     const socketRes = await createPlayer(player);
-    localStorage.setItem("player", JSON.stringify(socketRes));
+    sessionStorage.setItem("player", JSON.stringify(socketRes));
     dispatch({
       type: MainPageReducerActionType.submitForm,
       payload: {

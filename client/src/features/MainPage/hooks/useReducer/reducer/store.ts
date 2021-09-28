@@ -10,7 +10,7 @@ export const initialStateMainPage: MainPageStateModel = {
   isAuth: false,
   role: "",
   openModal: false,
-  openModalError: true,
+  openModalError: false,
 };
 
 export const handlersMainPageContext: HandlersMainPageContextModel = {

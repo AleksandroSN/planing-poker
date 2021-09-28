@@ -6,6 +6,7 @@ import { uploadData } from "./uploadData";
 import { CreateNewFile } from "./createFormData";
 import { uploadImage } from "./uploadImage";
 import { dictErrors } from "./inputErrorMessages";
+import { checkAuth } from "./checkAuth";
 
 export {
   renderUserAvatar,
@@ -17,4 +18,5 @@ export {
   CreateNewFile,
   uploadImage,
   dictErrors,
+  checkAuth,
 };

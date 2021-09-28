@@ -8,10 +8,12 @@ import { Timer } from "./Timer";
 import { User } from "./User";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { ErrorWindow } from "./ErrorWindow";
 
 export {
   Button,
   Chat,
+  ErrorWindow,
   InputSelect,
   InputText,
   Modal,

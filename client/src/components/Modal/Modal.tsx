@@ -9,6 +9,8 @@ interface ModalProps {
   open: boolean;
   heading: string;
   children: JSX.Element;
+  buttonTextConfirm: string;
+  buttonTextCancel: string;
 }
 
 const portalDiv = document.getElementById("portal") as HTMLElement;
@@ -19,6 +21,8 @@ export const Modal: FunctionComponent<ModalProps> = ({
   open,
   children,
   heading,
+  buttonTextConfirm,
+  buttonTextCancel,
 }): JSX.Element => {
   if (!open) return null as never;
   return ReactDOM.createPortal(
@@ -31,10 +35,10 @@ export const Modal: FunctionComponent<ModalProps> = ({
           <main>{children}</main>
           <div className="modal-buttons">
             <Button idForm={idForm} classes="button-start" type="submit">
-              Confirm
+              {buttonTextConfirm}
             </Button>
             <Button type="button" onClick={onCancel} classes="button-cancel">
-              Cancel
+              {buttonTextCancel}
             </Button>
           </div>
         </article>

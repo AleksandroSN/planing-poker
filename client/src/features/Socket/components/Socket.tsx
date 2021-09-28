@@ -16,10 +16,14 @@ export const Socket = (): JSX.Element => {
 
   useEffect(() => {
     (async () => {
-      if (localStorage.player) {
+      if (sessionStorage.player) {
         dispatch({ type: "IS_LOADING_DATA", payload: true });
 
-        const localPlayer = JSON.parse(localStorage.player) as Player;
+        const localPlayer = JSON.parse(sessionStorage.player) as Player;
+        dispatch({
+          type: "UPDATE_SETTINGS",
+          payload: { lobbyId: localPlayer.lobbyId },
+        });
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {

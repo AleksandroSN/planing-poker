@@ -1,7 +1,7 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { GameSettingsState, useAppSelector } from "../../../../redux/store";
-import { Button, Modal } from "../../../../components";
+import { Button, ErrorWindow, Modal } from "../../../../components";
 import { MainPageContext } from "../../lib";
 import { MainPageLocationProps } from "./types";
 import { MainPageForm } from "../Form";
@@ -31,7 +31,6 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     return <Redirect to={`lobby/${lobbyId.lobbyId}`} />;
   }
 
-  console.log(MainPageState);
   return (
     <>
       <main className="content__wrapper">
@@ -78,6 +77,8 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           open={MainPageState.openModal}
           heading="Connect to lobby"
           onCancel={toggleModal}
+          buttonTextConfirm="Confirm"
+          buttonTextCancel="Cancel"
         >
           <MainPageForm />
         </Modal>
@@ -85,12 +86,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           open={MainPageState.openModalError}
           heading="LOBBY INVALID"
           onCancel={toggleErrorModal}
+          buttonTextCancel="Close"
+          buttonTextConfirm="Close"
         >
-          <div> HA !</div>
+          <ErrorWindow message="Please enter an existing room id" />
         </Modal>
       </div>
     </>
   );
 };
-
-// onClick =>1. send value to validate + 2.if succces => 2.1 dispatch data(lobbyId, role, openModal) else open error window
