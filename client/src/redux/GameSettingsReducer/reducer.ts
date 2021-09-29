@@ -1,7 +1,7 @@
 import { FluxStandardAction } from "flux-standard-action";
 import { GameSettingsActions } from "./actions";
 
-interface GameSettingsState {
+export interface GameSettingsState {
   masterIsPlayer: boolean;
   isTimerNeed: boolean;
   changingCardInRoundEnd: boolean;

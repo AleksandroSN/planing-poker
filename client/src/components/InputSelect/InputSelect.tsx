@@ -5,7 +5,7 @@ import "./inputSelect.scss";
 export const InputSelect: FunctionComponent<InputSelectProps> = ({
   labelText,
   defaultValue,
-  register,
+  onRegister,
 }: InputSelectProps): JSX.Element => {
   return (
     <div className="input-select">
@@ -16,7 +16,7 @@ export const InputSelect: FunctionComponent<InputSelectProps> = ({
           className="input-select__input"
           defaultValue={defaultValue}
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register!(labelText!)}
+          {...onRegister(labelText)}
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>

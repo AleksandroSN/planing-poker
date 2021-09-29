@@ -76,14 +76,18 @@ export const connectToLobby = async (
   return promise;
 };
 
+export type ValidateResponse = {
+  isValidate: boolean;
+};
+
 export const validateLobby = async (
   lobbyID: string,
   socket: SocketAPI
-): Promise<boolean> => {
+): Promise<ValidateResponse> => {
   const promise = socket.emit(
     SocketActions.VALIDATE_LOBBY,
     [lobbyID],
     true
-  ) as Promise<boolean>;
+  ) as Promise<ValidateResponse>;
   return promise;
 };

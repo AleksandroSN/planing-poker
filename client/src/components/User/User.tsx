@@ -2,15 +2,7 @@ import { FunctionComponent } from "react";
 import { renderUserAvatar } from "../../lib";
 import { userClassesHelper } from "./userHelper";
 import "./user.scss";
-
-interface UserProps {
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  jobPosition: string;
-  isYou: boolean;
-  isChat: boolean;
-}
+import { UserProps } from "./types";
 
 export const User: FunctionComponent<UserProps> = ({
   firstName,

@@ -4,5 +4,5 @@ import { FormValues } from "../../types/interface";
 export interface InputSelectProps {
   labelText: Path<FormValues>;
   defaultValue?: string;
-  register: UseFormRegister<FormValues>;
+  onRegister: UseFormRegister<FormValues>;
 }

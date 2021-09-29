@@ -48,7 +48,7 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
       />
       <InputSelect
         labelText="Priority"
-        register={register}
+        onRegister={register}
         defaultValue={currentIssue ? currentIssue.priority : ""}
       />
     </form>

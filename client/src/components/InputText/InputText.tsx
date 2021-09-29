@@ -23,7 +23,9 @@ export const InputText: FunctionComponent<InputTextProps> = ({
           defaultValue={inputProps.defaultValue}
           disabled={inputProps.isTimer || false}
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...hookForm!.onRegister(inputProps.labelText, hookForm!.regOptions)}
+          {...(hookForm && {
+            ...hookForm.onRegister(inputProps.labelText, hookForm.regOptions),
+          })}
         />
       </label>
     </div>
