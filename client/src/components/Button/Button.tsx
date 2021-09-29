@@ -1,13 +1,6 @@
 import { FunctionComponent } from "react";
 import "./Button.scss";
-
-interface ButtonProps {
-  type: "button" | "submit" | "reset";
-  onClick?: () => void;
-  classes?: string | undefined;
-  idForm?: string;
-  children: React.ReactNode;
-}
+import { ButtonProps } from "./types";
 
 export const Button: FunctionComponent<ButtonProps> = ({
   children,

@@ -13,10 +13,13 @@ export const RoutesConfig: FunctionComponent = (): JSX.Element => {
 
   const routesList = listRoutes.map(({ path, Component }) => {
     if (path === "/" || path === "*") {
-      return <PublicRoutes path={path} Component={Component} exact />;
+      return (
+        <PublicRoutes key={path} path={path} Component={Component} exact />
+      );
     }
     return (
       <PrivateRoutes
+        key={path}
         path={path}
         Component={Component}
         isLogin={isLogin}

@@ -2,16 +2,7 @@ import { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 import { Button } from "../Button";
 import "./style.scss";
-
-interface ModalProps {
-  idForm?: string;
-  onCancel: () => void;
-  open: boolean;
-  heading: string;
-  children: JSX.Element;
-  buttonTextConfirm: string;
-  buttonTextCancel: string;
-}
+import { ModalProps } from "./types";
 
 const portalDiv = document.getElementById("portal") as HTMLElement;
 

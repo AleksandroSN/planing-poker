@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FunctionComponent } from "react";
 import "./Footer.scss";
 
-const Footer: FC = (): JSX.Element => {
+const Footer: FunctionComponent = (): JSX.Element => {
   return (
     <footer className="App-footer">
       <div className="App-footer__wrapper">
