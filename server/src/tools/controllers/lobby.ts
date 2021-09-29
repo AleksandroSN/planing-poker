@@ -59,8 +59,8 @@ export const changeLobbySettings = async (
 
 export const validateLobby = async (
   lobbyId: string,
-  callback: (isValidate: boolean) => void
+  callback: (response: { isValidate: boolean }) => void
 ): Promise<void> => {
   const isValidate = await validateLobbyMd(lobbyId);
-  callback(isValidate);
+  callback({ isValidate });
 };
