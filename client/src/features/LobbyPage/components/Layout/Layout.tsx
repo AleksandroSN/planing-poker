@@ -54,7 +54,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   type="button"
                   onClick={() =>
                     navigator.clipboard.writeText(
-                      `${window.location.href}/aasss`
+                      `${window.location.href}/aasss` // Fix bug with location
                     )
                   }
                   classes="copy-link__button"
