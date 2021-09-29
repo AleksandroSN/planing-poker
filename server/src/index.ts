@@ -166,7 +166,7 @@ io.on("connection", function (socket: Socket) {
   );
   socket.on(
     SocketActions.VALIDATE_LOBBY,
-    async function (lobbyId: string, callback: (isValidate: boolean) => void) {
+    async function (lobbyId: string, callback: (response: {isValidate: boolean}) => void) {
       await validateLobby(lobbyId, callback);
     }
   );
