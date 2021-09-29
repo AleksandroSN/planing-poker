@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { GameSettings, Issues } from "..";
 import { Button, InputText } from "../../../../components";
@@ -10,6 +10,7 @@ import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
 import "./style.scss";
 
+// TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMaster, setIsMaster] = useState(true);
@@ -43,7 +44,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             <div className="start-game__block">
               <div className="link__block">
                 <InputText
-                  defaultValue={`${location.pathname}/aasss`}
+                  defaultValue={`${window.location.href}`}
                   register={register}
                   labelText="Link:"
                   inputClasses="lobby-page-link__input"
@@ -52,7 +53,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 <Button
                   type="button"
                   onClick={() =>
-                    navigator.clipboard.writeText(`${location.pathname}/aasss`)
+                    navigator.clipboard.writeText(
+                      `${window.location.href}/aasss`
+                    )
                   }
                   classes="copy-link__button"
                 >
