@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   createNewPlayer,
   getPlayerById,
-  reconnectPlayer,
   setLobbySettings,
   validateLobbyMd,
 } from "../models";
@@ -20,7 +19,7 @@ export const createNewRoom = async (
 ): Promise<void> => {
   const newLobby = uuidv4();
   socket.join(newLobby);
-  const player = await createNewPlayer(master, newLobby, socket.id);
+  const player = await createNewPlayer(master, newLobby);
   const initLobbySettings = {
     ...initialLobbySettings,
     lobbyId: newLobby,
@@ -39,7 +38,6 @@ export const reconnectToLobby = async (
   const checkPlaer = await getPlayerById(player.id);
   if (checkPlaer) {
     socket.join(player.lobbyId);
-    reconnectPlayer(player.id, socket.id);
     callback(true);
   } else callback(false);
 };
