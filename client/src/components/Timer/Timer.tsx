@@ -22,7 +22,7 @@ export const Timer: FunctionComponent<TimerProps> = ({
               defaultValue: `${time && time[0]}`,
               inputClasses: "timer__input text-bold text-xxl",
               labelClasses: "timer__label text-bold text-s",
-              isTimer,
+              isDisabled: true,
             }}
             hookForm={{ onRegister: register }}
           />
@@ -35,7 +35,7 @@ export const Timer: FunctionComponent<TimerProps> = ({
               defaultValue: `${time && time[1]}`,
               inputClasses: "timer__input text-bold text-xxl",
               labelClasses: "timer__label text-bold text-s",
-              isTimer,
+              isDisabled: true,
             }}
             hookForm={{ onRegister: register }}
           />
