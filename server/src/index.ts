@@ -28,6 +28,7 @@ import {
 import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
 import { routerFiles } from "./tools/controllers/router-file";
+import { kickDb } from "./tools/kick-voting";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -60,6 +61,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 const timers = timersDb(io);
+
+const kickVoting = kickDb(io);
 
 io.on("connection", function (socket: Socket) {
   socket.on(
@@ -172,8 +175,21 @@ io.on("connection", function (socket: Socket) {
   );
   socket.on(
     SocketActions.KICK_MEMBER,
-    async function (requester: Player, victim: Player) {
-      console.log("KICK_MEMBER");
+    async function (
+      requester: Player,
+      victim: Player,
+      callback: (response: { isStarted: boolean; message: string }) => void
+    ) {
+      kickVoting.kickMember(requester, victim, callback);
+    }
+  );
+  socket.on(
+    SocketActions.CONFIRM_TO_KICK_MEMBER,
+    async function (
+      player: Player,
+      callback: (response: { isVoted: boolean; message: string }) => void
+    ) {
+      kickVoting.voteForKicking(player, callback);
     }
   );
 });

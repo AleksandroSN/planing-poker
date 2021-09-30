@@ -13,8 +13,7 @@ export const getPlayerById = (playerId: string): Promise<Player | false> => {
 
 export const createNewPlayer = (
   newPlayer: NewPlayer,
-  lobbyId: string,
-  socketId: string
+  lobbyId: string
 ): Promise<Player> => {
   const player = {
     ...newPlayer,
@@ -22,19 +21,17 @@ export const createNewPlayer = (
     lobbyId,
   };
   db.players.push(player);
-  db.sockets.set(player.id, socketId);
   return Promise.resolve(player);
 };
 
 export const deletePlayer = (playerId: string): Promise<Player | false> => {
-  db.sockets.delete(playerId);
   return deleteSmth(playerId, db.players);
 };
 
-export const reconnectPlayer = (
-  playerId: string,
-  socketId: string
-): Promise<void> => {
-  db.sockets.set(playerId, socketId);
-  return Promise.resolve();
+export const getPlayersQtyInLobby = (lobbyId: string): Promise<number> => {
+  const qty = db.players.reduce((ret, itm) => {
+    if (itm.lobbyId === lobbyId) ret += 1;
+    return ret;
+  }, 0);
+  return Promise.resolve(qty);
 };

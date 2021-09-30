@@ -4,7 +4,7 @@ export type Player = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: "Dealer" | "Member" | "Observer" | "";
   lobbyId: string;
 };
 
@@ -13,7 +13,7 @@ export type NewPlayer = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string;
+  role: "Dealer" | "Member" | "Observer" | "";
 };
 
 export type Issue = {

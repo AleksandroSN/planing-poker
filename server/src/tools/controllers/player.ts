@@ -17,7 +17,7 @@ export const addNewTeamMember = async (
   }) => void
 ): Promise<void> => {
   socket.join(lobbyId);
-  const player = await createNewPlayer(teamMember, lobbyId, socket.id);
+  const player = await createNewPlayer(teamMember, lobbyId);
   const initLobbySettings = (await getLobbySettings(
     player.lobbyId
   )) as LobbySetting;

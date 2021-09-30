@@ -8,12 +8,9 @@ const lobbySettings: Map<string, LobbySetting> = new Map();
 
 const chatMessages: ChatMessage[] = [];
 
-const sockets: Map<string, string> = new Map();
-
 export const db = {
   players,
   issues,
   lobbySettings,
   chatMessages,
-  sockets,
 };
