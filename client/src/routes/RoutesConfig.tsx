@@ -34,8 +34,8 @@ export const RoutesConfig: FunctionComponent = (): JSX.Element => {
     leave: { opacity: 0 },
   });
   return transitions((styles, item) => (
-    <animated.div style={styles}>
+    <animated.main style={styles} className="App-main">
       <Switch location={item}>{routesList}</Switch>
-    </animated.div>
+    </animated.main>
   ));
 };

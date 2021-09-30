@@ -18,9 +18,15 @@ export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
     return <ChatRow message={mes} />;
   });
   return (
-    <div className="chat">
+    <form className="chat">
       {messages}
-      <InputText inputProps={{ labelText: "" }} />
-    </div>
+      <InputText
+        inputProps={{
+          labelText: "",
+          labelClasses: "input-text__label chat__label",
+          inputClasses: "input-text__input chat__input",
+        }}
+      />
+    </form>
   );
 };

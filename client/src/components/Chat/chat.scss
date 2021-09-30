@@ -16,5 +16,18 @@
     padding: 10px 5px;
     box-shadow: $mainShadow;
     border-radius: 4px;
+    word-break: break-word;
+  }
+
+  &__label {
+    font-size: 0;
+  }
+
+  &__input {
+    width: 100%;
+    border-width: 0;
+    box-shadow: $mainShadow;
+    padding: 10px;
+    font-size: 1rem;
   }
 }

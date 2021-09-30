@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import { GameSettingsProps } from "./types";
 import { InputText, Switcher, Timer } from "../../../../components";
-import { AnimeMount } from "../../lib";
+import { AnimeTimerMount } from "../../lib";
 import "./gameSettings.scss";
 
 export const GameSettings: FunctionComponent<GameSettingsProps> = ({
@@ -38,10 +38,10 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
           inputProps={{ labelText: "Score type (Short)" }}
           hookForm={{ onRegister: register }}
         />
-        <AnimeMount mount={isTimerNeed} classes="game-settings__timer">
+        <AnimeTimerMount mount={isTimerNeed} classes="game-settings__timer">
           <p className="timer__text">Round time:</p>
           <Timer isSettings register={register} isTimer={false} />
-        </AnimeMount>
+        </AnimeTimerMount>
       </div>
     </>
   );
