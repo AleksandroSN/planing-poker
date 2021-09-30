@@ -16,7 +16,7 @@ export interface InputTextDep {
   defaultValue?: string;
   labelClasses?: string;
   inputClasses?: string;
-  isTimer?: boolean;
+  isDisabled?: boolean;
 }
 
 export interface HookFormDep {

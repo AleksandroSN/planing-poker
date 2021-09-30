@@ -9,12 +9,14 @@ import { FormValues } from "../../../../types/interface";
 import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
 import "./style.scss";
+import { LobbyPageLocationProps } from "./types";
+import { BASE_CLIENT } from "../../../../lib";
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMaster, setIsMaster] = useState(true);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   const handleConnect = () => {
     console.log("connect");
@@ -44,23 +46,22 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             <div className="start-game__block">
               <div className="link__block">
                 <InputText
-                  defaultValue={`${window.location.href}`}
-                  register={register}
-                  labelText="Link:"
-                  inputClasses="lobby-page-link__input"
-                  labelClasses="lobby-link__label"
+                  inputProps={{
+                    defaultValue: `${BASE_CLIENT}${pathname}`,
+                    labelText: "Link",
+                    labelClasses: "lobby-link__label",
+                    inputClasses: "lobby-page-link__input",
+                    isDisabled: true,
+                  }}
+                  hookForm={{
+                    onRegister: register,
+                  }}
                 />
-                <Button
-                  type="button"
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      `${window.location.href}/aasss` // Fix bug with location
-                    )
-                  }
-                  classes="copy-link__button"
-                >
-                  Copy
-                </Button>
+                <CopyToClipboard text={`${BASE_CLIENT}${pathname}`}>
+                  <Button type="button" classes="copy-link__button">
+                    Copy
+                  </Button>
+                </CopyToClipboard>
               </div>
               <div className="start-game__button-block">
                 <Button
