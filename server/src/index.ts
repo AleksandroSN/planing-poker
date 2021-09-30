@@ -57,7 +57,7 @@ app.use("/upload", routerFiles);
 
 app.get("/", (req: Request, res: Response) => {
   console.log("http connection happened");
-  res.sendFile(path.resolve("./client/index.html"));
+  res.sendFile(path.resolve("../client/index.html"));
 });
 
 const timers = timersDb(io);
