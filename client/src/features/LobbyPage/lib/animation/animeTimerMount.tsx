@@ -7,7 +7,7 @@ interface AnimeMountProps {
   children: JSX.Element | JSX.Element[];
 }
 
-export const AnimeMount: FunctionComponent<AnimeMountProps> = ({
+export const AnimeTimerMount: FunctionComponent<AnimeMountProps> = ({
   mount,
   classes,
   children,

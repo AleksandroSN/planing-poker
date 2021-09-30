@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { GameSettings, Issues } from "..";
-import { Button, InputText } from "../../../../components";
+import { Button, Chat, InputText } from "../../../../components";
 import { User } from "../../../../components/User/User";
 import { FormValues } from "../../../../types/interface";
 import { AddCardSection } from "../AddCardSection";
@@ -11,9 +11,12 @@ import { CoverSection } from "../CoverSection";
 import "./style.scss";
 import { LobbyPageLocationProps } from "./types";
 import { BASE_CLIENT } from "../../../../lib";
+import { useAppSelector, AppSettings } from "../../../../redux/store";
+import { AnimeChatMount } from "../../lib";
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
+  const { chatOpen } = useAppSelector(AppSettings);
   const [isOpen, setIsOpen] = useState(false);
   const [isMaster, setIsMaster] = useState(true);
   const { pathname } = useLocation();
@@ -29,7 +32,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       <div className="content__wrapper">
         <form className="lobby-page-wrapper">
           <div>
-            <h1 className="lobby-page__title text-xl">Issue</h1>
+            <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
           <div className="master-card">
             <div className="master-card__title">Scrum master:</div>
@@ -125,6 +128,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           )}
         </form>
       </div>
+      <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
+        <Chat />
+      </AnimeChatMount>
     </>
   );
 };
