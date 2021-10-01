@@ -1,5 +1,6 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import { ChatMessage, Player } from "../../../features/Socket/types";
+import { FunctionComponent } from "react";
+import { ChatMessage } from "../../../features/Socket/types";
+import { isReallyYou } from "../../../lib";
 import { User } from "../../User/User";
 
 export const ChatRow: FunctionComponent<ChatMessage> = ({
@@ -7,16 +8,7 @@ export const ChatRow: FunctionComponent<ChatMessage> = ({
   id,
   playerData,
 }): JSX.Element => {
-  const [isYou, setIsYou] = useState<boolean>(false);
-
-  useEffect(() => {
-    const localPlayer = sessionStorage.getItem("player");
-    if (localPlayer) {
-      const player = JSON.parse(localPlayer) as Player;
-      const isRealyYou = playerData.firstName === player.firstName;
-      setIsYou(isRealyYou);
-    }
-  });
+  const isYou = isReallyYou(playerData.firstName);
 
   return (
     <div className="chat__row">

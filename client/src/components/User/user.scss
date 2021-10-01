@@ -2,7 +2,7 @@
 @import "../../styles/utils/mixins";
 
 .user {
-  max-width: 500px;
+  max-width: 300px;
   width: 100%;
   background-color: #fff;
   box-shadow: $mainShadow;
@@ -31,7 +31,7 @@
   }
 
   &__avatar {
-    // background-color: $random-color;
+    overflow: hidden;
     box-shadow: inset $mainShadow;
     border-radius: 50%;
     width: 62px;
@@ -52,9 +52,13 @@
     }
   }
 
+  &__name {
+    text-transform: capitalize;
+  }
+
   &__body {
-    text-align: left;
-    white-space: nowrap;
+    // text-align: left;
+    // white-space: nowrap;
   }
 
   &__button {

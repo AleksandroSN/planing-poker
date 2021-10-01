@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { InputSelect } from "./InputSelect";
 import { InputText } from "./InputText";
+import { Loader } from "./Loader";
 import { Modal } from "./Modal";
 import { Switcher } from "./Switcher";
 import { Timer } from "./Timer";
@@ -16,6 +17,7 @@ export {
   ErrorWindow,
   InputSelect,
   InputText,
+  Loader,
   Modal,
   Switcher,
   Timer,

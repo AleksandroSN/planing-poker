@@ -22,7 +22,7 @@ export const userClassesHelper = (chat: boolean): UserClassesMode => {
       : "user__valid-user text-bold",
     name: chat
       ? "user__name text-l text-light"
-      : "user__name text-xl text-light",
+      : "user__name text-l text-light",
     job: chat ? "user__job text-xs text-light" : "user__job text-xs text-light",
     button: chat ? "user__button" : "user__button",
     buttonBody: chat ? "user__button-body" : "user__button-body",

@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -10,26 +10,52 @@ import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
 import "./style.scss";
 import { BASE_CLIENT } from "../../../../lib";
-import { useAppSelector, AppSettings } from "../../../../redux/store";
+import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
 import { AnimeChatMount } from "../../lib";
+import { Player } from "../../../Socket/types";
 
-// TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const { chatOpen } = useAppSelector(AppSettings);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMaster, setIsMaster] = useState(true);
   const { pathname } = useLocation();
+  const { register, handleSubmit } = useForm<FormValues>();
+  const { chatOpen } = useAppSelector(AppSettings);
+  const playersFromRedux = useAppSelector(Players);
+  const dealer = playersFromRedux.filter(
+    (player) => player.role === "Dealer"
+  )[0];
+  const [isMaster, setIsMaster] = useState<boolean>(false);
+  const players = playersFromRedux
+    .filter((player) => {
+      return player.role !== "Dealer";
+    })
+    .map((filterPlayers) => {
+      return (
+        <User
+          avatar={filterPlayers.avatarImage}
+          firstName={filterPlayers.firstName}
+          lastName={filterPlayers.lastName}
+          jobPosition={filterPlayers.jobPosition}
+          isChat={false}
+          isYou={false}
+        />
+      );
+    });
 
-  const handleConnect = () => {
-    console.log("connect");
+  useEffect(() => {
+    const localPlayer = sessionStorage.getItem("player");
+    if (localPlayer) {
+      const player = JSON.parse(localPlayer) as Player;
+      const reallyMaster = player.role === "Dealer";
+      setIsMaster(reallyMaster);
+    }
+  }, []);
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
   };
-
-  const { register } = useForm<FormValues>();
-
   return (
     <>
       <div className="content__wrapper">
-        <form className="lobby-page-wrapper">
+        <form className="lobby-page-wrapper" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
@@ -95,14 +121,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           )}
           <div className="members__block">
             <h2 className="members__title text-xl">Members:</h2>
-            <User
-              avatar="RP"
-              firstName="Sa"
-              lastName="Nterna"
-              jobPosition="developer"
-              isChat
-              isYou={false}
-            />
+            <div className="members__wrapper">{players}</div>
           </div>
           {isMaster && (
             <div className="issues__block">

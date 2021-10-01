@@ -6,6 +6,7 @@ export const createMaster = async (
   newPlayer: NewPlayer,
   dispatch: Dispatch
 ): Promise<Player> => {
+  dispatch({ type: "IS_LOADING_DATA", payload: true });
   const socket = SocketSingleton.getInstance().getSocket();
   await socket.connect();
   const lobby = await SocketMethods.createNewLobby(socket, newPlayer);
@@ -22,5 +23,6 @@ export const createMaster = async (
   }); // update messages
   // TO DO change game status listener
   // update game setting master listener
+  dispatch({ type: "IS_LOADING_DATA", payload: false });
   return lobby.player;
 };
