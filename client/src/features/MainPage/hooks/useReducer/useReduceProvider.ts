@@ -80,7 +80,9 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
       firstName: data["Your first name"],
       lastName: data["Your last name"],
       jobPosition: data["Your Job position"],
-      avatarImage: srcAvatar ? `${BASE_SERVER}${srcAvatar.path}` : "",
+      avatarImage: srcAvatar
+        ? `${BASE_SERVER}${srcAvatar.path}`
+        : MainPageState.avatar,
       role: observerRole || MainPageState.role,
     };
     const socketRes = await createPlayer(player);

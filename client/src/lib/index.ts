@@ -7,6 +7,7 @@ import { CreateNewFile } from "./createFormData";
 import { uploadImage } from "./uploadImage";
 import { dictErrors } from "./inputErrorMessages";
 import { checkAuth } from "./checkAuth";
+import { AnimeOpacity } from "./animation";
 
 export {
   renderUserAvatar,
@@ -19,4 +20,5 @@ export {
   uploadImage,
   dictErrors,
   checkAuth,
+  AnimeOpacity,
 };
