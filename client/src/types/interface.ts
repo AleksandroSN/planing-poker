@@ -15,6 +15,7 @@ export interface FormValues {
   seconds: string;
   "Choose file": string | FileList;
   "Connect as Observer": string;
+  ChatMessage: string;
 }
 
 enum FormPriority {

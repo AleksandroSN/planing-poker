@@ -30,7 +30,7 @@ export type Player = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string; // to do add 3 roles
+  role: "Dealer" | "Member" | "Observer" | "";
   lobbyId: string;
 };
 
@@ -39,7 +39,7 @@ export type NewPlayer = {
   lastName: string;
   jobPosition: string;
   avatarImage: string;
-  role: string; // to do add 3 roles
+  role: "Dealer" | "Member" | "Observer" | "";
 };
 
 export type Issue = {
@@ -56,6 +56,7 @@ export type ChatMessage = {
   messageTime: string;
   playerId: string;
   lobbyId: string;
+  playerData: Player;
 };
 
 export type LobbySetting = {

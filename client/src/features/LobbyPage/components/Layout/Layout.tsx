@@ -9,7 +9,6 @@ import { FormValues } from "../../../../types/interface";
 import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
 import "./style.scss";
-import { LobbyPageLocationProps } from "./types";
 import { BASE_CLIENT } from "../../../../lib";
 import { useAppSelector, AppSettings } from "../../../../redux/store";
 import { AnimeChatMount } from "../../lib";
@@ -129,7 +128,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         </form>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
-        <Chat />
+        <Chat key="uniqChat" />
       </AnimeChatMount>
     </>
   );

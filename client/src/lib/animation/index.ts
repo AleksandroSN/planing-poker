@@ -1,0 +1,1 @@
+export { AnimeOpacity } from "./animationOpacity";
