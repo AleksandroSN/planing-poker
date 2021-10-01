@@ -105,7 +105,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   };
   const validateLobby = async (link: string) => {
-    const isValid = await checkValidityLobby(link);
+    const isValid = await checkValidityLobby(link, reduxDispatch);
     if (isValid) {
       reduxDispatch({ type: "UPDATE_SETTINGS", payload: { lobbyId: link } });
       setMemberRole();

@@ -20,6 +20,14 @@
   margin-bottom: 65px;
 }
 
+.members {
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
 .start-game__button-block {
   display: flex;
   justify-content: space-between;

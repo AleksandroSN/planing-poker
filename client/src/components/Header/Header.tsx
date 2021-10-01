@@ -1,12 +1,13 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppReducerActions } from "../../redux/AppReducer/actions";
-import { AppSettings, useAppSelector } from "../../redux/store";
+import { AppSettings, GameSettings, useAppSelector } from "../../redux/store";
 import "./Header.scss";
 
 export const Header: FunctionComponent = (): JSX.Element => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const { chatOpen } = useAppSelector(AppSettings);
+  const { appStage } = useAppSelector(GameSettings);
   const dispatch = useDispatch();
   const toggleChatOpen = () => {
     dispatch({
@@ -15,11 +16,10 @@ export const Header: FunctionComponent = (): JSX.Element => {
     });
   };
   useEffect(() => {
-    const localPlayer = sessionStorage.getItem("player");
-    if (localPlayer) {
+    if (appStage === "lobby") {
       setIsLogin((x) => !x);
     }
-  }, []);
+  }, [appStage]);
 
   return (
     <header className="App-header">
