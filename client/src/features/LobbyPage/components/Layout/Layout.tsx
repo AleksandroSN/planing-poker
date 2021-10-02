@@ -16,7 +16,7 @@ import { Player } from "../../../Socket/types";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const { pathname } = useLocation();
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
   const { chatOpen } = useAppSelector(AppSettings);
   const playersFromRedux = useAppSelector(Players);
   const dealer = playersFromRedux.filter(
@@ -131,7 +131,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           {isMaster && (
             <div className="settings__block">
               <h2 className="settings__block__title text-xl">Game Settings:</h2>
-              <GameSettings register={register} />
+              <GameSettings onRegister={register} onWatch={watch} />
             </div>
           )}
           {isMaster && (

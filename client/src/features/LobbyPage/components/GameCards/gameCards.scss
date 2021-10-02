@@ -82,6 +82,13 @@
       flex-direction: column;
       justify-content: space-between;
 
+      &__edit-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+
       &__img {
         cursor: pointer;
       }
@@ -132,4 +139,9 @@
       }
     }
   }
+}
+
+.create-mode {
+  height: 90px;
+  width: 60px;
 }

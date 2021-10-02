@@ -16,7 +16,6 @@ export const CardsAddValue: FunctionComponent<CardsAddValueProps> = ({
     toggleEditMode();
     updateCards({
       value,
-      scoreTypeShort: "SP",
     });
   };
 
@@ -28,7 +27,7 @@ export const CardsAddValue: FunctionComponent<CardsAddValueProps> = ({
           type="text"
           name="cardValue"
           id="cardValue"
-          className="game-cards__cards-value-item__header-input text-s"
+          className="game-cards__cards-value-item__header-input create-mode text-xxl"
           maxLength={2}
           onChange={(evt) => setValue(evt.target.value)}
           onKeyDown={(evt) => searchEnterKey(evt, newData)}
