@@ -1,33 +1,63 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { GameSettings, Issues } from "..";
-import { Button, InputText } from "../../../../components";
+import { Button, Chat, InputText } from "../../../../components";
 import { User } from "../../../../components/User/User";
 import { FormValues } from "../../../../types/interface";
 import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
 import "./style.scss";
+import { BASE_CLIENT } from "../../../../lib";
+import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
+import { AnimeChatMount } from "../../lib";
+import { Player } from "../../../Socket/types";
 
-// TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMaster, setIsMaster] = useState(true);
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
+  const { chatOpen } = useAppSelector(AppSettings);
+  const playersFromRedux = useAppSelector(Players);
+  const dealer = playersFromRedux.filter(
+    (player) => player.role === "Dealer"
+  )[0];
+  const [isMaster, setIsMaster] = useState<boolean>(false);
+  const players = playersFromRedux
+    .filter((player) => {
+      return player.role !== "Dealer";
+    })
+    .map((filterPlayers) => {
+      return (
+        <User
+          avatar={filterPlayers.avatarImage}
+          firstName={filterPlayers.firstName}
+          lastName={filterPlayers.lastName}
+          jobPosition={filterPlayers.jobPosition}
+          isChat={false}
+          isYou={false}
+        />
+      );
+    });
 
-  const handleConnect = () => {
-    console.log("connect");
+  useEffect(() => {
+    const localPlayer = sessionStorage.getItem("player");
+    if (localPlayer) {
+      const player = JSON.parse(localPlayer) as Player;
+      const reallyMaster = player.role === "Dealer";
+      setIsMaster(reallyMaster);
+    }
+  }, []);
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
   };
-
-  const { register } = useForm<FormValues>();
-
   return (
     <>
       <div className="content__wrapper">
-        <form className="lobby-page-wrapper">
+        <form className="lobby-page-wrapper" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <h1 className="lobby-page__title text-xl">Issue</h1>
+            <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
           <div className="master-card">
             <div className="master-card__title">Scrum master:</div>
@@ -44,23 +74,22 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             <div className="start-game__block">
               <div className="link__block">
                 <InputText
-                  defaultValue={`${window.location.href}`}
-                  register={register}
-                  labelText="Link:"
-                  inputClasses="lobby-page-link__input"
-                  labelClasses="lobby-link__label"
+                  inputProps={{
+                    defaultValue: `${BASE_CLIENT}${pathname}`,
+                    labelText: "Link",
+                    labelClasses: "lobby-link__label",
+                    inputClasses: "lobby-page-link__input",
+                    isDisabled: true,
+                  }}
+                  hookForm={{
+                    onRegister: register,
+                  }}
                 />
-                <Button
-                  type="button"
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      `${window.location.href}/aasss` // Fix bug with location
-                    )
-                  }
-                  classes="copy-link__button"
-                >
-                  Copy
-                </Button>
+                <CopyToClipboard text={`${BASE_CLIENT}${pathname}`}>
+                  <Button type="button" classes="copy-link__button">
+                    Copy
+                  </Button>
+                </CopyToClipboard>
               </div>
               <div className="start-game__button-block">
                 <Button
@@ -92,14 +121,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           )}
           <div className="members__block">
             <h2 className="members__title text-xl">Members:</h2>
-            <User
-              avatar="RP"
-              firstName="Sa"
-              lastName="Nterna"
-              jobPosition="developer"
-              isChat
-              isYou={false}
-            />
+            <div className="members__wrapper">{players}</div>
           </div>
           {isMaster && (
             <div className="issues__block">
@@ -109,7 +131,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           {isMaster && (
             <div className="settings__block">
               <h2 className="settings__block__title text-xl">Game Settings:</h2>
-              <GameSettings register={register} />
+              <GameSettings onRegister={register} onWatch={watch} />
             </div>
           )}
           {isMaster && (
@@ -124,6 +146,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           )}
         </form>
       </div>
+      <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
+        <Chat key="uniqChat" />
+      </AnimeChatMount>
     </>
   );
 };

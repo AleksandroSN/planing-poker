@@ -1,14 +1,16 @@
 import { FluxStandardAction } from "flux-standard-action";
 import { AppReducerActions } from "./actions";
 
-type AppState = {
+export type AppState = {
   isLoading: boolean;
   isError: boolean;
+  chatOpen: boolean;
 };
 
 const initialAppState: AppState = {
   isLoading: false,
   isError: false,
+  chatOpen: false,
 };
 
 export const appReducer = (
@@ -23,6 +25,10 @@ export const appReducer = (
     case AppReducerActions.errorHappend: {
       const isError = action.payload as unknown as boolean;
       return { ...state, isError };
+    }
+    case AppReducerActions.toggleChatState: {
+      const { chatOpen } = action.payload as unknown as AppState;
+      return { ...state, chatOpen };
     }
     default:
       return state;

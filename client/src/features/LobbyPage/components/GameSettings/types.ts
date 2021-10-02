@@ -1,6 +1,7 @@
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormWatch } from "react-hook-form";
 import { FormValues } from "../../../../types/interface";
 
 export interface GameSettingsProps {
-  register: UseFormRegister<FormValues>;
+  onRegister: UseFormRegister<FormValues>;
+  onWatch: UseFormWatch<FormValues>;
 }

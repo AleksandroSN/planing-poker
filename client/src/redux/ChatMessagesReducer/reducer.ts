@@ -2,7 +2,7 @@ import { FluxStandardAction } from "flux-standard-action";
 import { ChatMessage } from "../../features/Socket/types";
 import { ChatMessagesReducerActions } from "./actions";
 
-type ChatMessagesState = {
+export type ChatMessagesState = {
   chatMessages: ChatMessage[];
 };
 

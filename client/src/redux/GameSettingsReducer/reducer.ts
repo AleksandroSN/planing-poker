@@ -8,9 +8,11 @@ export interface GameSettingsState {
   scoreType: string;
   scoreTypeShort: string;
   roundTime: number;
-  cardValues: Array<string>; // to do rework
+  cardValues: string[]; // arr CardValuesModel
+  cardsCover: string;
   lobbyId: string;
   masterId: string;
+  appStage: "lobby" | "game" | "out";
 }
 
 const initialGameSettingsState: GameSettingsState = {
@@ -20,9 +22,11 @@ const initialGameSettingsState: GameSettingsState = {
   scoreType: "story point",
   scoreTypeShort: "SP",
   roundTime: 140,
-  cardValues: [""],
+  cardValues: [],
+  cardsCover: "",
   lobbyId: "",
   masterId: "",
+  appStage: "out",
 };
 
 export const gameSettingsReducer = (

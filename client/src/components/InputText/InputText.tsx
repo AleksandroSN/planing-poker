@@ -21,7 +21,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
           id="inputText"
           className={inputProps.inputClasses || "input-text__input"}
           defaultValue={inputProps.defaultValue}
-          disabled={inputProps.isTimer || false}
+          disabled={inputProps.isDisabled || false}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...(hookForm && {
             ...hookForm.onRegister(inputProps.labelText, hookForm.regOptions),

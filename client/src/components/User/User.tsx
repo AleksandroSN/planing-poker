@@ -18,10 +18,7 @@ export const User: FunctionComponent<UserProps> = ({
   return (
     <div className={userClasses.user}>
       <div className={userClasses.wrapper}>
-        <picture className={userClasses.avatar}>
-          {/* <img src="./img/avatar.png" alt="Your avatar"/> */}
-          {userAvatar}
-        </picture>
+        <picture className={userClasses.avatar}>{userAvatar}</picture>
         <div className={userClasses.body}>
           {isYou && <div className={userClasses.valid}>ITS YOU</div>}
           <div className={userClasses.name}>{`${firstName} ${lastName}`}</div>

@@ -1,26 +1,51 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { ChatMessage, useAppSelector } from "../../redux/store";
+import { FormValues } from "../../types/interface";
+import { AnimeOpacity } from "../../lib";
 import { InputText } from "../InputText";
-import { ChatRow } from "./ChatRow/ChatRow";
+import { submitChatMessage } from "./ChatHelper";
+import { ChatRow } from "./ChatRow";
 import "./chat.scss";
 
-interface ChatProps {
-  message?: string;
-}
+export const Chat: FunctionComponent = (): JSX.Element => {
+  const { register, handleSubmit, reset } = useForm<FormValues>();
+  const { chatMessages } = useAppSelector(ChatMessage);
+  const dispatch = useDispatch();
+  const onSubmit = (data: FormValues) => {
+    submitChatMessage(data, dispatch, reset);
+  };
 
-export const Chat: FunctionComponent<ChatProps> = (): JSX.Element => {
-  const [message, setMessage] = useState<string[]>(["Heelo", "Muhahaha"]);
-
-  // const updateMessages = (text: string) => {
-  //   setMessage((arr) => [...arr, text]);
-  // };
-
-  const messages = message.map((mes) => {
-    return <ChatRow message={mes} />;
+  const messages = chatMessages.map((mes) => {
+    return (
+      <AnimeOpacity item={mes}>
+        <ChatRow
+          key={mes.id}
+          messageText={mes.messageText}
+          id={mes.id}
+          messageTime={mes.messageTime}
+          playerId={mes.playerId}
+          lobbyId={mes.lobbyId}
+          playerData={mes.playerData}
+        />
+      </AnimeOpacity>
+    );
   });
+
   return (
-    <div className="chat">
+    <form className="chat" onSubmit={handleSubmit(onSubmit)}>
       {messages}
-      <InputText inputProps={{ labelText: "" }} />
-    </div>
+      <InputText
+        inputProps={{
+          labelText: "ChatMessage",
+          labelClasses: "input-text__label chat__label",
+          inputClasses: "input-text__input chat__input",
+        }}
+        hookForm={{
+          onRegister: register,
+        }}
+      />
+    </form>
   );
 };

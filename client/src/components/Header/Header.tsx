@@ -1,8 +1,26 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppReducerActions } from "../../redux/AppReducer/actions";
+import { AppSettings, GameSettings, useAppSelector } from "../../redux/store";
 import "./Header.scss";
 
 export const Header: FunctionComponent = (): JSX.Element => {
-  const isLoggedIn = false;
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const { chatOpen } = useAppSelector(AppSettings);
+  const { appStage } = useAppSelector(GameSettings);
+  const dispatch = useDispatch();
+  const toggleChatOpen = () => {
+    dispatch({
+      type: AppReducerActions.toggleChatState,
+      payload: { chatOpen: !chatOpen },
+    });
+  };
+  useEffect(() => {
+    if (appStage === "lobby") {
+      setIsLogin((x) => !x);
+    }
+  }, [appStage]);
+
   return (
     <header className="App-header">
       <div className="App-header__logo">
@@ -14,9 +32,9 @@ export const Header: FunctionComponent = (): JSX.Element => {
           />
         </a>
       </div>
-      {isLoggedIn && (
+      {isLogin && (
         <div className="App-header__chat-button">
-          <button type="button">
+          <button type="button" onClick={toggleChatOpen}>
             <img src="../icons/chat-icon.png" alt="chat" />
           </button>
         </div>

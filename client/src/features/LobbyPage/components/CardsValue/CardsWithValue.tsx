@@ -25,7 +25,6 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
     setEditMode(false);
     updateCards({
       value: cardValue,
-      scoreTypeShort,
     });
   };
 

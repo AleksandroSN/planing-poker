@@ -80,7 +80,9 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
       firstName: data["Your first name"],
       lastName: data["Your last name"],
       jobPosition: data["Your Job position"],
-      avatarImage: srcAvatar ? `${BASE_SERVER}${srcAvatar.path}` : "",
+      avatarImage: srcAvatar
+        ? `${BASE_SERVER}${srcAvatar.path}`
+        : MainPageState.avatar,
       role: observerRole || MainPageState.role,
     };
     const socketRes = await createPlayer(player);
@@ -103,7 +105,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   };
   const validateLobby = async (link: string) => {
-    const isValid = await checkValidityLobby(link);
+    const isValid = await checkValidityLobby(link, reduxDispatch);
     if (isValid) {
       reduxDispatch({ type: "UPDATE_SETTINGS", payload: { lobbyId: link } });
       setMemberRole();

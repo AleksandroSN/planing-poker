@@ -19,10 +19,10 @@ export const Timer: FunctionComponent<TimerProps> = ({
           <InputText
             inputProps={{
               labelText: "minutes",
-              defaultValue: `${time && time[0]}`,
+              defaultValue: `${time ? time[0] : ""}`,
               inputClasses: "timer__input text-bold text-xxl",
               labelClasses: "timer__label text-bold text-s",
-              isTimer,
+              isDisabled: isTimer,
             }}
             hookForm={{ onRegister: register }}
           />
@@ -32,10 +32,10 @@ export const Timer: FunctionComponent<TimerProps> = ({
           <InputText
             inputProps={{
               labelText: "seconds",
-              defaultValue: `${time && time[1]}`,
+              defaultValue: `${time ? time[1] : ""}`,
               inputClasses: "timer__input text-bold text-xxl",
               labelClasses: "timer__label text-bold text-s",
-              isTimer,
+              isDisabled: isTimer,
             }}
             hookForm={{ onRegister: register }}
           />

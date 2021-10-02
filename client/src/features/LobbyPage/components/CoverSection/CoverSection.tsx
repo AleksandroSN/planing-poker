@@ -1,15 +1,19 @@
 import { FunctionComponent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { GameSettingsActions } from "../../../../redux/GameSettingsReducer/actions";
 import { CoversDataModel } from "../../types/interface";
 import { CardsCover } from "../CardsCover";
 import { coversData } from "./coverSectionHelper";
 import "./style.scss";
 
 export const CoverSection: FunctionComponent = (): JSX.Element => {
+  const dispatch = useDispatch();
   const [renderData, setRenderData] = useState<CoversDataModel[]>(coversData);
-  const [state, setstate] = useState<string>("");
-
   const addInState = (str: string, idx: number): void => {
-    setstate(str);
+    dispatch({
+      type: GameSettingsActions.updateSetiings,
+      payload: { cardsCover: str },
+    });
     const updatedData = renderData.map((data) => {
       if (data.idx === idx) {
         return {

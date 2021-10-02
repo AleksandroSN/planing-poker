@@ -4,7 +4,7 @@ export interface CoversDataModel {
 }
 
 export interface CardsValueModel {
-  scoreTypeShort: string;
+  // scoreTypeShort: string;
   value: string;
 }
 export interface IssuesModel {

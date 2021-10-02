@@ -14,6 +14,7 @@ export const createMember = async (
   currentLobby: LobbySetting,
   dispatch: Dispatch
 ): Promise<Player> => {
+  dispatch({ type: "IS_LOADING_DATA", payload: true });
   const socket = SocketSingleton.getInstance().getSocket();
   await socket.connect();
   const lobby = await SocketMethods.connectToLobby(
@@ -34,5 +35,6 @@ export const createMember = async (
   }); // update messages
   // TO DO change game status listener
   // update game setting master listener
+  dispatch({ type: "IS_LOADING_DATA", payload: false });
   return lobby.player;
 };

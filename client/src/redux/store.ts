@@ -7,6 +7,8 @@ import { issuesReducer } from "./IssuesReducer";
 import { playersReducer } from "./PlayersReducer";
 import { gameSettingsReducer } from "./GameSettingsReducer";
 import { GameSettingsState } from "./GameSettingsReducer/reducer";
+import { AppState } from "./AppReducer/reducer";
+import { ChatMessagesState } from "./ChatMessagesReducer/reducer";
 
 const rootReducer = combineReducers({
   appReducer,
@@ -43,3 +45,7 @@ export const Players = (state: RootState): Player[] =>
   state.playersReducer.players;
 export const GameSettings = (state: RootState): GameSettingsState =>
   state.gameSettingsReducer;
+export const AppSettings = (state: RootState): AppState => state.appReducer;
+export const ChatMessage = (state: RootState): ChatMessagesState => {
+  return state.chatMessagesReducer;
+};
