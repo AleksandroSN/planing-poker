@@ -39,6 +39,7 @@ export type LobbySetting = {
   scoreTypeShort: string;
   roundTime: number;
   cardValues: string[];
+  cardsCover: string;
   lobbyId: string;
   masterId: string;
   appStage: "lobby" | "game" | "out";
