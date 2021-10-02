@@ -82,4 +82,8 @@ export enum SocketActions {
   CONFIRM_TO_KICK_MEMBER = "confirm to kick member",
   NOTIFY_ABOUT_KICKING_MEMBER = "notify about kicking member",
   VALIDATE_LOBBY = "validate_lobby",
+  RUN_ROUND = "run round",
+  NOTIFY_ABOUT_ROUND_RUNNIG = "notify about round running",
+  GIVE_A_VOTE_FOR_ISSUE = "give a vote for issue",
+  NOTIFY_ABOUT_ROUND_STOP = "notify about round stop",
 }

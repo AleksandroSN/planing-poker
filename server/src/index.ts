@@ -29,6 +29,7 @@ import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
 import { routerFiles } from "./tools/controllers/router-file";
 import { kickDb } from "./tools/kick-voting";
+import { issueVotingDb } from "./tools/issue-voting";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -63,6 +64,8 @@ app.get("/", (req: Request, res: Response) => {
 const timers = timersDb(io);
 
 const kickVoting = kickDb(io);
+
+const issueVoting = issueVotingDb(io);
 
 io.on("connection", function (socket: Socket) {
   socket.on(
@@ -169,7 +172,10 @@ io.on("connection", function (socket: Socket) {
   );
   socket.on(
     SocketActions.VALIDATE_LOBBY,
-    async function (lobbyId: string, callback: (response: {isValidate: boolean}) => void) {
+    async function (
+      lobbyId: string,
+      callback: (response: { isValidate: boolean }) => void
+    ) {
       await validateLobby(lobbyId, callback);
     }
   );
@@ -190,6 +196,27 @@ io.on("connection", function (socket: Socket) {
       callback: (response: { isVoted: boolean; message: string }) => void
     ) {
       kickVoting.voteForKicking(player, callback);
+    }
+  );
+  socket.on(
+    SocketActions.RUN_ROUND,
+    async function (
+      player: Player,
+      issue: Issue,
+      callback: (response: { isStarted: boolean; message: string }) => void
+    ) {
+      issueVoting.runRound(player, issue, callback);
+    }
+  );
+  socket.on(
+    SocketActions.GIVE_A_VOTE_FOR_ISSUE,
+    async function (
+      player: Player,
+      issue: Issue,
+      score: number,
+      callback: (response: { isVoted: boolean; message: string }) => void
+    ) {
+      issueVoting.giveVoteForIssue(player, issue, score, callback);
     }
   );
 });
