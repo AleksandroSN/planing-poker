@@ -11,18 +11,12 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
   const { clearIssue } = IssueFormHelper();
   const renderIssues = issues.map(({ id, title, link, priority }) => {
     return (
-      <Issue
-        key={title}
-        id={id}
-        issueName={title}
-        link={link}
-        priority={priority}
-      />
+      <Issue key={id} id={id} title={title} link={link} priority={priority} />
     );
   });
   const renderAll = [
     ...renderIssues,
-    <Issue key={0} id={0} issueName="" link="" priority="" />,
+    <Issue key={Math.random() * 50} id="" title="" link="" priority="Low" />,
   ];
 
   return (

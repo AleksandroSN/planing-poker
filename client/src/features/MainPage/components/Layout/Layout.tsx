@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Redirect, useLocation } from "react-router-dom";
-import { GameSettings, useAppSelector } from "../../../../redux/store";
+import { GameSettingsCurrent, useAppSelector } from "../../../../redux/store";
 import { Button, ErrorWindow, Modal } from "../../../../components";
 import { MainPageContext } from "../../lib";
 import { MainPageLocationProps } from "./types";
@@ -9,7 +9,7 @@ import "./style.scss";
 import { findID } from "../../../../lib";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const lobbyId = useAppSelector(GameSettings);
+  const lobbyId = useAppSelector(GameSettingsCurrent);
   const { state } = useLocation<MainPageLocationProps>();
   const [link, setLink] = useState<string>("");
 

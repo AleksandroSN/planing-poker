@@ -1,14 +1,14 @@
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { GameSettingsActions } from "../../../../redux/GameSettingsReducer/actions";
-import { GameSettings, useAppSelector } from "../../../../redux/store";
+import { GameSettingsCurrent, useAppSelector } from "../../../../redux/store";
 import { CardsValueModel } from "../../types/interface";
 import { Cards } from "../Cards";
 import "./style.scss";
 
 export const AddCardSection: FunctionComponent = (): JSX.Element => {
   const [cards, setCards] = useState<CardsValueModel[]>([]);
-  const { scoreTypeShort, cardValues } = useAppSelector(GameSettings);
+  const { scoreTypeShort, cardValues } = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch();
   const updateCards = (newData: CardsValueModel): void => {
     dispatch({

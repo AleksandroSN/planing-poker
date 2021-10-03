@@ -1,3 +1,4 @@
+import { IssuesModel } from "../../LobbyPage/types/interface";
 import {
   ChatMessage,
   Issue,
@@ -101,7 +102,7 @@ export type NewChatMessage = {
 export const sendChatMessage = (
   newMessage: NewChatMessage,
   socket: SocketAPI
-) => {
+): void => {
   socket.emit(SocketActions.SEND_CHAT_MESSAGE, [newMessage], false);
 };
 
@@ -112,4 +113,11 @@ export const reconnectToLobby = async (player: Player, socket: SocketAPI) => {
     true
   ) as Promise<boolean>;
   return promise;
+};
+
+export const sendNewIssue = (
+  socket: SocketAPI,
+  newIssue: IssuesModel
+): void => {
+  socket.emit(SocketActions.ADD_NEW_ISSUE, [newIssue], false);
 };

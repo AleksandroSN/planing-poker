@@ -5,28 +5,28 @@ import { IssueContext } from "../../lib/context/issueContext";
 import "./issue.scss";
 
 interface IssueProps {
-  id: number;
-  issueName: string;
+  id: string;
+  title: string;
   link: string;
-  priority: string;
+  priority: "Low" | "Middle" | "Hight";
 }
 
 export const Issue: FunctionComponent<IssueProps> = ({
   id,
-  issueName,
+  title,
   link,
   priority,
 }): JSX.Element => {
   const { toggleIsOpen } = useContext(IssueContext);
 
-  if (!issueName) {
+  if (!title) {
     return <AddIssue toggleModal={toggleIsOpen} />;
   }
   return (
     <IssueItem
-      key={issueName}
+      key={title}
       id={id}
-      issueName={issueName}
+      issueName={title}
       link={link}
       priority={priority}
     />

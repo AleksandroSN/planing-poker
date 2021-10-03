@@ -50,12 +50,14 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   }, []);
 
   const onSubmit = (data: FormValues) => {
+    console.log("LOBBY LAYOUT");
+    console.log("Redirect to game page");
     console.log(data);
   };
   return (
     <>
       <div className="content__wrapper">
-        <form className="lobby-page-wrapper" onSubmit={handleSubmit(onSubmit)}>
+        <form className="lobby-page-wrapper">
           <div>
             <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
@@ -92,10 +94,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 </CopyToClipboard>
               </div>
               <div className="start-game__button-block">
-                <Button
-                  type="submit"
-                  onClick={() => console.log("Redirect to game page")}
-                >
+                <Button type="button" onClick={handleSubmit(onSubmit)}>
                   Start Game
                 </Button>
                 <Button

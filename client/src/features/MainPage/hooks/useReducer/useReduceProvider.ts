@@ -10,7 +10,7 @@ import { FormValues } from "../../../../types/interface";
 import { createMaster } from "../../../Socket/lib/createMaster";
 import { NewPlayer, Player } from "../../../Socket/types";
 import { HandlersMainPageContextModel } from "../../types";
-import { useAppSelector, GameSettings } from "../../../../redux/store";
+import { useAppSelector, GameSettingsCurrent } from "../../../../redux/store";
 import { createMember } from "../../../Socket/lib/createMember";
 import { checkValidityLobby } from "../../../Socket/lib/checkValidityLobby";
 
@@ -20,7 +20,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     initialStateMainPage
   );
   const reduxDispatch = useDispatch();
-  const lobbyId = useAppSelector(GameSettings);
+  const lobbyId = useAppSelector(GameSettingsCurrent);
 
   const setMasterRole = () => {
     dispatch({

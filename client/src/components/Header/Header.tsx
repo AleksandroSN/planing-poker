@@ -1,13 +1,17 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppReducerActions } from "../../redux/AppReducer/actions";
-import { AppSettings, GameSettings, useAppSelector } from "../../redux/store";
+import {
+  AppSettings,
+  GameSettingsCurrent,
+  useAppSelector,
+} from "../../redux/store";
 import "./Header.scss";
 
 export const Header: FunctionComponent = (): JSX.Element => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const { chatOpen } = useAppSelector(AppSettings);
-  const { appStage } = useAppSelector(GameSettings);
+  const { appStage } = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch();
   const toggleChatOpen = () => {
     dispatch({

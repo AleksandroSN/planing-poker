@@ -2,7 +2,7 @@ import { FluxStandardAction } from "flux-standard-action";
 import { Issue } from "../../features/Socket/types";
 import { IssuesReducerActions } from "./actions";
 
-type IssuesState = {
+export type IssuesState = {
   issues: Issue[];
 };
 
