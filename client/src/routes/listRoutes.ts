@@ -8,4 +8,5 @@ export const listRoutes = [
   { path: "/lobby/:id", name: "Lobby", Component: LobbyPage },
   { path: "/game/:id", name: "Game", Component: GamePage },
   { path: "*", name: "404", Component: Page404 },
+  // { path: "result/:id", name: "Result", Component: Result }
 ];

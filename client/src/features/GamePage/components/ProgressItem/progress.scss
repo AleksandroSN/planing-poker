@@ -1,0 +1,70 @@
+@import "../../../../styles/utils/variables";
+@import "../../../../styles/utils/mixins";
+
+.progress-item {
+  max-width: 300px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: $mainShadow;
+  border-radius: 4px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 15px 35px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 27.6px;
+
+  &--chat {
+    flex: 0 1 50%;
+    align-self: flex-start;
+  }
+
+  &__wrapper {
+    display: flex;
+    padding: 10px;
+    gap: 15px;
+    width: 100%;
+  }
+
+    &--span {
+      color: #ffffff;
+      text-shadow: $mainShadow;
+    }
+  
+
+  &__name {
+    text-transform: capitalize;
+  }
+
+  &__body {
+    // text-align: left;
+    // white-space: nowrap;
+  }
+
+  &__button {
+    margin-left: auto;
+
+    &-body {
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+    }
+
+    &-img {
+      height: 30px;
+      width: 30px;
+
+      &--chat {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+
+  @for $i from 0 to $countUsers {
+    &:nth-child(#{$i}) .user__avatar {
+      @include randomBgr();
+    }
+  }
+}
