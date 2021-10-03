@@ -9,6 +9,7 @@ import { gameSettingsReducer } from "./GameSettingsReducer";
 import { GameSettingsState } from "./GameSettingsReducer/reducer";
 import { AppState } from "./AppReducer/reducer";
 import { ChatMessagesState } from "./ChatMessagesReducer/reducer";
+import { IssuesState } from "./IssuesReducer/reducer";
 
 const rootReducer = combineReducers({
   appReducer,
@@ -43,9 +44,12 @@ export type RootState = ReturnType<typeof store.getState>;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const Players = (state: RootState): Player[] =>
   state.playersReducer.players;
-export const GameSettings = (state: RootState): GameSettingsState =>
+export const GameSettingsCurrent = (state: RootState): GameSettingsState =>
   state.gameSettingsReducer;
 export const AppSettings = (state: RootState): AppState => state.appReducer;
 export const ChatMessage = (state: RootState): ChatMessagesState => {
   return state.chatMessagesReducer;
+};
+export const IssuesRedux = (state: RootState): IssuesState => {
+  return state.issuesReducer;
 };

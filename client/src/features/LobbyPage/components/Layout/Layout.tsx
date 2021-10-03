@@ -50,24 +50,25 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   }, []);
 
   const onSubmit = (data: FormValues) => {
+    console.log("Redirect to game page");
     console.log(data);
   };
   return (
     <>
       <div className="content__wrapper">
-        <form className="lobby-page-wrapper" onSubmit={handleSubmit(onSubmit)}>
+        <form className="lobby-page-wrapper">
           <div>
             <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
           <div className="master-card">
             <div className="master-card__title">Scrum master:</div>
             <User
-              avatar="SA"
-              firstName="Sa"
-              lastName="Nterna"
-              jobPosition="developer"
-              isChat
-              isYou
+              avatar={dealer.avatarImage}
+              firstName={dealer.firstName}
+              lastName={dealer.lastName}
+              jobPosition={dealer.jobPosition}
+              isChat={false}
+              isYou={false}
             />
           </div>
           {isMaster && (
@@ -92,10 +93,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 </CopyToClipboard>
               </div>
               <div className="start-game__button-block">
-                <Button
-                  type="submit"
-                  onClick={() => console.log("Redirect to game page")}
-                >
+                <Button type="button" onClick={handleSubmit(onSubmit)}>
                   Start Game
                 </Button>
                 <Button

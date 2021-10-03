@@ -112,6 +112,7 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
           <Switcher
             labelText="Connect as Observer"
             id="switcherBox4"
+            defaultValue={false}
             register={register}
           />
         </div>

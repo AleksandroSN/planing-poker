@@ -5,12 +5,14 @@ import { InputText, Switcher, Timer } from "../../../../components";
 import { AnimeTimerMount } from "../../lib";
 import "./gameSettings.scss";
 import { GameSettingsActions } from "../../../../redux/GameSettingsReducer/actions";
+import { GameSettingsCurrent, useAppSelector } from "../../../../redux/store";
 
 export const GameSettings: FunctionComponent<GameSettingsProps> = ({
   onRegister,
   onWatch,
 }): JSX.Element => {
   const [isTimerNeed, setIsTimerNeed] = useState<boolean>(false);
+  const settings = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch(); // move all logic in context
   const toggleTimer = () => {
     setIsTimerNeed((prev) => !prev);
@@ -29,26 +31,35 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
       <div className="game-settings">
         <Switcher
           register={onRegister}
+          defaultValue={settings.masterIsPlayer}
           id="switcherBox1"
           labelText="Scrum master as player"
         />
         <Switcher
           register={onRegister}
+          defaultValue={settings.changingCardInRoundEnd}
           id="switcherBox2"
           labelText="Changing card in round end"
         />
         <Switcher
           register={onRegister}
+          defaultValue={settings.isTimerNeed}
           toggleTimer={toggleTimer}
           id="switcherBox3"
           labelText="Is timer needed"
         />
         <InputText
-          inputProps={{ labelText: "Score type" }}
+          inputProps={{
+            labelText: "Score type",
+            defaultValue: settings.scoreType,
+          }}
           hookForm={{ onRegister }}
         />
         <InputText
-          inputProps={{ labelText: "Score type (Short)" }}
+          inputProps={{
+            labelText: "Score type (Short)",
+            defaultValue: settings.scoreTypeShort,
+          }}
           hookForm={{ onRegister }}
         />
         <AnimeTimerMount mount={isTimerNeed} classes="game-settings__timer">

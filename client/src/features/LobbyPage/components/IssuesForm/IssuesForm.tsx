@@ -37,6 +37,7 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
         hookForm={{
           onRegister: register,
           regOptions: {
+            required: { value: true, message: "This field is required" },
             pattern: {
               value:
                 /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i,

@@ -3,10 +3,10 @@ import { IssueContext } from "../../lib/context/issueContext";
 import "./issue.scss";
 
 interface IssueProps {
-  id: number;
+  id: string;
   issueName: string;
   link: string;
-  priority: string;
+  priority: "Low" | "Middle" | "Hight";
 }
 
 export const IssueItem: FunctionComponent<IssueProps> = ({
@@ -15,7 +15,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   link,
   priority,
 }): JSX.Element => {
-  const { toggleIsOpen, deleteIssue, findIssue } = useContext(IssueContext);
+  const { toggleIsOpen, deleteIssues, findIssue } = useContext(IssueContext);
 
   const updateIssue = () => {
     findIssue(id);
@@ -30,12 +30,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
           <button type="button" onClick={updateIssue}>
             <img src="../icons/edit.svg" alt="edit issue" />
           </button>
-          <button
-            type="button"
-            onClick={() =>
-              deleteIssue({ title: issueName, link, priority, id })
-            }
-          >
+          <button type="button" onClick={() => deleteIssues(id)}>
             <img src="../icons/trash.svg" alt="delete issue" />
           </button>
         </div>

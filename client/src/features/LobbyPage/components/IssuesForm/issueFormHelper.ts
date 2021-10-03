@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { FormValues } from "../../../../types/interface";
+import { Issue } from "../../../Socket/types";
 import { IssueContext } from "../../lib/context/issueContext";
 import { IssuesModel } from "../../types/interface";
 import { IssueFormHelperModel } from "./types";
@@ -10,29 +11,30 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
     toggleIsOpen,
     updateIssues,
     clearCurrentIssue,
-    issues,
     currentIssue,
+    lobbyId,
   } = useContext(IssueContext);
 
-  const addNewIssue = (data: FormValues) => {
+  const addNewIssue = async (data: FormValues) => {
     const newIssue: IssuesModel = {
-      id: issues.length + 1,
       link: data.Link,
       title: data.Title,
       priority: data.Priority,
+      lobbyId,
     };
-    addIssue(newIssue);
+    await addIssue(newIssue);
     toggleIsOpen();
   };
 
-  const updateIssue = (data: FormValues) => {
-    const newIssue: IssuesModel = {
-      id: currentIssue?.id as number,
+  const updateIssue = async (data: FormValues) => {
+    const newIssue: Issue = {
+      id: String(currentIssue?.id),
       link: data.Link,
       title: data.Title,
       priority: data.Priority,
+      lobbyId,
     };
-    updateIssues(newIssue);
+    await updateIssues(newIssue);
     clearCurrentIssue();
     toggleIsOpen();
   };

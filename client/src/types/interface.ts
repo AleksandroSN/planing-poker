@@ -7,7 +7,7 @@ export interface FormValues {
   "Score type (Short)": string;
   Title: string;
   Link: string;
-  Priority: FormPriority;
+  Priority: "Low" | "Middle" | "Hight";
   "Scrum master as player": string;
   "Changing card in round end": string;
   "Is timer needed": string;
@@ -18,11 +18,11 @@ export interface FormValues {
   ChatMessage: string;
 }
 
-enum FormPriority {
-  low = "low",
-  middle = "medium",
-  high = "high",
-}
+// enum FormPriority {
+//   low = "Low",
+//   middle = "Medium",
+//   high = "High",
+// }
 
 export interface UploadResponse {
   name: string;
