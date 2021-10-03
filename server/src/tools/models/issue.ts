@@ -20,6 +20,12 @@ export const createNewIssue = (newIssue: NewIssue): Promise<Issue> => {
   return Promise.resolve(issue);
 };
 
-export const deleteIssue = (issueId: string): Promise<Issue | false> => {
+export const updateIssueMd = (issue: Issue): Promise<Issue> => {
+  deleteSmth(issue.id, db.issues);
+  db.issues.push(issue);
+  return Promise.resolve(issue);
+};
+
+export const deleteIssueMd = (issueId: string): Promise<Issue | false> => {
   return deleteSmth(issueId, db.issues);
 };

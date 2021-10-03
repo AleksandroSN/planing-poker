@@ -65,6 +65,8 @@ export enum SocketActions {
   GET_LOBBY_MEMBERS = "get lobby members",
   ADD_NEW_ISSUE = "add new issue",
   RECIEVE_NEW_ISSUE = "recieve new issue",
+  RECIEVE_UPDATED_ISSUE = "recieve updated issue",
+  RECIEVE_DELETED_ISSUE = "recieve deleted issue",
   GET_LOBBY_ISSUES = "get lobby issues",
   GET_CHAT_MESSAGES = "get chat messages",
   SEND_CHAT_MESSAGE = "send chat message",

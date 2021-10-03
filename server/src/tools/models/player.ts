@@ -4,6 +4,7 @@ import { NewPlayer, Player } from "../../types";
 import { deleteSmth, getSmthById, getSmthInLobby } from "../shared";
 
 export const getPlayersInLobby = (lobby: string): Promise<Player[]> => {
+  console.log("BASE", db);
   return getSmthInLobby(lobby, db.players);
 };
 

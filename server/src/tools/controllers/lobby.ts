@@ -26,7 +26,6 @@ export const createNewRoom = async (
     masterId: player.id,
   };
   await setLobbySettings(initLobbySettings);
-  console.log(callback);
   callback({ player, initLobbySettings });
 };
 

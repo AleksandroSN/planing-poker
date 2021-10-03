@@ -18,11 +18,13 @@ import {
   addNewTeamMember,
   changeLobbySettings,
   createNewRoom,
+  deleteIssue,
   getChatMessages,
   getLobbyIssues,
   getLobbyMembers,
   reconnectToLobby,
   sendChatMessage,
+  updateIssue,
   validateLobby,
 } from "./tools/controllers";
 import { timersDb } from "./tools/timeCounter.ts";
@@ -30,6 +32,7 @@ import fileUpload from "express-fileupload";
 import { routerFiles } from "./tools/controllers/router-file";
 import { kickDb } from "./tools/kick-voting";
 import { issueVotingDb } from "./tools/issue-voting";
+import { db } from "./db/db";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -88,7 +91,6 @@ io.on("connection", function (socket: Socket) {
       callback: (response: {
         player: Player;
         initLobbySettings: LobbySetting;
-        allPlayers: Player[];
       }) => void
     ) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
@@ -102,6 +104,12 @@ io.on("connection", function (socket: Socket) {
   );
   socket.on(SocketActions.ADD_NEW_ISSUE, async function (newIssie: NewIssue) {
     await addNewIssue(io, newIssie);
+  });
+  socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, async function (issue: Issue) {
+    await updateIssue(io, issue);
+  });
+  socket.on(SocketActions.RECIEVE_DELETED_ISSUE, async function (issue: Issue) {
+    await deleteIssue(io, issue);
   });
   socket.on(
     SocketActions.GET_LOBBY_ISSUES,
@@ -138,7 +146,6 @@ io.on("connection", function (socket: Socket) {
       manager: { command: "start" | "stop" | "pause"; timerLimit?: number },
       player: Player
     ) {
-      console.log(player.lobbyId, manager.command, manager.timerLimit);
       timers(player.lobbyId, manager.command, manager.timerLimit);
     }
   );

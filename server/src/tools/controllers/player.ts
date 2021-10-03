@@ -13,7 +13,6 @@ export const addNewTeamMember = async (
   callback: (response: {
     player: Player;
     initLobbySettings: LobbySetting;
-    allPlayers: Player[];
   }) => void
 ): Promise<void> => {
   socket.join(lobbyId);
@@ -21,10 +20,7 @@ export const addNewTeamMember = async (
   const initLobbySettings = (await getLobbySettings(
     player.lobbyId
   )) as LobbySetting;
-  const allPlayers = (await getPlayersInLobby(player.lobbyId)).filter(
-    (item) => item.id !== player.id
-  );
-  callback({ player, initLobbySettings, allPlayers });
+  callback({ player, initLobbySettings });
   socket.to(lobbyId).emit(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, player);
 };
 
@@ -32,8 +28,7 @@ export const getLobbyMembers = async (
   player: Player,
   callback: (members: Player[]) => void
 ): Promise<void> => {
-  const members = (await getPlayersInLobby(player.lobbyId)).filter(
-    (item) => item.id !== player.id
-  );
+  const members = await getPlayersInLobby(player.lobbyId);
+  // console.log(members);
   callback(members);
 };
