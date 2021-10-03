@@ -22,6 +22,7 @@ import {
   getChatMessages,
   getLobbyIssues,
   getLobbyMembers,
+  getLobbySettingsCtr,
   reconnectToLobby,
   sendChatMessage,
   updateIssue,
@@ -126,6 +127,15 @@ io.on("connection", function (socket: Socket) {
       callback: (messages: ChatMessage[]) => void
     ) {
       await getChatMessages(lobbyId, lastMessageId, messageQty, callback);
+    }
+  );
+  socket.on(
+    SocketActions.GET_LOBBY_SETTINGS,
+    async function (
+      lobbyId: string,
+      callback: (response: { lobbySettings: LobbySetting | null }) => void
+    ) {
+      await getLobbySettingsCtr(lobbyId, callback);
     }
   );
   socket.on(

@@ -3,6 +3,7 @@ import { LobbySetting, NewPlayer, Player } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import {
   createNewPlayer,
+  getLobbySettings,
   getPlayerById,
   setLobbySettings,
   validateLobbyMd,
@@ -60,4 +61,12 @@ export const validateLobby = async (
 ): Promise<void> => {
   const isValidate = await validateLobbyMd(lobbyId);
   callback({ isValidate });
+};
+
+export const getLobbySettingsCtr = async (
+  lobbyId: string,
+  callback: (response: { lobbySettings: LobbySetting | null }) => void
+): Promise<void> => {
+  const lobbySettings = await getLobbySettings(lobbyId);
+  callback({ lobbySettings });
 };
