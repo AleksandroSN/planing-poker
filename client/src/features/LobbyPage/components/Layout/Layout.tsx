@@ -1,35 +1,37 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import {
-  Button,
-  Chat,
-  InputText,
-  User,
-  AddCardSection,
-  CoverSection,
-  Issues,
-} from "../../../../components";
+import { Button, Chat, InputText, User, Issues } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import {
   BASE_CLIENT,
   dummyPlayer,
   isReallyYou,
   AnimeChatMount,
+  arrToNumber,
 } from "../../../../lib";
-import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
-import { Player } from "../../../Socket/types";
+import {
+  useAppSelector,
+  AppSettings,
+  Players,
+  GameSettingsCurrent,
+} from "../../../../redux/store";
+import { LobbySetting, Player } from "../../../Socket/types";
 import { GameSettings } from "../GameSettings";
 import "./style.scss";
 import { GameCards } from "../GameCards";
+import { updateSettings } from "../../../Socket/lib/updateSettings";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
   const { register, handleSubmit, watch } = useForm<FormValues>();
   const { pathname } = useLocation();
   const { chatOpen } = useAppSelector(AppSettings);
+  const settings = useAppSelector(GameSettingsCurrent);
   const playersFromRedux = useAppSelector(Players);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (playersFromRedux.length > 0) {
@@ -67,9 +69,17 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     }
   }, []);
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Redirect to game page");
-    console.log(data);
+  const onSubmit = async (data: FormValues) => {
+    const newSettings = {
+      masterIsPlayer: data["Scrum master as player"],
+      isTimerNeed: data["Is timer needed"],
+      changingCardInRoundEnd: data["Changing card in round end"],
+      scoreType: data["Score type"],
+      scoreTypeShort: data["Score type (Short)"],
+      roundTime: arrToNumber([data.minutes, data.seconds]),
+    };
+    const allNewSettins: LobbySetting = { ...settings, ...newSettings };
+    await updateSettings(allNewSettins, dispatch);
   };
   return (
     <>

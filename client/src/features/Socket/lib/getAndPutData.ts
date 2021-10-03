@@ -117,20 +117,23 @@ export const reconnectToLobby = async (
   return promise;
 };
 
+type ResponseLobbySettings = {
+  lobbySettings: LobbySetting;
+};
+type ResponseLobbyNewSettings = {
+  newLobbySettings: LobbySetting;
+};
+
 export const sendNewSettings = async (
   socket: SocketAPI,
   newSettings: LobbySetting
-): Promise<LobbySetting> => {
+): Promise<ResponseLobbyNewSettings> => {
   const promise = socket.emit(
     SocketActions.UPDATE_SETTINGS,
     [newSettings],
     true
-  ) as Promise<LobbySetting>;
+  ) as Promise<ResponseLobbyNewSettings>;
   return promise;
-};
-
-type ResponseLobbySettings = {
-  lobbySettings: LobbySetting;
 };
 
 export const getLobbySettings = async (

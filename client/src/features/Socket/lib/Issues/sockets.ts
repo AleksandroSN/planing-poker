@@ -1,5 +1,5 @@
 import { SocketAPI } from "..";
-import { IssuesModel } from "../../../../components/Issues";
+import { IssuesModel } from "../../../../types/interface";
 import { Issue, SocketActions } from "../../types";
 
 export const sendNewIssue = (

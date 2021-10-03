@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { SocketSingleton } from "..";
-import { IssuesModel } from "../../../../components/Issues";
+import { IssuesModel } from "../../../../types/interface";
 import { Issue } from "../../types";
 import { deleteExistIssue, sendNewIssue, updateExistIssue } from "./sockets";
 

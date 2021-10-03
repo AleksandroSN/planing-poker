@@ -1,4 +1,3 @@
-import { IssuesModel } from "../components/Issues";
 import { Issue } from "../features/Socket/types";
 
 export interface FormValues {
@@ -11,13 +10,13 @@ export interface FormValues {
   Title: string;
   Link: string;
   Priority: "Low" | "Middle" | "Hight";
-  "Scrum master as player": string;
-  "Changing card in round end": string;
-  "Is timer needed": string;
+  "Scrum master as player": boolean;
+  "Changing card in round end": boolean;
+  "Is timer needed": boolean;
   minutes: string;
   seconds: string;
   "Choose file": string | FileList;
-  "Connect as Observer": string;
+  "Connect as Observer": boolean;
   ChatMessage: string;
 }
 
@@ -37,4 +36,11 @@ export interface IssueContextModel {
   updateIssues: (data: Issue) => Promise<void>;
   findIssue: (id: string) => void;
   clearCurrentIssue: () => void;
+}
+
+export interface IssuesModel {
+  title: string;
+  link: string;
+  priority: "Low" | "Middle" | "Hight";
+  lobbyId: string;
 }

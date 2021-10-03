@@ -6,6 +6,7 @@ import { AnimeTimerMount } from "../../lib";
 import "./gameSettings.scss";
 import { GameSettingsActions } from "../../../../redux/GameSettingsReducer/actions";
 import { GameSettingsCurrent, useAppSelector } from "../../../../redux/store";
+import { numberToArr } from "../../../../lib";
 
 export const GameSettings: FunctionComponent<GameSettingsProps> = ({
   onRegister,
@@ -17,6 +18,7 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
   const toggleTimer = () => {
     setIsTimerNeed((prev) => !prev);
   };
+  const baseTime = numberToArr(settings.roundTime);
   const spShortValue = onWatch("Score type (Short)");
 
   useEffect(() => {
@@ -64,7 +66,12 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
         />
         <AnimeTimerMount mount={isTimerNeed} classes="game-settings__timer">
           <p className="timer__text">Round time:</p>
-          <Timer isSettings register={onRegister} isTimer={false} />
+          <Timer
+            isSettings
+            register={onRegister}
+            isTimer={false}
+            time={baseTime}
+          />
         </AnimeTimerMount>
       </div>
     </>
