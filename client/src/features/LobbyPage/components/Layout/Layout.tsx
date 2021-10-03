@@ -8,40 +8,28 @@ import { User } from "../../../../components/User/User";
 import { FormValues } from "../../../../types/interface";
 import { AddCardSection } from "../AddCardSection";
 import { CoverSection } from "../CoverSection";
-import "./style.scss";
-import { BASE_CLIENT } from "../../../../lib";
+import { BASE_CLIENT, dummyPlayer, isReallyYou } from "../../../../lib";
 import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
 import { AnimeChatMount } from "../../lib";
 import { Player } from "../../../Socket/types";
+import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const { pathname } = useLocation();
+  const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
   const { register, handleSubmit, watch } = useForm<FormValues>();
-  const { chatOpen, isLoading } = useAppSelector(AppSettings);
+  const { pathname } = useLocation();
+  const { chatOpen } = useAppSelector(AppSettings);
   const playersFromRedux = useAppSelector(Players);
-  const [dealerState, setDealerState] = useState<Player>({
-    id: "d",
-    firstName: "d",
-    lastName: "d",
-    jobPosition: "d",
-    avatarImage: "d",
-    role: "Dealer",
-    lobbyId: "d",
-  });
 
   useEffect(() => {
     if (playersFromRedux.length > 0) {
       const dealer = playersFromRedux.filter(
         (player) => player.role === "Dealer"
       )[0];
-      console.log(dealer);
       setDealerState(dealer);
     }
   }, [playersFromRedux]);
 
-  const dealer = playersFromRedux.filter(
-    (player) => player.role === "Dealer"
-  )[0];
   const [isMaster, setIsMaster] = useState<boolean>(false);
   const players = playersFromRedux
     .filter((player) => {
@@ -55,7 +43,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           lastName={filterPlayers.lastName}
           jobPosition={filterPlayers.jobPosition}
           isChat={false}
-          isYou={false}
+          isYou={isReallyYou(filterPlayers.firstName)}
         />
       );
     });
@@ -88,7 +76,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               lastName={dealerState.lastName}
               jobPosition={dealerState.jobPosition}
               isChat={false}
-              isYou={false}
+              isYou={isReallyYou(dealerState.firstName)}
             />
           </div>
           {isMaster && (

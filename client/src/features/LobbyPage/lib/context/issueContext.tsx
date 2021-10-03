@@ -1,6 +1,5 @@
 import { createContext, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-// import { IssuesReducerActions } from "../../../../redux/IssuesReducer/actions";
 import {
   GameSettingsCurrent,
   IssuesRedux,
@@ -38,7 +37,6 @@ export const IssueContext =
 
 export const IssueContextHelper = (): IssueContextModel => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [localIssues, setIssues] = useState<Issue[]>([]);
   const [currentIssue, setCurrentIssue] = useState<Issue>();
   const { lobbyId } = useAppSelector(GameSettingsCurrent);
   const { issues } = useAppSelector(IssuesRedux);
@@ -50,10 +48,7 @@ export const IssueContextHelper = (): IssueContextModel => {
     await addNewIssue(data, dispatch);
   };
   const deleteIssues = async (id: string) => {
-    // console.log(id);
     const issueIdx = issues.findIndex((x) => x.id === id);
-    // console.log(issues[issueIdx]);
-    // setIssues((arr) => [...arr.slice(0, issueIdx), ...arr.slice(issueIdx + 1)]);
     await deleteIssue(issues[issueIdx], dispatch);
   };
   const updateIssues = async (data: Issue) => {

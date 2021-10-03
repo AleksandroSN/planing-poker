@@ -29,6 +29,5 @@ export const getLobbyMembers = async (
   callback: (members: Player[]) => void
 ): Promise<void> => {
   const members = await getPlayersInLobby(player.lobbyId);
-  // console.log(members);
   callback(members);
 };

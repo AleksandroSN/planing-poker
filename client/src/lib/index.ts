@@ -9,6 +9,7 @@ import { dictErrors } from "./inputErrorMessages";
 import { checkAuth } from "./checkAuth";
 import { AnimeOpacity } from "./animation";
 import { isReallyYou } from "./isReallyYou";
+import { dummyPlayer } from "./dummyPlayer";
 
 export {
   renderUserAvatar,
@@ -23,4 +24,5 @@ export {
   checkAuth,
   AnimeOpacity,
   isReallyYou,
+  dummyPlayer,
 };

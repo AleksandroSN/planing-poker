@@ -1,4 +1,3 @@
-import { IssuesModel } from "../../LobbyPage/types/interface";
 import {
   ChatMessage,
   Issue,
@@ -130,14 +129,18 @@ export const sendNewSettings = async (
   return promise;
 };
 
+type ResponseLobbySettings = {
+  lobbySettings: LobbySetting;
+};
+
 export const getLobbySettings = async (
   socket: SocketAPI,
   lobbyId: string
-): Promise<LobbySetting> => {
+): Promise<ResponseLobbySettings> => {
   const promise = socket.emit(
-    SocketActions.UPDATE_SETTINGS,
+    SocketActions.GET_LOBBY_SETTINGS,
     [lobbyId],
     true
-  ) as Promise<LobbySetting>;
+  ) as Promise<ResponseLobbySettings>;
   return promise;
 };
