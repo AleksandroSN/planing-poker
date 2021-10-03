@@ -16,7 +16,7 @@ export const createMember = async (
 ): Promise<Player> => {
   dispatch({ type: "IS_LOADING_DATA", payload: true });
   const socket = SocketSingleton.getInstance().getSocket();
-  await socket.connect();
+  // await socket.connect();
   const lobby = await SocketMethods.connectToLobby(
     socket,
     newPlayer,

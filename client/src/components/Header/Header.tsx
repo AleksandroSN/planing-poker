@@ -16,7 +16,7 @@ export const Header: FunctionComponent = (): JSX.Element => {
     });
   };
   useEffect(() => {
-    if (appStage === "lobby") {
+    if (appStage === "out") {
       setIsLogin((x) => !x);
     }
   }, [appStage]);

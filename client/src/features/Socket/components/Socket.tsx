@@ -4,6 +4,7 @@ import {
   getLobbyIssues,
   getLobbyMessages,
   getLobbyPlayers,
+  reconnectToLobby,
 } from "../lib/getAndPutData";
 import { SocketSingleton } from "../lib";
 import { ChatMessage, Issue, Player, SocketActions } from "../types";
@@ -26,6 +27,8 @@ export const Socket = (): JSX.Element => {
         });
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
+        const rcn = await reconnectToLobby(localPlayer, socket);
+        console.log(rcn);
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
           dispatch({ type: "ADD_PLAYER", payload: player });
         }); // update members

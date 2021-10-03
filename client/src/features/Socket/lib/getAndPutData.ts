@@ -91,3 +91,25 @@ export const validateLobby = async (
   ) as Promise<ValidateResponse>;
   return promise;
 };
+
+export type NewChatMessage = {
+  messageText: string;
+  playerId: string;
+  lobbyId: string;
+};
+
+export const sendChatMessage = (
+  newMessage: NewChatMessage,
+  socket: SocketAPI
+) => {
+  socket.emit(SocketActions.SEND_CHAT_MESSAGE, [newMessage], false);
+};
+
+export const reconnectToLobby = async (player: Player, socket: SocketAPI) => {
+  const promise = socket.emit(
+    SocketActions.RECONNECT_TO_LOBBY,
+    [player],
+    true
+  ) as Promise<boolean>;
+  return promise;
+};
