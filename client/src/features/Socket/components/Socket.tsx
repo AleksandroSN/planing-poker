@@ -4,6 +4,7 @@ import {
   getLobbyIssues,
   getLobbyMessages,
   getLobbyPlayers,
+  getLobbySettings,
   reconnectToLobby,
 } from "../lib/getAndPutData";
 import { SocketSingleton } from "../lib";
@@ -53,9 +54,20 @@ export const Socket = (): JSX.Element => {
         socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
           dispatch({ type: "ADD_ISSUE", payload: issue });
         }); // update issue
+        socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, (issue: Issue) => {
+          dispatch({ type: "UPDATE_ISSUE", payload: issue });
+        });
+        socket.on(SocketActions.RECIEVE_DELETED_ISSUE, (issue: Issue) => {
+          dispatch({ type: "DELETE_ISSUE", payload: issue });
+        });
         socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
           dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
         }); // update messages
+        const LobbySettings = await getLobbySettings(
+          socket,
+          localPlayer.lobbyId
+        );
+        dispatch({ type: "UPDATE_SETTINGS", payload: LobbySettings });
         const lobbyMembers = await getLobbyPlayers(socket, localPlayer);
         dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });
         const lobbyIssues = await getLobbyIssues(socket, localPlayer);

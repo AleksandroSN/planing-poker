@@ -17,8 +17,28 @@ import { Player } from "../../../Socket/types";
 export const Layout: FunctionComponent = (): JSX.Element => {
   const { pathname } = useLocation();
   const { register, handleSubmit, watch } = useForm<FormValues>();
-  const { chatOpen } = useAppSelector(AppSettings);
+  const { chatOpen, isLoading } = useAppSelector(AppSettings);
   const playersFromRedux = useAppSelector(Players);
+  const [dealerState, setDealerState] = useState<Player>({
+    id: "d",
+    firstName: "d",
+    lastName: "d",
+    jobPosition: "d",
+    avatarImage: "d",
+    role: "Dealer",
+    lobbyId: "d",
+  });
+
+  useEffect(() => {
+    if (playersFromRedux.length > 0) {
+      const dealer = playersFromRedux.filter(
+        (player) => player.role === "Dealer"
+      )[0];
+      console.log(dealer);
+      setDealerState(dealer);
+    }
+  }, [playersFromRedux]);
+
   const dealer = playersFromRedux.filter(
     (player) => player.role === "Dealer"
   )[0];
@@ -63,10 +83,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <div className="master-card">
             <div className="master-card__title">Scrum master:</div>
             <User
-              avatar={dealer.avatarImage}
-              firstName={dealer.firstName}
-              lastName={dealer.lastName}
-              jobPosition={dealer.jobPosition}
+              avatar={dealerState.avatarImage}
+              firstName={dealerState.firstName}
+              lastName={dealerState.lastName}
+              jobPosition={dealerState.jobPosition}
               isChat={false}
               isYou={false}
             />

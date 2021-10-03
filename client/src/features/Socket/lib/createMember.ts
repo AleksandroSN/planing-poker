@@ -8,6 +8,11 @@ import {
   Player,
   SocketActions,
 } from "../types";
+import {
+  getLobbyIssues,
+  getLobbyMessages,
+  getLobbyPlayers,
+} from "./getAndPutData";
 
 export const createMember = async (
   newPlayer: NewPlayer,
@@ -24,12 +29,24 @@ export const createMember = async (
   );
   dispatch({ type: "ADD_PLAYER", payload: lobby.player });
   dispatch({ type: "UPDATE_SETTINGS", payload: lobby.initLobbySettings });
+  const lobbyMembers = await getLobbyPlayers(socket, lobby.player);
+  dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });
+  const lobbyIssues = await getLobbyIssues(socket, lobby.player);
+  dispatch({ type: "UPDATE_ISSUES", payload: lobbyIssues });
+  const lobbyMessages = await getLobbyMessages(socket, lobby.player, "0", 20);
+  dispatch({ type: "UPDATE_CHAT_MESSAGES", payload: lobbyMessages });
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
     dispatch({ type: "ADD_PLAYER", payload: player });
   }); // update members
   socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
     dispatch({ type: "ADD_ISSUE", payload: issue });
   }); // update issue
+  socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, (issue: Issue) => {
+    dispatch({ type: "UPDATE_ISSUE", payload: issue });
+  });
+  socket.on(SocketActions.RECIEVE_DELETED_ISSUE, (issue: Issue) => {
+    dispatch({ type: "DELETE_ISSUE", payload: issue });
+  });
   socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
     dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
   }); // update messages

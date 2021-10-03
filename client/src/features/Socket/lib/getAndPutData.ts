@@ -129,3 +129,15 @@ export const sendNewSettings = async (
   ) as Promise<LobbySetting>;
   return promise;
 };
+
+export const getLobbySettings = async (
+  socket: SocketAPI,
+  lobbyId: string
+): Promise<LobbySetting> => {
+  const promise = socket.emit(
+    SocketActions.UPDATE_SETTINGS,
+    [lobbyId],
+    true
+  ) as Promise<LobbySetting>;
+  return promise;
+};
