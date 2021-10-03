@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
-import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { ChatMessage, useAppSelector } from "../../redux/store";
+import { ChatMessage, Players, useAppSelector } from "../../redux/store";
 import { FormValues } from "../../types/interface";
 import { AnimeOpacity } from "../../lib";
 import { InputText } from "../InputText";
@@ -12,12 +11,18 @@ import "./chat.scss";
 export const Chat: FunctionComponent = (): JSX.Element => {
   const { register, handleSubmit, reset } = useForm<FormValues>();
   const { chatMessages } = useAppSelector(ChatMessage);
-  const dispatch = useDispatch();
+  const players = useAppSelector(Players);
   const onSubmit = (data: FormValues) => {
-    submitChatMessage(data, dispatch, reset);
+    submitChatMessage(data, reset);
   };
-
+  console.log(chatMessages);
   const messages = chatMessages.map((mes) => {
+    console.log("Players", players);
+    console.log("Message", mes);
+    const index = players.findIndex((itm) => itm.id === mes.playerId);
+    console.log("Индекс", index);
+    const playerData = players[index];
+    console.log("Player DATA:", playerData);
     return (
       <AnimeOpacity item={mes}>
         <ChatRow
@@ -27,7 +32,7 @@ export const Chat: FunctionComponent = (): JSX.Element => {
           messageTime={mes.messageTime}
           playerId={mes.playerId}
           lobbyId={mes.lobbyId}
-          playerData={mes.playerData}
+          playerData={playerData}
         />
       </AnimeOpacity>
     );
