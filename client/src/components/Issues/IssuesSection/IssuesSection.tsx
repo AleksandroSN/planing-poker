@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from "react";
-import { Modal } from "../../../../components";
-import { IssueContext } from "../../lib/context/issueContext";
+import { Modal } from "../..";
+import { IssueContext } from "../../../lib/context/issueContext";
 import { Issue } from "../IssueItem/Issue";
 import { IssuesForm } from "../IssuesForm";
 import { IssueFormHelper } from "../IssuesForm/issueFormHelper";

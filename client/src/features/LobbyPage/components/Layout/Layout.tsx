@@ -2,17 +2,27 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { GameSettings, Issues } from "..";
-import { Button, Chat, InputText } from "../../../../components";
-import { User } from "../../../../components/User/User";
+import {
+  Button,
+  Chat,
+  InputText,
+  User,
+  AddCardSection,
+  CoverSection,
+  Issues,
+} from "../../../../components";
 import { FormValues } from "../../../../types/interface";
-import { AddCardSection } from "../AddCardSection";
-import { CoverSection } from "../CoverSection";
-import { BASE_CLIENT, dummyPlayer, isReallyYou } from "../../../../lib";
+import {
+  BASE_CLIENT,
+  dummyPlayer,
+  isReallyYou,
+  AnimeChatMount,
+} from "../../../../lib";
 import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
-import { AnimeChatMount } from "../../lib";
 import { Player } from "../../../Socket/types";
+import { GameSettings } from "../GameSettings";
 import "./style.scss";
+import { GameCards } from "../GameCards";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
@@ -140,16 +150,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <GameSettings onRegister={register} onWatch={watch} />
             </div>
           )}
-          {isMaster && (
-            <div className="">
-              <CoverSection />
-            </div>
-          )}
-          {isMaster && (
-            <div className="card-values__block">
-              <AddCardSection />
-            </div>
-          )}
+          {isMaster && <GameCards />}
         </form>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">

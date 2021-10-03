@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { IssueContext } from "../../lib/context/issueContext";
+import { IssueContext } from "../../../lib/context/issueContext";
 import "./issue.scss";
 
 interface IssueProps {

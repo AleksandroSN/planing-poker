@@ -1,3 +1,3 @@
-import { AnimeTimerMount, AnimeChatMount } from "./animation";
+import { AnimeTimerMount } from "./animation";
 
-export { AnimeTimerMount, AnimeChatMount };
+export { AnimeTimerMount };

@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { CardsValueModel } from "../../types/interface";
+import { CardsValueModel } from "../types";
 import { searchEnterKey } from "./cardsWithValueHelper";
 
 interface CardsWithValueProps {

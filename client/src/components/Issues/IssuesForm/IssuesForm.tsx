@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
-import { InputSelect, InputText } from "../../../../components";
-import { FormValues } from "../../../../types/interface";
+import { InputSelect, InputText } from "../..";
+import { FormValues } from "../../../types/interface";
 import { IssueFormHelper } from "./issueFormHelper";
 import "./style.scss";
 

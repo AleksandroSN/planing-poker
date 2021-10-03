@@ -1,17 +1,18 @@
-import { createContext, useCallback, useState } from "react";
+import { useState, useCallback, createContext } from "react";
 import { useDispatch } from "react-redux";
-import {
-  GameSettingsCurrent,
-  IssuesRedux,
-  useAppSelector,
-} from "../../../../redux/store";
+import { IssuesModel } from "../../components/Issues";
 import {
   addNewIssue,
   deleteIssue,
   updateIssue,
-} from "../../../Socket/lib/Issues/methods";
-import { Issue } from "../../../Socket/types";
-import { IssueContextModel, IssuesModel } from "../../types/interface";
+} from "../../features/Socket/lib/Issues/methods";
+import { Issue } from "../../features/Socket/types";
+import {
+  useAppSelector,
+  GameSettingsCurrent,
+  IssuesRedux,
+} from "../../redux/store";
+import { IssueContextModel } from "../../types/interface";
 
 const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,

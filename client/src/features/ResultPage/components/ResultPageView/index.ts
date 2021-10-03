@@ -1,0 +1,1 @@
+export { ResultPageView } from "./ResultPageView";

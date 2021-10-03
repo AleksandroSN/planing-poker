@@ -1,1 +1,1 @@
-export {};
+export { MainPageView } from "./MainPageView";

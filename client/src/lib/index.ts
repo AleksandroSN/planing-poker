@@ -7,7 +7,7 @@ import { CreateNewFile } from "./createFormData";
 import { uploadImage } from "./uploadImage";
 import { dictErrors } from "./inputErrorMessages";
 import { checkAuth } from "./checkAuth";
-import { AnimeOpacity } from "./animation";
+import { AnimeOpacity, AnimeChatMount } from "./animation";
 import { isReallyYou } from "./isReallyYou";
 import { dummyPlayer } from "./dummyPlayer";
 
@@ -23,6 +23,7 @@ export {
   dictErrors,
   checkAuth,
   AnimeOpacity,
+  AnimeChatMount,
   isReallyYou,
   dummyPlayer,
 };

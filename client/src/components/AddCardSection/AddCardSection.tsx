@@ -1,9 +1,9 @@
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { GameSettingsActions } from "../../../../redux/GameSettingsReducer/actions";
-import { GameSettingsCurrent, useAppSelector } from "../../../../redux/store";
-import { CardsValueModel } from "../../types/interface";
-import { Cards } from "../Cards";
+import { GameSettingsActions } from "../../redux/GameSettingsReducer/actions";
+import { GameSettingsCurrent, useAppSelector } from "../../redux/store";
+import { Cards } from "./Cards";
+import { CardsValueModel } from "./types";
 import "./style.scss";
 
 export const AddCardSection: FunctionComponent = (): JSX.Element => {

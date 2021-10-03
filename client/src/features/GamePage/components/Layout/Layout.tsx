@@ -1,15 +1,15 @@
 import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Issues } from "../../../LobbyPage/components/Issues/Issues";
+import { Issues } from "../../../../components/Issues/Issues";
 import { Button, Chat, Timer } from "../../../../components";
 import { User } from "../../../../components/User/User";
 import { FormValues } from "../../../../types/interface";
-import { AnimeChatMount } from "../../../LobbyPage/lib";
 import { AppSettings, useAppSelector } from "../../../../redux/store";
-import { ProgressBar } from "../ProgressBar/ProgressBar";
-import { Cards } from "../../../LobbyPage/components/Cards";
+import { ProgressBar } from "../ProgressBar";
+import { Cards } from "../../../../components/AddCardSection/Cards";
 import "../GamePageView/style.scss";
 import { ScrumMaster } from "../../../../components/ScrumMaster/ScrumMaster";
+import { AnimeChatMount } from "../../../../lib";
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
