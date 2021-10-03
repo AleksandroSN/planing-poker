@@ -33,7 +33,6 @@ import fileUpload from "express-fileupload";
 import { routerFiles } from "./tools/controllers/router-file";
 import { kickDb } from "./tools/kick-voting";
 import { issueVotingDb } from "./tools/issue-voting";
-import { db } from "./db/db";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
