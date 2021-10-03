@@ -1,4 +1,4 @@
-import { CoversDataModel } from "../../types/interface";
+import { CoversDataModel } from "./types";
 
 export const coversData: CoversDataModel[] = [
   {

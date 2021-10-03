@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
 import {
-  IssueContext,
   IssueContextHelper,
+  IssueContext,
 } from "../../lib/context/issueContext";
-import { IssuesSection } from "../IssuesSection";
+import { IssuesSection } from "./IssuesSection";
 import "./style.scss";
 
 interface IssuesProps {

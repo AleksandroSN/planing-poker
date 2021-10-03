@@ -1,10 +1,10 @@
 import { FunctionComponent, useState } from "react";
-import { CardsValueModel } from "../../types/interface";
 import {
   CardsAddValue,
   CardsWithoutValue,
   CardsWithValue,
 } from "../CardsValue";
+import { CardsValueModel } from "../types";
 import "./style.scss";
 
 interface CardsProps {

@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { FormValues } from "../../../../types/interface";
-import { Issue } from "../../../Socket/types";
-import { IssueContext } from "../../lib/context/issueContext";
-import { IssuesModel } from "../../types/interface";
+import { FormValues } from "../../../types/interface";
+import { Issue } from "../../../features/Socket/types";
 import { IssueFormHelperModel } from "./types";
+import { IssueContext } from "../../../lib/context/issueContext";
+import { IssuesModel } from "../types";
 
 export const IssueFormHelper = (): IssueFormHelperModel => {
   const {

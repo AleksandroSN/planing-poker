@@ -35,7 +35,8 @@ export const gameSettingsReducer = (
 ): GameSettingsState => {
   switch (action.type) {
     case GameSettingsActions.updateSetiings: {
-      return { ...state, ...(action.payload as unknown as GameSettingsState) };
+      const newData = action.payload as unknown as GameSettingsState;
+      return { ...state, ...newData };
     }
     default:
       return state;

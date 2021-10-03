@@ -1,8 +1,8 @@
 import { FunctionComponent, useContext } from "react";
 import { IssueItem } from "./IssueItem";
 import { AddIssue } from "./AddIssue";
-import { IssueContext } from "../../lib/context/issueContext";
 import "./issue.scss";
+import { IssueContext } from "../../../lib/context/issueContext";
 
 interface IssueProps {
   id: string;

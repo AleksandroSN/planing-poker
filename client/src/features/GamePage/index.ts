@@ -1,3 +1,3 @@
-import { GamePageView as GamePage } from "./components/GamePageView";
+import { GamePageView as GamePage } from "./components";
 
 export { GamePage };

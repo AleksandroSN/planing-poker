@@ -1,6 +1,5 @@
 import { FunctionComponent } from "react";
-import { AddCardSection } from "../AddCardSection";
-import { CoverSection } from "../CoverSection";
+import { AddCardSection, CoverSection } from "../../../../components";
 import "./gameCards.scss";
 
 export const GameCards: FunctionComponent = () => {

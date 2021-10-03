@@ -1,18 +1,18 @@
-import { createContext, useCallback, useState } from "react";
+import { useState, useCallback, createContext } from "react";
 import { useDispatch } from "react-redux";
-// import { IssuesReducerActions } from "../../../../redux/IssuesReducer/actions";
-import {
-  GameSettingsCurrent,
-  IssuesRedux,
-  useAppSelector,
-} from "../../../../redux/store";
+import { IssuesModel } from "../../components/Issues";
 import {
   addNewIssue,
   deleteIssue,
   updateIssue,
-} from "../../../Socket/lib/Issues/methods";
-import { Issue } from "../../../Socket/types";
-import { IssueContextModel, IssuesModel } from "../../types/interface";
+} from "../../features/Socket/lib/Issues/methods";
+import { Issue } from "../../features/Socket/types";
+import {
+  useAppSelector,
+  GameSettingsCurrent,
+  IssuesRedux,
+} from "../../redux/store";
+import { IssueContextModel } from "../../types/interface";
 
 const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,
@@ -38,7 +38,6 @@ export const IssueContext =
 
 export const IssueContextHelper = (): IssueContextModel => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [localIssues, setIssues] = useState<Issue[]>([]);
   const [currentIssue, setCurrentIssue] = useState<Issue>();
   const { lobbyId } = useAppSelector(GameSettingsCurrent);
   const { issues } = useAppSelector(IssuesRedux);
@@ -50,10 +49,7 @@ export const IssueContextHelper = (): IssueContextModel => {
     await addNewIssue(data, dispatch);
   };
   const deleteIssues = async (id: string) => {
-    // console.log(id);
     const issueIdx = issues.findIndex((x) => x.id === id);
-    // console.log(issues[issueIdx]);
-    // setIssues((arr) => [...arr.slice(0, issueIdx), ...arr.slice(issueIdx + 1)]);
     await deleteIssue(issues[issueIdx], dispatch);
   };
   const updateIssues = async (data: Issue) => {

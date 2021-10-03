@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { ProgressItem } from "../ProgressItem/ProgressItem";
+import { ProgressItem } from "../ProgressItem";
 import { Players, useAppSelector } from "../../../../redux/store";
 import { User } from "../../../../components/User/User";
 import "./style.scss";

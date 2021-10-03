@@ -1,3 +1,6 @@
+import { IssuesModel } from "../components/Issues";
+import { Issue } from "../features/Socket/types";
+
 export interface FormValues {
   "": string;
   "Your first name": string;
@@ -18,13 +21,20 @@ export interface FormValues {
   ChatMessage: string;
 }
 
-// enum FormPriority {
-//   low = "Low",
-//   middle = "Medium",
-//   high = "High",
-// }
-
 export interface UploadResponse {
   name: string;
   path: string;
+}
+
+export interface IssueContextModel {
+  isOpen: boolean;
+  lobbyId: string;
+  toggleIsOpen: () => void;
+  issues: Issue[];
+  currentIssue: Issue | undefined;
+  addIssue: (data: IssuesModel) => Promise<void>;
+  deleteIssues: (id: string) => Promise<void>;
+  updateIssues: (data: Issue) => Promise<void>;
+  findIssue: (id: string) => void;
+  clearCurrentIssue: () => void;
 }
