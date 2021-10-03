@@ -1,2 +1,2 @@
 export { Issues } from "./Issues";
-export * from "./types"
+export * from "./types";

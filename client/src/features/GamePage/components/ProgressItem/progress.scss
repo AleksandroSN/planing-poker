@@ -27,11 +27,10 @@
     width: 100%;
   }
 
-    &--span {
-      color: #ffffff;
-      text-shadow: $mainShadow;
-    }
-  
+  &--span {
+    color: #ffffff;
+    text-shadow: $mainShadow;
+  }
 
   &__name {
     text-transform: capitalize;
