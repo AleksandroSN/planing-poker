@@ -10,6 +10,8 @@ import { checkAuth } from "./checkAuth";
 import { AnimeOpacity, AnimeChatMount } from "./animation";
 import { isReallyYou } from "./isReallyYou";
 import { dummyPlayer } from "./dummyPlayer";
+import { numberToArr } from "./numberToArr";
+import { arrToNumber } from "./arrToNumber";
 
 export {
   renderUserAvatar,
@@ -26,4 +28,6 @@ export {
   AnimeChatMount,
   isReallyYou,
   dummyPlayer,
+  numberToArr,
+  arrToNumber,
 };

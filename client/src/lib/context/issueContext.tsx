@@ -1,6 +1,5 @@
 import { useState, useCallback, createContext } from "react";
 import { useDispatch } from "react-redux";
-import { IssuesModel } from "../../components/Issues";
 import {
   addNewIssue,
   deleteIssue,
@@ -12,7 +11,7 @@ import {
   GameSettingsCurrent,
   IssuesRedux,
 } from "../../redux/store";
-import { IssueContextModel } from "../../types/interface";
+import { IssueContextModel, IssuesModel } from "../../types/interface";
 
 const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,

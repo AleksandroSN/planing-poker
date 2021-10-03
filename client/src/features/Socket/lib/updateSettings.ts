@@ -9,6 +9,8 @@ export const updateSettings = async (
 ): Promise<void> => {
   dispatch({ type: "IS_LOADING_DATA", payload: true });
   const socket = SocketSingleton.getInstance().getSocket();
-  await sendNewSettings(socket, newSettings);
+  const settings = await sendNewSettings(socket, newSettings);
+  console.log(settings);
+  dispatch({ type: "UPDATE_SETTINGS", payload: settings.newLobbySettings });
   dispatch({ type: "IS_LOADING_DATA", payload: false });
 };
