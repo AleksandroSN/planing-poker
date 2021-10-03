@@ -8,7 +8,7 @@ interface IssueProps {
   id: string;
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
 }
 
 export const Issue: FunctionComponent<IssueProps> = ({
