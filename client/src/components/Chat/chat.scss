@@ -4,6 +4,12 @@
 .chat {
   background-color: $colorWhite;
 
+  &__wrapper {
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom: 1rem;
+  }
+
   &__row {
     display: flex;
     color: $colorBlack;
@@ -29,5 +35,6 @@
     box-shadow: $mainShadow;
     padding: 10px;
     font-size: 1rem;
+    border: 1px solid #2b3a67;
   }
 }

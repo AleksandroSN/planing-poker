@@ -15,7 +15,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   link,
   priority,
 }): JSX.Element => {
-  const { toggleIsOpen, deleteIssue, findIssue } = useContext(IssueContext);
+  const { toggleIsOpen, deleteIssues, findIssue } = useContext(IssueContext);
 
   const updateIssue = () => {
     findIssue(id);
@@ -30,7 +30,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
           <button type="button" onClick={updateIssue}>
             <img src="../icons/edit.svg" alt="edit issue" />
           </button>
-          <button type="button" onClick={() => deleteIssue(id)}>
+          <button type="button" onClick={() => deleteIssues(id)}>
             <img src="../icons/trash.svg" alt="delete issue" />
           </button>
         </div>

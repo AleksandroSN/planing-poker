@@ -7,7 +7,13 @@ import {
   reconnectToLobby,
 } from "../lib/getAndPutData";
 import { SocketSingleton } from "../lib";
-import { ChatMessage, Issue, Player, SocketActions } from "../types";
+import {
+  ChatMessage,
+  Issue,
+  LobbySetting,
+  Player,
+  SocketActions,
+} from "../types";
 
 export const Socket = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -27,8 +33,20 @@ export const Socket = (): JSX.Element => {
         });
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
-        const rcn = await reconnectToLobby(localPlayer, socket);
-        console.log(rcn);
+        await reconnectToLobby(localPlayer, socket);
+
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_APP_STAGE,
+          (newLobbySettings: LobbySetting) => {
+            dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
+          }
+        );
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_NEW_SETTINGS,
+          (newLobbySettings: LobbySetting) => {
+            dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
+          }
+        );
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
           dispatch({ type: "ADD_PLAYER", payload: player });
         }); // update members

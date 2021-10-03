@@ -23,7 +23,7 @@ export interface IssueContextModel {
   issues: Issue[];
   currentIssue: Issue | undefined;
   addIssue: (data: IssuesModel) => Promise<void>;
-  deleteIssue: (id: string) => Promise<void>;
+  deleteIssues: (id: string) => Promise<void>;
   updateIssues: (data: Issue) => Promise<void>;
   findIssue: (id: string) => void;
   clearCurrentIssue: () => void;

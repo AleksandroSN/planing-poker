@@ -26,7 +26,7 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
     toggleIsOpen();
   };
 
-  const updateIssue = (data: FormValues) => {
+  const updateIssue = async (data: FormValues) => {
     const newIssue: Issue = {
       id: String(currentIssue?.id),
       link: data.Link,
@@ -34,7 +34,7 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
       priority: data.Priority,
       lobbyId,
     };
-    updateIssues(newIssue);
+    await updateIssues(newIssue);
     clearCurrentIssue();
     toggleIsOpen();
   };

@@ -106,7 +106,10 @@ export const sendChatMessage = (
   socket.emit(SocketActions.SEND_CHAT_MESSAGE, [newMessage], false);
 };
 
-export const reconnectToLobby = async (player: Player, socket: SocketAPI) => {
+export const reconnectToLobby = async (
+  player: Player,
+  socket: SocketAPI
+): Promise<boolean> => {
   const promise = socket.emit(
     SocketActions.RECONNECT_TO_LOBBY,
     [player],
@@ -115,9 +118,14 @@ export const reconnectToLobby = async (player: Player, socket: SocketAPI) => {
   return promise;
 };
 
-export const sendNewIssue = (
+export const sendNewSettings = async (
   socket: SocketAPI,
-  newIssue: IssuesModel
-): void => {
-  socket.emit(SocketActions.ADD_NEW_ISSUE, [newIssue], false);
+  newSettings: LobbySetting
+): Promise<LobbySetting> => {
+  const promise = socket.emit(
+    SocketActions.UPDATE_SETTINGS,
+    [newSettings],
+    true
+  ) as Promise<LobbySetting>;
+  return promise;
 };

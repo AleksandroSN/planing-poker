@@ -33,6 +33,18 @@ export const createMember = async (
   socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
     dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
   }); // update messages
+  socket.on(
+    SocketActions.NOTIFY_ABOUT_APP_STAGE,
+    (newLobbySettings: LobbySetting) => {
+      dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
+    }
+  );
+  socket.on(
+    SocketActions.NOTIFY_ABOUT_NEW_SETTINGS,
+    (newLobbySettings: LobbySetting) => {
+      dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
+    }
+  );
   // TO DO change game status listener
   // update game setting master listener
   dispatch({ type: "IS_LOADING_DATA", payload: false });

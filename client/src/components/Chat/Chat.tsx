@@ -15,14 +15,9 @@ export const Chat: FunctionComponent = (): JSX.Element => {
   const onSubmit = (data: FormValues) => {
     submitChatMessage(data, reset);
   };
-  console.log(chatMessages);
   const messages = chatMessages.map((mes) => {
-    console.log("Players", players);
-    console.log("Message", mes);
     const index = players.findIndex((itm) => itm.id === mes.playerId);
-    console.log("Индекс", index);
     const playerData = players[index];
-    console.log("Player DATA:", playerData);
     return (
       <AnimeOpacity item={mes}>
         <ChatRow
@@ -40,7 +35,8 @@ export const Chat: FunctionComponent = (): JSX.Element => {
 
   return (
     <form className="chat" onSubmit={handleSubmit(onSubmit)}>
-      {messages}
+      <div className="chat__wrapper">{messages}</div>
+
       <InputText
         inputProps={{
           labelText: "ChatMessage",

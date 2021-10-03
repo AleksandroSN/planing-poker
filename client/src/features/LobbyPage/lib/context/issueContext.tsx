@@ -1,12 +1,16 @@
 import { createContext, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { IssuesReducerActions } from "../../../../redux/IssuesReducer/actions";
+// import { IssuesReducerActions } from "../../../../redux/IssuesReducer/actions";
 import {
   GameSettingsCurrent,
   IssuesRedux,
   useAppSelector,
 } from "../../../../redux/store";
-import { addNewIssue } from "../../../Socket/lib/addNewIssue";
+import {
+  addNewIssue,
+  deleteIssue,
+  updateIssue,
+} from "../../../Socket/lib/Issues/methods";
 import { Issue } from "../../../Socket/types";
 import { IssueContextModel, IssuesModel } from "../../types/interface";
 
@@ -23,7 +27,7 @@ const DEFAULT_STATE_ISSUES: IssueContextModel = {
     lobbyId: "",
   },
   addIssue: async () => {},
-  deleteIssue: async () => {},
+  deleteIssues: async () => {},
   updateIssues: async () => {},
   findIssue: () => {},
   clearCurrentIssue: () => {},
@@ -45,22 +49,15 @@ export const IssueContextHelper = (): IssueContextModel => {
   const addIssue = async (data: IssuesModel) => {
     await addNewIssue(data, dispatch);
   };
-  const deleteIssue = async (id: string) => {
+  const deleteIssues = async (id: string) => {
     // console.log(id);
     const issueIdx = issues.findIndex((x) => x.id === id);
     // console.log(issues[issueIdx]);
     // setIssues((arr) => [...arr.slice(0, issueIdx), ...arr.slice(issueIdx + 1)]);
-    // await deleteIssue(issues[issueIdx]);
+    await deleteIssue(issues[issueIdx], dispatch);
   };
   const updateIssues = async (data: Issue) => {
-    // console.log(data);
-    // const issueIdx = issues.findIndex((x) => x.id === data.id);
-    // setIssues((arr) => [
-    //   ...arr.slice(0, issueIdx),
-    //   data,
-    //   ...arr.slice(issueIdx + 1),
-    // ]);
-    // await updateIssue(data)
+    await updateIssue(data, dispatch);
   };
   const findIssue = (id: string) => {
     const curIs = issues.find((el) => el.id === id);
@@ -77,7 +74,7 @@ export const IssueContextHelper = (): IssueContextModel => {
     toggleIsOpen,
     issues,
     addIssue,
-    deleteIssue,
+    deleteIssues,
     updateIssues,
     currentIssue,
     findIssue,

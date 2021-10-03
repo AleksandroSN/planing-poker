@@ -50,7 +50,6 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   }, []);
 
   const onSubmit = (data: FormValues) => {
-    console.log("LOBBY LAYOUT");
     console.log("Redirect to game page");
     console.log(data);
   };
@@ -64,12 +63,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <div className="master-card">
             <div className="master-card__title">Scrum master:</div>
             <User
-              avatar="SA"
-              firstName="Sa"
-              lastName="Nterna"
-              jobPosition="developer"
-              isChat
-              isYou
+              avatar={dealer.avatarImage}
+              firstName={dealer.firstName}
+              lastName={dealer.lastName}
+              jobPosition={dealer.jobPosition}
+              isChat={false}
+              isYou={false}
             />
           </div>
           {isMaster && (
