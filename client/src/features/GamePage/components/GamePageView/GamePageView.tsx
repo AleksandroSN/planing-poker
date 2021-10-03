@@ -14,7 +14,7 @@ export const GamePageView: FunctionComponent<GamePageViewProps> = ({
   const { id } = useParams<ParamsGamePage>();
   return (
     <div>
-      {`${message} ${id}`}
+      {/* {`${message} ${id}`} */}
       <Layout />
     </div>
   );
