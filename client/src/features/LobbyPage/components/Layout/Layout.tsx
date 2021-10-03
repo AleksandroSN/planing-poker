@@ -51,7 +51,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         <User
           avatar={filterPlayers.avatarImage}
           firstName={filterPlayers.firstName}
-          lastName={filterPlayers.lastName}
+          lastName={filterPlayers.id} // CHANGE LASTNAME ON USER_ID
           jobPosition={filterPlayers.jobPosition}
           isChat={false}
           isYou={isReallyYou(filterPlayers.id)}
