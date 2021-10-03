@@ -1,11 +1,17 @@
 import { FluxStandardAction } from "flux-standard-action";
+import { Player } from "../../features/Socket/types";
 import { AppReducerActions } from "./actions";
+
+type KickVoteStart = {
+  isVisible: boolean;
+  victim?: Player;
+};
 
 export type AppState = {
   isLoading: boolean;
   isError: boolean;
   chatOpen: boolean;
-  kickVoteStart: boolean;
+  kickVoteStart: KickVoteStart;
   kickVoteSuggest: boolean;
   kickMemberNotify: boolean;
 };
@@ -14,7 +20,9 @@ const initialAppState: AppState = {
   isLoading: false,
   isError: false,
   chatOpen: false,
-  kickVoteStart: false,
+  kickVoteStart: {
+    isVisible: false,
+  },
   kickVoteSuggest: false,
   kickMemberNotify: false,
 };
@@ -37,7 +45,7 @@ export const appReducer = (
       return { ...state, chatOpen };
     }
     case AppReducerActions.kickVoteStart: {
-      const kickVoteStart = action.payload as unknown as boolean;
+      const kickVoteStart = action.payload as unknown as KickVoteStart;
       return { ...state, kickVoteStart };
     }
     case AppReducerActions.kickVoteSuggest: {
