@@ -12,6 +12,7 @@ import { isReallyYou } from "./isReallyYou";
 import { dummyPlayer } from "./dummyPlayer";
 import { numberToArr } from "./numberToArr";
 import { arrToNumber } from "./arrToNumber";
+import { exitGame } from "./exitGame";
 
 export {
   renderUserAvatar,
@@ -30,4 +31,5 @@ export {
   dummyPlayer,
   numberToArr,
   arrToNumber,
+  exitGame,
 };

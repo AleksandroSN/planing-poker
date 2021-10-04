@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useMemo } from "react";
 import { Modal } from "../..";
 import { IssueContext } from "../../../lib/context/issueContext";
 import { Issue } from "../IssueItem/Issue";
@@ -7,7 +7,7 @@ import { IssueFormHelper } from "../IssuesForm/issueFormHelper";
 import "./issueSection.scss";
 
 export const IssuesSection: FunctionComponent = (): JSX.Element => {
-  const { issues, isOpen, currentIssue } = useContext(IssueContext);
+  const { issues, isOpen, currentIssue, isMaster } = useContext(IssueContext);
   const { clearIssue } = IssueFormHelper();
   const renderIssues = issues.map(({ id, title, link, priority }) => {
     return (
@@ -18,6 +18,9 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
     ...renderIssues,
     <Issue key={Math.random() * 50} id="" title="" link="" priority="Low" />,
   ];
+
+  const memoRenderAll = useMemo(() => renderAll, [issues]);
+  const memoRenderIssues = useMemo(() => renderIssues, [issues]);
 
   return (
     <>
@@ -35,7 +38,9 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
       >
         <IssuesForm />
       </Modal>
-      <div className="issues__wrapper">{renderAll}</div>
+      <div className="issues__wrapper">
+        {isMaster ? memoRenderAll : memoRenderIssues}
+      </div>
     </>
   );
 };

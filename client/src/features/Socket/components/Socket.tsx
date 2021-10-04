@@ -28,10 +28,6 @@ export const Socket = (): JSX.Element => {
         dispatch({ type: "IS_LOADING_DATA", payload: true });
 
         const localPlayer = JSON.parse(sessionStorage.player) as Player;
-        dispatch({
-          type: "UPDATE_SETTINGS",
-          payload: { lobbyId: localPlayer.lobbyId },
-        });
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
         await reconnectToLobby(localPlayer, socket);

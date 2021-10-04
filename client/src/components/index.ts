@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { Chat } from "./Chat";
 import { CoverSection } from "./CoverSection";
 import { ErrorWindow } from "./ErrorWindow";
+import { ExitGame } from "./ExitGame";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { InputSelect } from "./InputSelect";
@@ -21,6 +22,7 @@ export {
   Chat,
   CoverSection,
   ErrorWindow,
+  ExitGame,
   InputSelect,
   InputText,
   Issues,

@@ -11,6 +11,7 @@ export const User: FunctionComponent<UserProps> = ({
   isYou,
   avatar,
   isChat,
+  player,
 }: UserProps): JSX.Element => {
   const userClasses = userClassesHelper(isChat);
   const userAvatar = renderUserAvatar(avatar);
@@ -25,7 +26,7 @@ export const User: FunctionComponent<UserProps> = ({
           <div className={userClasses.job}>{`${jobPosition}`}</div>
         </div>
         <div className={userClasses.button}>
-          {!isYou && (
+          {!isYou && player?.role !== "Dealer" && (
             <button type="button" className={userClasses.buttonBody}>
               <img
                 src="../icons/cancel.svg"
