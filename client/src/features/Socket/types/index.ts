@@ -53,7 +53,7 @@ export type Issue = {
   id: string;
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
   lobbyId: string;
 };
 

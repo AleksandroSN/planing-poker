@@ -9,7 +9,7 @@ export interface FormValues {
   "Score type (Short)": string;
   Title: string;
   Link: string;
-  Priority: "Low" | "Middle" | "Hight";
+  Priority: "Low" | "Middle" | "High";
   "Scrum master as player": boolean;
   "Changing card in round end": boolean;
   "Is timer needed": boolean;
@@ -41,6 +41,6 @@ export interface IssueContextModel {
 export interface IssuesModel {
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
   lobbyId: string;
 }
