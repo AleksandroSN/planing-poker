@@ -8,8 +8,7 @@ export const ChatRow: FunctionComponent<ChatMessage> = ({
   id,
   playerData,
 }): JSX.Element => {
-  console.log(playerData);
-  const isYou = isReallyYou(playerData.firstName);
+  const isYou = isReallyYou(playerData.id);
 
   return (
     <div className="chat__row">

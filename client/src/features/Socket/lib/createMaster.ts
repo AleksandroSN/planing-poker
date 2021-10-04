@@ -64,7 +64,6 @@ export const createMaster = async (
     }
   );
   // TO DO change game status listener
-  // update game setting master listener
   dispatch({ type: "IS_LOADING_DATA", payload: false });
   return lobby.player;
 };

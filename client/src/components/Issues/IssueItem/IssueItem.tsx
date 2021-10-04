@@ -6,7 +6,7 @@ interface IssueProps {
   id: string;
   issueName: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
 }
 
 export const IssueItem: FunctionComponent<IssueProps> = ({
@@ -15,7 +15,8 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   link,
   priority,
 }): JSX.Element => {
-  const { toggleIsOpen, deleteIssues, findIssue } = useContext(IssueContext);
+  const { toggleIsOpen, deleteIssues, findIssue, isMaster, isLobby } =
+    useContext(IssueContext);
 
   const updateIssue = () => {
     findIssue(id);
@@ -27,12 +28,16 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
       <div className="issues__item-row">
         <a href={link} className="issues__item-name">{`Issue ${issueName}`}</a>
         <div className="issues__item-buttons">
-          <button type="button" onClick={updateIssue}>
-            <img src="../icons/edit.svg" alt="edit issue" />
-          </button>
-          <button type="button" onClick={() => deleteIssues(id)}>
-            <img src="../icons/trash.svg" alt="delete issue" />
-          </button>
+          {isLobby && (
+            <button type="button" onClick={updateIssue}>
+              <img src="../icons/edit.svg" alt="edit issue" />
+            </button>
+          )}
+          {isMaster && (
+            <button type="button" onClick={() => deleteIssues(id)}>
+              <img src="../icons/trash.svg" alt="delete issue" />
+            </button>
+          )}
         </div>
       </div>
       <div className="issues__item-subrow">{`${priority} priority`}</div>

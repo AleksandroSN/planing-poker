@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Button, Chat, InputText, User, Issues } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
@@ -11,6 +11,7 @@ import {
   isReallyYou,
   AnimeChatMount,
   arrToNumber,
+  exitGame,
 } from "../../../../lib";
 import {
   useAppSelector,
@@ -23,26 +24,18 @@ import { GameSettings } from "../GameSettings";
 import "./style.scss";
 import { GameCards } from "../GameCards";
 import { updateSettings } from "../../../Socket/lib/updateSettings";
+import { UpdatedSettings } from "../../types/interface";
+import { defaultLobbySettings } from "../../lib";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
-  const { register, handleSubmit, watch } = useForm<FormValues>();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
+  const [isMaster, setIsMaster] = useState<boolean>(false);
+  const { register, handleSubmit, watch } = useForm<FormValues>();
   const { chatOpen } = useAppSelector(AppSettings);
   const settings = useAppSelector(GameSettingsCurrent);
   const playersFromRedux = useAppSelector(Players);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (playersFromRedux.length > 0) {
-      const dealer = playersFromRedux.filter(
-        (player) => player.role === "Dealer"
-      )[0];
-      setDealerState(dealer);
-    }
-  }, [playersFromRedux]);
-
-  const [isMaster, setIsMaster] = useState<boolean>(false);
   const players = playersFromRedux
     .filter((player) => {
       return player.role !== "Dealer";
@@ -55,11 +48,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           lastName={filterPlayers.lastName}
           jobPosition={filterPlayers.jobPosition}
           isChat={false}
-          isYou={isReallyYou(filterPlayers.firstName)}
+          isYou={isReallyYou(filterPlayers.id)}
         />
       );
     });
-
   useEffect(() => {
     const localPlayer = sessionStorage.getItem("player");
     if (localPlayer) {
@@ -68,19 +60,39 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       setIsMaster(reallyMaster);
     }
   }, []);
+  useEffect(() => {
+    if (playersFromRedux.length > 0) {
+      const dealer = playersFromRedux.filter(
+        (player) => player.role === "Dealer"
+      )[0];
+      setDealerState(dealer);
+    }
+  }, [playersFromRedux]);
+
+  const cancelGame = async () => {
+    if (settings) {
+      await updateSettings(defaultLobbySettings(settings.lobbyId), dispatch);
+    }
+    // delete lobby on back-end
+  };
 
   const onSubmit = async (data: FormValues) => {
-    const newSettings = {
+    const newSettings: UpdatedSettings = {
       masterIsPlayer: data["Scrum master as player"],
       isTimerNeed: data["Is timer needed"],
       changingCardInRoundEnd: data["Changing card in round end"],
       scoreType: data["Score type"],
       scoreTypeShort: data["Score type (Short)"],
       roundTime: arrToNumber([data.minutes, data.seconds]),
+      appStage: "game",
     };
     const allNewSettins: LobbySetting = { ...settings, ...newSettings };
     await updateSettings(allNewSettins, dispatch);
   };
+  if (settings.appStage === "game") {
+    return <Redirect to={`/game/${settings.lobbyId}`} />;
+  }
+
   return (
     <>
       <div className="content__wrapper">
@@ -96,7 +108,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               lastName={dealerState.lastName}
               jobPosition={dealerState.jobPosition}
               isChat={false}
-              isYou={isReallyYou(dealerState.firstName)}
+              isYou={isReallyYou(dealerState.id)}
             />
           </div>
           {isMaster && (
@@ -126,7 +138,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 </Button>
                 <Button
                   type="button"
-                  onClick={() => console.log("Redirect to main page")}
+                  onClick={cancelGame}
                   classes="button-cancel"
                 >
                   Cancel Game
@@ -138,7 +150,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             <div className="exit-game__block">
               <Button
                 type="button"
-                onClick={() => console.log("Exit")}
+                onClick={() => exitGame(dispatch)}
                 classes="button-cancel"
               >
                 Exit

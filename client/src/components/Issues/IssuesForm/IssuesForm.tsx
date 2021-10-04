@@ -16,6 +16,7 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
   return (
     <form
       id="issue-form"
+      className="issue__form"
       onSubmit={
         currentIssue ? handleSubmit(updateIssue) : handleSubmit(addNewIssue)
       }
@@ -23,6 +24,8 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
       <InputText
         inputProps={{
           labelText: "Title",
+          labelClasses: "issue__form-label",
+          inputClasses: "issue__form-input",
           defaultValue: `${currentIssue ? currentIssue.title : ""}`,
         }}
         hookForm={{
@@ -32,6 +35,8 @@ export const IssuesForm: FunctionComponent = (): JSX.Element => {
       <InputText
         inputProps={{
           labelText: "Link",
+          labelClasses: "issue__form-label",
+          inputClasses: "issue__form-input",
           defaultValue: `${currentIssue ? currentIssue.link : ""}`,
         }}
         hookForm={{

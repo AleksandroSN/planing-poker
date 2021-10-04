@@ -20,14 +20,14 @@ export type Issue = {
   id: string;
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
   lobbyId: string;
 };
 
 export type NewIssue = {
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
   lobbyId: string;
 };
 
@@ -42,7 +42,7 @@ export type LobbySetting = {
   cardsCover: string;
   lobbyId: string;
   masterId: string;
-  appStage: "lobby" | "game" | "out";
+  appStage: "lobby" | "game" | "out" | "";
 };
 
 export type ChatMessage = {
