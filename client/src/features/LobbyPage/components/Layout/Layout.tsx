@@ -3,11 +3,17 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Redirect, useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button, Chat, InputText, User, Issues } from "../../../../components";
+import {
+  Button,
+  Chat,
+  InputText,
+  User,
+  Issues,
+  ScrumMaster,
+} from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import {
   BASE_CLIENT,
-  dummyPlayer,
   isReallyYou,
   AnimeChatMount,
   arrToNumber,
@@ -30,7 +36,7 @@ import { defaultLobbySettings } from "../../lib";
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const [dealerState, setDealerState] = useState<Player>(dummyPlayer);
+
   const [isMaster, setIsMaster] = useState<boolean>(false);
   const { register, handleSubmit, watch } = useForm<FormValues>();
   const { chatOpen } = useAppSelector(AppSettings);
@@ -49,6 +55,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           jobPosition={filterPlayers.jobPosition}
           isChat={false}
           isYou={isReallyYou(filterPlayers.id)}
+          player={filterPlayers}
         />
       );
     });
@@ -60,14 +67,6 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       setIsMaster(reallyMaster);
     }
   }, []);
-  useEffect(() => {
-    if (playersFromRedux.length > 0) {
-      const dealer = playersFromRedux.filter(
-        (player) => player.role === "Dealer"
-      )[0];
-      setDealerState(dealer);
-    }
-  }, [playersFromRedux]);
 
   const cancelGame = async () => {
     if (settings) {
@@ -100,17 +99,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           <div>
             <h2 className="lobby-page__title text-xl">Issue</h2>
           </div>
-          <div className="master-card">
-            <div className="master-card__title">Scrum master:</div>
-            <User
-              avatar={dealerState.avatarImage}
-              firstName={dealerState.firstName}
-              lastName={dealerState.lastName}
-              jobPosition={dealerState.jobPosition}
-              isChat={false}
-              isYou={isReallyYou(dealerState.id)}
-            />
-          </div>
+          <ScrumMaster playersFromRedux={playersFromRedux} />
           {isMaster && (
             <div className="start-game__block">
               <div className="link__block">

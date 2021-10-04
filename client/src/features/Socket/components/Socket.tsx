@@ -65,7 +65,7 @@ export const Socket = (): JSX.Element => {
         );
         dispatch({
           type: "UPDATE_SETTINGS",
-          payload: { ...LobbySettings.lobbySettings, appStage: "" },
+          payload: LobbySettings.lobbySettings,
         });
         const lobbyMembers = await getLobbyPlayers(socket, localPlayer);
         dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });

@@ -7,7 +7,7 @@ export const ExitGame: FunctionComponent = (): JSX.Element => {
   const { appStage } = useAppSelector(GameSettingsCurrent);
   if (appStage === "out") {
     // after refresh page def app stage out, need replace logic for redux or something
-    // sessionStorage.clear();
+    sessionStorage.clear();
     return <Redirect to="/" />;
   }
   return <></>;

@@ -21,6 +21,7 @@ export const ChatRow: FunctionComponent<ChatMessage> = ({
         jobPosition={playerData.jobPosition}
         isYou={isYou}
         isChat
+        player={playerData}
       />
     </div>
   );
