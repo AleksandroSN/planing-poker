@@ -13,7 +13,6 @@ import "../GamePageView/style.scss";
 import { ScrumMaster } from "../../../../components/ScrumMaster/ScrumMaster";
 import { AnimeChatMount } from "../../../../lib";
 import { Issue } from "../../../../components/Issues/IssueItem/Issue";
-import { Issues } from "../../../../components/Issues/Issues";
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
@@ -86,9 +85,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             )}
           </div>
           <div className="game-issues__wrapper">
-            <div className="game-issues__block">
-              <Issues />
-            </div>
+            <div className="game-issues__block">{issues}</div>
             {isMaster && (
               <div className="game-issues__block">
                 <div className="game-timer__wrapper">
