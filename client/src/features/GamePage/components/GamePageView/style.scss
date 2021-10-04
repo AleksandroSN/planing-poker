@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   padding: 0 65px;
+  width: 100%;
 }
 
 .game-page__block {
@@ -36,4 +37,25 @@
 
 .game-timer__wrapper {
   margin-bottom: 25px;
+}
+
+@media (max-width: 810px) {
+  .game-page__wrapper {
+    flex-direction: column;
+  }
+
+  .game-content__wrapper {
+    padding: 0 30px 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .game-issues__wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .game-timer__wrapper {
+    margin: 20px 0;
+  }
 }

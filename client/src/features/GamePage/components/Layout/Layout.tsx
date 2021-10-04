@@ -16,8 +16,8 @@ import { Issue } from "../../../../components/Issues/IssueItem/Issue";
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const [isMaster, setIsMaster] = useState(false);
-  const [isPlayer, setIsPlayer] = useState(true);
+  const [isMaster, setIsMaster] = useState(true);
+  const [isPlayer, setIsPlayer] = useState(false);
   const [isStart, setIsStart] = useState(true);
   const { chatOpen } = useAppSelector(AppSettings);
   const issuesFromRedux = useAppSelector(IssuesRedux);
@@ -71,7 +71,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             )}
             {isPlayer && (
               <>
-                <Timer isSettings={false} isTimer={false} register={register} />
+                <div className="game-timer__wrapper">
+                  <Timer isSettings={false} isTimer register={register} />
+                </div>
                 <Button
                   type="button"
                   onClick={handleExit}
@@ -87,11 +89,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             {isMaster && (
               <div className="game-issues__block">
                 <div className="game-timer__wrapper">
-                  <Timer
-                    isSettings={false}
-                    isTimer={false}
-                    register={register}
-                  />
+                  <Timer isSettings={false} isTimer register={register} />
                 </div>
                 <Button
                   type="submit"
