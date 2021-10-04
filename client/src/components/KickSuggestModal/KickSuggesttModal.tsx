@@ -12,8 +12,8 @@ interface ErrorEmit {
   message: string;
 }
 
-export const KickStartModal: FunctionComponent = (): JSX.Element => {
-  const { kickVoteStart } = useAppSelector(AppSettings);
+export const KickSuggestModal: FunctionComponent = (): JSX.Element => {
+  const { kickVoteSuggest } = useAppSelector(AppSettings);
   const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const socket = SocketSingleton.getInstance().getSocket();
@@ -23,42 +23,29 @@ export const KickStartModal: FunctionComponent = (): JSX.Element => {
   });
   const handlerCancel = () => {
     dispatch({
-      type: AppReducerActions.kickVoteStart,
+      type: AppReducerActions.kickVoteSuggest,
       payload: { isVisible: false },
     });
   };
 
   const onSubmit = async () => {
     const localPlayer = JSON.parse(sessionStorage.player) as Player;
-    if (localPlayer.role === "Dealer") {
-      const result = (await socket.emit(
-        SocketActions.KICK_MEMBER,
-        [localPlayer, kickVoteStart.victim],
-        true
-      )) as { isStarted: boolean; message: string };
-      if (result.isStarted) {
-        dispatch({
-          type: AppReducerActions.kickVoteStart,
-          payload: { isVisible: false },
-        });
-      }
+
+    const result = (await socket.emit(
+      SocketActions.CONFIRM_TO_KICK_MEMBER,
+      [localPlayer],
+      true
+    )) as { isStarted: boolean; message: string };
+    if (result.isStarted) {
+      dispatch({
+        type: AppReducerActions.kickVoteSuggest,
+        payload: { isVisible: false },
+      });
     } else {
-      const result = (await socket.emit(
-        SocketActions.KICK_MEMBER,
-        [localPlayer, kickVoteStart.victim],
-        true
-      )) as { isStarted: boolean; message: string };
-      if (result.isStarted) {
-        dispatch({
-          type: AppReducerActions.kickVoteStart,
-          payload: { isVisible: false },
-        });
-      } else {
-        setIsError({
-          state: true,
-          message: result.message,
-        });
-      }
+      setIsError({
+        state: true,
+        message: result.message,
+      });
     }
   };
 
@@ -66,16 +53,18 @@ export const KickStartModal: FunctionComponent = (): JSX.Element => {
     <>
       <Modal
         idForm="kick-start-form"
-        open={kickVoteStart.isVisible}
+        open={kickVoteSuggest.isVisible}
         onCancel={handlerCancel}
-        heading="KICK PLAYER?"
+        heading="CONFIRM KICK PLAYER?"
         buttonTextConfirm="Confirm"
         buttonTextCancel="No"
       >
         <form id="kick-start-form" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            Are you really want to remove {kickVoteStart.victim?.firstName}{" "}
-            {kickVoteStart.victim?.lastName} from game session
+            {kickVoteSuggest.initiator?.firstName}{" "}
+            {kickVoteSuggest.initiator?.lastName}{" "}
+            {kickVoteSuggest.victim?.firstName}{" "}
+            {kickVoteSuggest.victim?.lastName}
           </div>
           {isError.state ? isError.message : ""}
         </form>

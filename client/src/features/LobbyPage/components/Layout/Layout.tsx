@@ -52,10 +52,11 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         <User
           avatar={filterPlayers.avatarImage}
           firstName={filterPlayers.firstName}
-          lastName={filterPlayers.id} // CHANGE LASTNAME ON USER_ID
+          lastName={filterPlayers.lastName}
           jobPosition={filterPlayers.jobPosition}
           isChat={false}
           isYou={isReallyYou(filterPlayers.firstName)}
+          player={filterPlayers}
         />
       );
     });

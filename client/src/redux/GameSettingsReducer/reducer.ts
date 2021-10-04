@@ -38,6 +38,9 @@ export const gameSettingsReducer = (
       const newData = action.payload as unknown as GameSettingsState;
       return { ...state, ...newData };
     }
+    case GameSettingsActions.outGameSettings: {
+      return { ...state, appStage: "out" };
+    }
     default:
       return state;
   }
