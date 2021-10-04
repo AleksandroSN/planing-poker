@@ -7,12 +7,18 @@ type KickVoteStart = {
   victim?: Player;
 };
 
+type KickSuggestStart = {
+  isVisible: boolean;
+  initiator?: Player;
+  victim?: Player;
+};
+
 export type AppState = {
   isLoading: boolean;
   isError: boolean;
   chatOpen: boolean;
   kickVoteStart: KickVoteStart;
-  kickVoteSuggest: boolean;
+  kickVoteSuggest: KickSuggestStart;
   kickMemberNotify: boolean;
 };
 
@@ -23,7 +29,9 @@ const initialAppState: AppState = {
   kickVoteStart: {
     isVisible: false,
   },
-  kickVoteSuggest: false,
+  kickVoteSuggest: {
+    isVisible: false,
+  },
   kickMemberNotify: false,
 };
 
@@ -49,7 +57,7 @@ export const appReducer = (
       return { ...state, kickVoteStart };
     }
     case AppReducerActions.kickVoteSuggest: {
-      const kickVoteSuggest = action.payload as unknown as boolean;
+      const kickVoteSuggest = action.payload as unknown as KickSuggestStart;
       return { ...state, kickVoteSuggest };
     }
     case AppReducerActions.kickMemberNotify: {

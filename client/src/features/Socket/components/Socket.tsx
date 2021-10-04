@@ -47,6 +47,16 @@ export const Socket = (): JSX.Element => {
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
           dispatch({ type: "ADD_PLAYER", payload: player });
         }); // update members
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_KICKING_MEMBER,
+          (player: Player) => {
+            if (localPlayer.id !== player.id) {
+              dispatch({ type: "DELETE_PLAYER", payload: player });
+            } else {
+              dispatch({ type: "OUT_GAME_SETTINGS", payload: player });
+            }
+          }
+        );
         socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
           dispatch({ type: "ADD_ISSUE", payload: issue });
         }); // update issue

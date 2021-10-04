@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { SocketMethods, SocketSingleton } from ".";
+import { AppReducerActions } from "../../../redux/AppReducer/actions";
 import {
   ChatMessage,
   Issue,
@@ -38,6 +39,19 @@ export const createMember = async (
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
     dispatch({ type: "ADD_PLAYER", payload: player });
   }); // update members
+  socket.on(SocketActions.NOTIFY_ABOUT_KICKING_MEMBER, (player: Player) => {
+    if (lobby.player.id !== player.id) {
+      dispatch({ type: "DELETE_PLAYER", payload: player });
+    } else {
+      dispatch({ type: "OUT_GAME_SETTINGS", payload: player });
+    }
+  });
+  socket.on(SocketActions.SUGGEST_ALL_TO_KICK_MEMBER, (victim, requester) => {
+    dispatch({
+      type: AppReducerActions.kickVoteSuggest,
+      payload: { isVisible: true, victim, initiator: requester },
+    });
+  });
   socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
     dispatch({ type: "ADD_ISSUE", payload: issue });
   }); // update issue
