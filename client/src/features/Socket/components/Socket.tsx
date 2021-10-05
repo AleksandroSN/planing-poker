@@ -28,10 +28,6 @@ export const Socket = (): JSX.Element => {
         dispatch({ type: "IS_LOADING_DATA", payload: true });
 
         const localPlayer = JSON.parse(sessionStorage.player) as Player;
-        dispatch({
-          type: "UPDATE_SETTINGS",
-          payload: { lobbyId: localPlayer.lobbyId },
-        });
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
         await reconnectToLobby(localPlayer, socket);
@@ -51,6 +47,16 @@ export const Socket = (): JSX.Element => {
         socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
           dispatch({ type: "ADD_PLAYER", payload: player });
         }); // update members
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_KICKING_MEMBER,
+          (player: Player) => {
+            if (localPlayer.id !== player.id) {
+              dispatch({ type: "DELETE_PLAYER", payload: player });
+            } else {
+              dispatch({ type: "OUT_GAME_SETTINGS", payload: player });
+            }
+          }
+        );
         socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
           dispatch({ type: "ADD_ISSUE", payload: issue });
         }); // update issue

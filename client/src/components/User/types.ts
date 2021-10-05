@@ -1,3 +1,5 @@
+import { Player } from "../../features/Socket/types";
+
 export interface UserProps {
   avatar: string;
   firstName: string;
@@ -5,4 +7,5 @@ export interface UserProps {
   jobPosition: string;
   isYou: boolean;
   isChat: boolean;
+  player?: Player; // or id ?
 }

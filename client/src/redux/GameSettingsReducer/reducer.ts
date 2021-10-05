@@ -1,6 +1,7 @@
 import { FluxStandardAction } from "flux-standard-action";
 import { GameSettingsActions } from "./actions";
 
+// maybe lobby settings type?
 export interface GameSettingsState {
   masterIsPlayer: boolean;
   isTimerNeed: boolean;
@@ -12,7 +13,7 @@ export interface GameSettingsState {
   cardsCover: string;
   lobbyId: string;
   masterId: string;
-  appStage: "lobby" | "game" | "out";
+  appStage: "lobby" | "game" | "out" | "";
 }
 
 const initialGameSettingsState: GameSettingsState = {
@@ -26,7 +27,7 @@ const initialGameSettingsState: GameSettingsState = {
   cardsCover: "",
   lobbyId: "",
   masterId: "",
-  appStage: "out",
+  appStage: "",
 };
 
 export const gameSettingsReducer = (
@@ -37,6 +38,9 @@ export const gameSettingsReducer = (
     case GameSettingsActions.updateSetiings: {
       const newData = action.payload as unknown as GameSettingsState;
       return { ...state, ...newData };
+    }
+    case GameSettingsActions.outGameSettings: {
+      return { ...state, appStage: "out" };
     }
     default:
       return state;

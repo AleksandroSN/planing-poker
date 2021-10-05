@@ -53,7 +53,7 @@ export type Issue = {
   id: string;
   title: string;
   link: string;
-  priority: "Low" | "Middle" | "Hight";
+  priority: "Low" | "Middle" | "High";
   lobbyId: string;
 };
 
@@ -74,6 +74,8 @@ export type LobbySetting = {
   scoreTypeShort: string;
   roundTime: number;
   cardValues: string[];
+  cardsCover: string;
   lobbyId: string;
   masterId: string;
+  appStage: "lobby" | "game" | "out" | "";
 };

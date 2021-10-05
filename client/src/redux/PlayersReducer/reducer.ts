@@ -23,6 +23,15 @@ export const playersReducer = (
       const newPlayers = action.payload as unknown as Player[];
       return { ...state, players: newPlayers };
     }
+    case PlayersReducerActions.deletePlayer: {
+      const victim = action.payload as unknown as Player;
+      const index = state.players.findIndex((elem) => elem.id === victim.id);
+      const newPlayers = [
+        ...state.players.slice(0, index),
+        ...state.players.slice(index + 1),
+      ];
+      return { ...state, players: newPlayers };
+    }
     default:
       return state;
   }

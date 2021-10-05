@@ -1,5 +1,6 @@
 import { useState, useCallback, createContext } from "react";
 import { useDispatch } from "react-redux";
+import { isReallyYou } from "..";
 import {
   addNewIssue,
   deleteIssue,
@@ -15,6 +16,8 @@ import { IssueContextModel, IssuesModel } from "../../types/interface";
 
 const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,
+  isMaster: false,
+  isLobby: true,
   lobbyId: "",
   toggleIsOpen: () => {},
   issues: [],
@@ -38,12 +41,14 @@ export const IssueContext =
 export const IssueContextHelper = (): IssueContextModel => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentIssue, setCurrentIssue] = useState<Issue>();
-  const { lobbyId } = useAppSelector(GameSettingsCurrent);
+  const { lobbyId, masterId, appStage } = useAppSelector(GameSettingsCurrent);
   const { issues } = useAppSelector(IssuesRedux);
   const dispatch = useDispatch();
   const toggleIsOpen = useCallback(() => {
     setIsOpen((x) => !x);
   }, []);
+  const isMaster = isReallyYou(masterId);
+  const isLobby = appStage === "lobby";
   const addIssue = async (data: IssuesModel) => {
     await addNewIssue(data, dispatch);
   };
@@ -65,6 +70,8 @@ export const IssueContextHelper = (): IssueContextModel => {
   };
   return {
     isOpen,
+    isMaster,
+    isLobby,
     lobbyId,
     toggleIsOpen,
     issues,

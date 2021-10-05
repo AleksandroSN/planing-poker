@@ -33,6 +33,13 @@ export const createMaster = async (
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
     dispatch({ type: "ADD_PLAYER", payload: player });
   }); // update members
+  socket.on(SocketActions.NOTIFY_ABOUT_KICKING_MEMBER, (player: Player) => {
+    if (lobby.player.id !== player.id) {
+      dispatch({ type: "DELETE_PLAYER", payload: player });
+    } else {
+      dispatch({ type: "OUT_GAME_SETTINGS", payload: player });
+    }
+  });
   socket.on(SocketActions.RECIEVE_NEW_ISSUE, (issue: Issue) => {
     dispatch({ type: "ADD_ISSUE", payload: issue });
   }); // add issue
@@ -64,7 +71,6 @@ export const createMaster = async (
     }
   );
   // TO DO change game status listener
-  // update game setting master listener
   dispatch({ type: "IS_LOADING_DATA", payload: false });
   return lobby.player;
 };

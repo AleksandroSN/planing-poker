@@ -28,7 +28,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       <div className="content__wrapper">
         <div>
           <h2 className="lobby-page__title text-xl">Issue</h2>
-          <Issue id="" link="link" title="Issue" priority="Hight" />
+          <Issue id="" link="link" title="Issue" priority="High" />
           <div className="round-result__wrapper">Results</div>
         </div>
       </div>

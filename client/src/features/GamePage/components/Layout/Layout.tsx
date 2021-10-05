@@ -34,7 +34,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
         <section className="game-content__wrapper">
           <h1 className="text-xl">Issue</h1>
           <div className="game-issues__wrapper">
-            <ScrumMaster />
+            {/* <ScrumMaster /> */}
             {isMaster && (
               <Button
                 type="button"
