@@ -6,6 +6,8 @@ import {
   GameSettingsCurrent,
   useAppSelector,
 } from "../../redux/store";
+import { KickStartModal } from "../KickStartModal";
+import { KickSuggestModal } from "../KickSuggestModal";
 import "./Header.scss";
 
 export const Header: FunctionComponent = (): JSX.Element => {
@@ -43,6 +45,8 @@ export const Header: FunctionComponent = (): JSX.Element => {
           </button>
         </div>
       )}
+      <KickStartModal />
+      <KickSuggestModal />
     </header>
   );
 };

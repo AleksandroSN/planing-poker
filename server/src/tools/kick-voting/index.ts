@@ -23,18 +23,20 @@ const kickVoting = (io: Server, victim: Player) => {
         isVoting = false;
         votes = 0;
         clearTimeout(timer);
-      }, 30 * 1000);
+      }, 180 * 1000);
     },
     checkVoters: (player: Player) => voters.has(player.id),
     checkProcess: () => isVoting,
-    addVoice: (members: number, player: Player) => {
+    addVoice: async (members: number, player: Player) => {
       if (!voters.has(player.id)) {
         voters.add(player.id);
+        console.log("Votes:", votes);
         votes += 1;
-        if (votes + 1 >= members * 0.5) {
+        if (votes >= members * 0.5) {
           isVoting = false;
           votes = 0;
           clearTimeout(timer);
+          await deletePlayer(victim.id);
           io.to(victim.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_KICKING_MEMBER,
             victim
@@ -70,11 +72,13 @@ export const kickDb = (io: Server) => {
           }
           if (!kicks.has(requester.lobbyId)) {
             const kick = kickVoting(io, victim);
+            kick.startVoting();
             kicks.set(requester.lobbyId, kick);
             callback({ isStarted: true, message: "VOTING_STARTED" });
             io.to(requester.lobbyId).emit(
               SocketActions.SUGGEST_ALL_TO_KICK_MEMBER,
-              victim
+              victim,
+              requester
             );
             break;
           }
@@ -83,6 +87,16 @@ export const kickDb = (io: Server) => {
             ?.checkProcess() as boolean;
           if (vProcess) {
             callback({ isStarted: false, message: "VOTING_ALREADY_STARTED" });
+            break;
+          } else {
+            const kick = kicks.get(requester.lobbyId) as KickVoting;
+            kick.startVoting();
+            callback({ isStarted: true, message: "VOTING_STARTED" });
+            io.to(requester.lobbyId).emit(
+              SocketActions.SUGGEST_ALL_TO_KICK_MEMBER,
+              victim,
+              requester
+            );
             break;
           }
         }
@@ -110,7 +124,9 @@ export const kickDb = (io: Server) => {
         callback({ isVoted: false, message: "PLAYER_HAS_ALREADY_VOTED" });
         return;
       }
+      console.log("playerQty: ", playerQty);
       kick.addVoice(playerQty, player);
+      callback({ isVoted: true, message: "VOTED" });
     },
   };
 };

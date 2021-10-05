@@ -1,8 +1,10 @@
 import { FunctionComponent } from "react";
+import { useDispatch } from "react-redux";
 import { renderUserAvatar } from "../../lib";
 import { userClassesHelper } from "./userHelper";
 import "./user.scss";
 import { UserProps } from "./types";
+import { AppReducerActions } from "../../redux/AppReducer/actions";
 
 export const User: FunctionComponent<UserProps> = ({
   firstName,
@@ -15,6 +17,14 @@ export const User: FunctionComponent<UserProps> = ({
 }: UserProps): JSX.Element => {
   const userClasses = userClassesHelper(isChat);
   const userAvatar = renderUserAvatar(avatar);
+  const dispatch = useDispatch();
+
+  const handlerKick = () => {
+    dispatch({
+      type: AppReducerActions.kickVoteStart,
+      payload: { isVisible: true, victim: player },
+    });
+  };
 
   return (
     <div className={userClasses.user}>
@@ -27,7 +37,11 @@ export const User: FunctionComponent<UserProps> = ({
         </div>
         <div className={userClasses.button}>
           {!isYou && player?.role !== "Dealer" && (
-            <button type="button" className={userClasses.buttonBody}>
+            <button
+              type="button"
+              className={userClasses.buttonBody}
+              onClick={handlerKick} // ADD CLICK HANDLER>
+            >
               <img
                 src="../icons/cancel.svg"
                 alt="cancel button"
