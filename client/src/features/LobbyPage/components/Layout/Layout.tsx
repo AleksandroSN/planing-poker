@@ -33,13 +33,19 @@ import { GameCards } from "../GameCards";
 import { updateSettings } from "../../../Socket/lib/updateSettings";
 import { UpdatedSettings } from "../../types/interface";
 import { defaultLobbySettings } from "../../lib";
+import { loadSettings, saveSettings } from "./layoutHelper";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const [isMaster, setIsMaster] = useState<boolean>(false);
-  const { register, handleSubmit, watch } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
   const { chatOpen } = useAppSelector(AppSettings);
   const settings = useAppSelector(GameSettingsCurrent);
   const playersFromRedux = useAppSelector(Players);
@@ -92,6 +98,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   if (settings.appStage === "game") {
     return <Redirect to={`/game/${settings.lobbyId}`} />;
   }
+
+  const wrapperCB = (data: FormValues): void => {
+    saveSettings(data);
+  };
 
   return (
     <>
@@ -159,7 +169,29 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           {isMaster && (
             <div className="settings__block">
               <h2 className="settings__block__title text-xl">Game Settings:</h2>
-              <GameSettings onRegister={register} onWatch={watch} />
+              <div className="settings__block-wrapper">
+                <GameSettings
+                  onRegister={register}
+                  onWatch={watch}
+                  errors={errors}
+                />
+                <div className="settings__block__buttons">
+                  <Button
+                    type="button"
+                    onClick={handleSubmit(saveSettings)}
+                    classes="button-start"
+                  >
+                    Save settings
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => loadSettings(dispatch)}
+                    classes="button-cancel"
+                  >
+                    Load settings
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
           {isMaster && <GameCards />}

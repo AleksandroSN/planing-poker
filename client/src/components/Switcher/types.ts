@@ -6,5 +6,5 @@ export interface SwitcherProps {
   id: string;
   defaultValue: boolean;
   register: UseFormRegister<FormValues>;
-  toggleTimer?: () => void;
+  toggle?: () => void;
 }

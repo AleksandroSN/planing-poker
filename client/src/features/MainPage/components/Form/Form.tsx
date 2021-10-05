@@ -8,8 +8,13 @@ import { MainPageContext } from "../../lib";
 import "./Form.scss";
 
 export const MainPageForm: FunctionComponent = (): JSX.Element => {
-  const { MainPageState, setStrToAvatar, setImgToAvatar, submitData } =
-    useContext(MainPageContext);
+  const {
+    MainPageState,
+    setStrToAvatar,
+    setImgToAvatar,
+    submitData,
+    setObserverRole,
+  } = useContext(MainPageContext);
 
   const {
     register,
@@ -112,8 +117,9 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
           <Switcher
             labelText="Connect as Observer"
             id="switcherBox4"
-            defaultValue={false}
+            defaultValue={MainPageState.isObserver}
             register={register}
+            toggle={setObserverRole}
           />
         </div>
       )}

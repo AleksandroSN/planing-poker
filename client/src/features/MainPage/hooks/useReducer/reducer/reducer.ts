@@ -17,6 +17,14 @@ export const MainPageReducer = (
         ...MainPageState,
         ...{ isAuth: (action.payload as unknown as MainPageStateModel).isAuth },
       };
+    case MainPageReducerActionType.setObserver:
+      return {
+        ...MainPageState,
+        ...{
+          isObserver: (action.payload as unknown as MainPageStateModel)
+            .isObserver,
+        },
+      };
     case MainPageReducerActionType.setRole: {
       const newRole = (action.payload as unknown as MainPageStateModel).role;
       const toggleModal = (action.payload as unknown as MainPageStateModel)

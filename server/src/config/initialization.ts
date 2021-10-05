@@ -11,7 +11,7 @@ type InitialLobbySettings = {
 };
 
 export const initialLobbySettings: InitialLobbySettings = {
-  masterIsPlayer: false,
+  masterIsPlayer: true,
   isTimerNeed: true,
   changingCardInRoundEnd: false,
   scoreType: "story point",

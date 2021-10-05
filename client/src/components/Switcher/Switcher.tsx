@@ -7,7 +7,7 @@ export const Switcher: FunctionComponent<SwitcherProps> = ({
   id,
   defaultValue,
   register,
-  toggleTimer,
+  toggle,
 }: SwitcherProps): JSX.Element => {
   return (
     <div className="switcher">
@@ -17,15 +17,12 @@ export const Switcher: FunctionComponent<SwitcherProps> = ({
           type="checkbox"
           id={id}
           className="switcher__input"
-          defaultChecked={defaultValue}
+          checked={defaultValue}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(labelText)}
+          onChange={toggle}
         />
-        <span
-          className="switcher__slider round"
-          onClick={toggleTimer}
-          role="none"
-        >
+        <span className="switcher__slider round" role="none">
           switch
         </span>
       </label>

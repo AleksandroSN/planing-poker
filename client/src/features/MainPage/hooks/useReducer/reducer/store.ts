@@ -11,11 +11,13 @@ export const initialStateMainPage: MainPageStateModel = {
   role: "",
   openModal: false,
   openModalError: false,
+  isObserver: false,
 };
 
 export const handlersMainPageContext: HandlersMainPageContextModel = {
   MainPageState: initialStateMainPage,
   setMasterRole: () => {},
+  setObserverRole: () => {},
   toggleModal: () => {},
   toggleAuth: () => {},
   setStrToAvatar: () => {},
