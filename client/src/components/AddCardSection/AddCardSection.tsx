@@ -37,7 +37,7 @@ export const AddCardSection: FunctionComponent = (): JSX.Element => {
     <div className="game-cards__container">
       <div className="game-cards__cards-value">
         <h2 className="game-cards__cards-value-title text-24">
-          Add card values
+          Choose cards values
         </h2>
         <div className="game-cards__cards-value__container">{allItems}</div>
       </div>

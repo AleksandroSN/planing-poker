@@ -1,0 +1,18 @@
+[
+  {
+    "category": "Fibonacci",
+    "values": ["0", "1", 2, 3, 5, 8, 13, 21, 34, 55, 89, "?", "Pass"]
+  },
+  {
+    "category": "Modified Fibonacci",
+    "values": [0, "½", 1, 2, 3, 5, 8, 13, 20, 40, 100, "?", "Pass"]
+  },
+  {
+    "category": "Powers of 2",
+    "values": [0, 1, 2, 4, 8, 16, 32, 64, "?", "Pass"]
+  },
+  {
+    "category": "T-shirts",
+    "values": ["xxs", "xs", "s", "m", "l", "xl", "xxl", "?", "Pass"]
+  }
+]

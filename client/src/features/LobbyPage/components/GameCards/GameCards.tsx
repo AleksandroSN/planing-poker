@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import { AddCardSection, CoverSection } from "../../../../components";
+import { SelectCardsSet } from "../SelectCardsSet/SelectCardsSet";
 import "./gameCards.scss";
 
 export const GameCards: FunctionComponent = () => {
@@ -8,6 +9,7 @@ export const GameCards: FunctionComponent = () => {
       <h2 className="game-cards__title text-xl">Game Cards</h2>
       <CoverSection />
       <AddCardSection />
+      <SelectCardsSet />
     </section>
   );
 };
