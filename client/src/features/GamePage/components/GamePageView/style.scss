@@ -50,24 +50,12 @@
 }
 
 @media (max-width: 810px) {
-<<<<<<< HEAD
-  
-=======
-  .game-page__wrapper {
-    flex-direction: column;
-  }
-
->>>>>>> fa25315 (feat: add adaptivity, add issues from store)
   .game-content__wrapper {
     padding: 0 30px 30px;
   }
 }
 
-<<<<<<< HEAD
 @media (max-width: 570px) {
-=======
-@media (max-width: 560px) {
->>>>>>> fa25315 (feat: add adaptivity, add issues from store)
   .game-issues__wrapper {
     flex-direction: column;
     align-items: flex-start;
@@ -76,8 +64,4 @@
   .game-timer__wrapper {
     margin: 20px 0;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fa25315 (feat: add adaptivity, add issues from store)
