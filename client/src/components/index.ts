@@ -10,6 +10,7 @@ import { InputSelect } from "./InputSelect";
 import { InputText } from "./InputText";
 import { Issues } from "./Issues";
 import { Loader } from "./Loader";
+import { LobbyGameTitle } from "./LobbyGameTitle";
 import { Modal } from "./Modal";
 import { ScrumMaster } from "./ScrumMaster";
 import { Switcher } from "./Switcher";
@@ -27,6 +28,7 @@ export {
   InputText,
   Issues,
   Loader,
+  LobbyGameTitle,
   Modal,
   ScrumMaster,
   Switcher,

@@ -10,6 +10,7 @@ import {
   User,
   Issues,
   ScrumMaster,
+  LobbyGameTitle,
 } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import {
@@ -97,7 +98,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       <div className="content__wrapper">
         <form className="lobby-page-wrapper">
           <div>
-            <h2 className="lobby-page__title text-xl">Issue</h2>
+            <LobbyGameTitle classNames="lobby-page__title" />
           </div>
           <ScrumMaster playersFromRedux={playersFromRedux} />
           {isMaster && (
