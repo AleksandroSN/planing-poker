@@ -40,12 +40,13 @@ const issueVoting = (io: Server, player: Player, timerLimit: number) => {
           });
           result.forEach((itm) => {
             let value = result.get(itm) as number;
-            value = value / votersQty;
+            value = (value / votersQty) * 100;
             result.set(itm, value);
           });
           io.to(player.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_ROUND_STOP,
-            result
+            result,
+            voters
           );
           clearInterval(timer);
           startTime = 0;
@@ -73,6 +74,7 @@ export const issueVotingDb = (io: Server) => {
       const config = await getLobbySettings(player.id);
       const roundTime = config?.roundTime as number;
       const voting = issueVoting(io, player, roundTime);
+      voting.startVoting();
       issuesVoting.set(issue.id, voting);
       callback({ isStarted: true, message: "ROUND_IS_RUN" });
     },
