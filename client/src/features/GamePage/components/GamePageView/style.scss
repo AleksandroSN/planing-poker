@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
+
+  @media (max-width: 810px) {
+      flex-direction: column;
+  }
 }
 
 .game-page {
@@ -27,12 +31,18 @@
 }
 
 .game-issues__block {
-  width: 50%;
+  width: 45%;
+
+
 }
 
 .game-issues__block:nth-child(2) {
   padding-top: 45px;
   padding-left: 50px;
+
+  @media (max-width: 570px) {
+    padding: 0;
+  }
 }
 
 .game-timer__wrapper {
@@ -40,16 +50,13 @@
 }
 
 @media (max-width: 810px) {
-  .game-page__wrapper {
-    flex-direction: column;
-  }
-
+  
   .game-content__wrapper {
     padding: 0 30px 30px;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 570px) {
   .game-issues__wrapper {
     flex-direction: column;
     align-items: flex-start;
