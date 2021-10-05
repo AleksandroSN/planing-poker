@@ -5,5 +5,7 @@ export interface ModalProps {
   heading: string;
   children: JSX.Element;
   buttonTextConfirm: string;
+  buttonClassesConfirm?: string;
   buttonTextCancel: string;
+  buttonClassesCancel?: string;
 }

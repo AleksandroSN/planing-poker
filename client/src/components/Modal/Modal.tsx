@@ -13,7 +13,9 @@ export const Modal: FunctionComponent<ModalProps> = ({
   children,
   heading,
   buttonTextConfirm,
+  buttonClassesConfirm = "button-start",
   buttonTextCancel,
+  buttonClassesCancel = "button-cancel",
 }): JSX.Element => {
   if (!open) return null as never;
   return ReactDOM.createPortal(
@@ -25,10 +27,18 @@ export const Modal: FunctionComponent<ModalProps> = ({
           </section>
           <main>{children}</main>
           <div className="modal-buttons">
-            <Button idForm={idForm} classes="button-start" type="submit">
+            <Button
+              idForm={idForm}
+              classes={buttonClassesConfirm}
+              type="submit"
+            >
               {buttonTextConfirm}
             </Button>
-            <Button type="button" onClick={onCancel} classes="button-cancel">
+            <Button
+              type="button"
+              onClick={onCancel}
+              classes={buttonClassesCancel}
+            >
               {buttonTextCancel}
             </Button>
           </div>

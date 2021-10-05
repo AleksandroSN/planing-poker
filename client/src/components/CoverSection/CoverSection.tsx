@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { GameSettingsActions } from "../../redux/GameSettingsReducer/actions";
 import { CoversDataModel } from "./types";
-import { CardsCover } from "../AddCardSection/CardsCover";
+import { CardsCover } from "./CardsCover";
 import { coversData } from "./coverSectionHelper";
 import "./style.scss";
 

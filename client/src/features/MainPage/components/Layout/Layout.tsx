@@ -88,6 +88,8 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           onCancel={toggleErrorModal}
           buttonTextCancel="Close"
           buttonTextConfirm="Close"
+          buttonClassesConfirm="button-start modal-error-confirm"
+          buttonClassesCancel="button-cancel modal-error-close"
         >
           <ErrorWindow message="Please enter an existing room id" />
         </Modal>

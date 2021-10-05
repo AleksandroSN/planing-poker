@@ -12,7 +12,7 @@ export const GameSettings: FunctionComponent<GameSettingsProps> = ({
   onRegister,
   onWatch,
 }): JSX.Element => {
-  const [isTimerNeed, setIsTimerNeed] = useState<boolean>(false);
+  const [isTimerNeed, setIsTimerNeed] = useState<boolean>(false); // other state , refactor
   const settings = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch(); // move all logic in context
   const toggleTimer = () => {
