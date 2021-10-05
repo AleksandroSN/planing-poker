@@ -6,4 +6,5 @@ export enum MainPageReducerActionType {
   setRole = "SET_ROLE",
   openModal = "OPEN_MODAL",
   validateLobby = "VALIDATE_LOBBY",
+  setObserver = "SET_OBSERVER",
 }

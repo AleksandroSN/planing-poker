@@ -1,5 +1,13 @@
-.lobby-page-wrapper {
-  padding: 0px 35px 100px;
+.lobby-page{
+
+  &-wrapper {
+    padding: 35px 35px 100px;
+  }
+
+  &__title {
+    text-align: center;
+    margin: 0 auto 2rem;
+  }
 }
 
 .chat-wrapper {
@@ -84,6 +92,31 @@
 
 .settings__block {
   margin-bottom: 40px;
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: 992px) {
+      flex-wrap: wrap;
+    gap: 30px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    @media screen and (max-width: 992px) {
+      flex-direction: row;
+      flex: 100%;
+
+      .button-start {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 .exit-game__block {

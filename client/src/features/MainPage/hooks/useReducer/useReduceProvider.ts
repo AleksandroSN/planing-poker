@@ -36,6 +36,13 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
     });
   };
 
+  const setObserverRole = () => {
+    dispatch({
+      type: MainPageReducerActionType.setObserver,
+      payload: { isObserver: !MainPageState.isObserver },
+    });
+  };
+
   const toggleModal = () => {
     dispatch({
       type: MainPageReducerActionType.openModal,
@@ -117,6 +124,7 @@ export const useReducerProvider = (): HandlersMainPageContextModel => {
   return {
     MainPageState,
     setMasterRole,
+    setObserverRole,
     toggleModal,
     toggleAuth,
     setStrToAvatar,

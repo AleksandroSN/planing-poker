@@ -17,8 +17,8 @@ export interface GameSettingsState {
 }
 
 const initialGameSettingsState: GameSettingsState = {
-  masterIsPlayer: false,
-  isTimerNeed: false,
+  masterIsPlayer: true,
+  isTimerNeed: true,
   changingCardInRoundEnd: false,
   scoreType: "story point",
   scoreTypeShort: "SP",

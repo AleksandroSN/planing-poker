@@ -8,11 +8,13 @@ export interface MainPageStateModel {
   role: "Dealer" | "Member" | "Observer" | "";
   openModal: boolean;
   openModalError: boolean;
+  isObserver: false;
 }
 
 export interface HandlersMainPageContextModel {
   MainPageState: MainPageStateModel;
   setMasterRole: () => void;
+  setObserverRole: () => void;
   toggleModal: () => void;
   toggleAuth: () => void;
   setStrToAvatar: (str: string) => void;

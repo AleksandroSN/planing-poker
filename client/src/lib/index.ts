@@ -13,6 +13,7 @@ import { dummyPlayer } from "./dummyPlayer";
 import { numberToArr } from "./numberToArr";
 import { arrToNumber } from "./arrToNumber";
 import { exitGame } from "./exitGame";
+import { issuesArrToStr } from "./issuesArrToStr";
 
 export {
   renderUserAvatar,
@@ -32,4 +33,5 @@ export {
   numberToArr,
   arrToNumber,
   exitGame,
+  issuesArrToStr,
 };
