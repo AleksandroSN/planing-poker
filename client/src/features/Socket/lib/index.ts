@@ -3,3 +3,5 @@ import { SocketSingleton } from "./Singleton";
 import { SocketAPI } from "./SocketAPI";
 
 export { SocketMethods, SocketSingleton, SocketAPI };
+
+// add import/export for inner folders

@@ -14,7 +14,6 @@ import {
 } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import {
-  BASE_CLIENT,
   isReallyYou,
   AnimeChatMount,
   arrToNumber,
@@ -34,6 +33,7 @@ import { updateSettings } from "../../../Socket/lib/updateSettings";
 import { UpdatedSettings } from "../../types/interface";
 import { defaultLobbySettings } from "../../lib";
 import { loadSettings, saveSettings } from "./layoutHelper";
+import { BASE_CLIENT } from "../../../../api";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -98,10 +98,6 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   if (settings.appStage === "game") {
     return <Redirect to={`/game/${settings.lobbyId}`} />;
   }
-
-  const wrapperCB = (data: FormValues): void => {
-    saveSettings(data);
-  };
 
   return (
     <>

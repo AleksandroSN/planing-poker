@@ -19,6 +19,7 @@ import {
   changeLobbySettings,
   createNewRoom,
   deleteIssue,
+  deleteTeamMember,
   getChatMessages,
   getLobbyIssues,
   getLobbyMembers,
@@ -96,6 +97,9 @@ io.on("connection", function (socket: Socket) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
     }
   );
+  socket.on(SocketActions.DELETE_TEAM_MEMBER, async function (player: Player) {
+    await deleteTeamMember(io, player);
+  });
   socket.on(
     SocketActions.GET_LOBBY_MEMBERS,
     async function (player: Player, callback: (members: Player[]) => void) {

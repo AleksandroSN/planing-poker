@@ -1,7 +1,8 @@
-import { Socket } from "socket.io";
+import { Socket, Server } from "socket.io";
 import { LobbySetting, NewPlayer, Player, SocketActions } from "../../types";
 import {
   createNewPlayer,
+  deletePlayer,
   getLobbySettings,
   getPlayersInLobby,
 } from "../models";
@@ -30,4 +31,12 @@ export const getLobbyMembers = async (
 ): Promise<void> => {
   const members = await getPlayersInLobby(player.lobbyId);
   callback(members);
+};
+
+export const deleteTeamMember = async (io: Server, player: Player) => {
+  // return deletePlayer(player.id);
+  console.log(player);
+  console.log(typeof player);
+  await deletePlayer(player.id);
+  io.to(player.lobbyId).emit(SocketActions.NOTIFY_ABOUT_KICKING_MEMBER, player);
 };

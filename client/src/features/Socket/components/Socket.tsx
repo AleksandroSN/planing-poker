@@ -30,6 +30,7 @@ export const Socket = (): JSX.Element => {
         const localPlayer = JSON.parse(sessionStorage.player) as Player;
         const socket = SocketSingleton.getInstance().getSocket();
         await socket.connect();
+        // validate lobby if false dispatch "{out}"
         await reconnectToLobby(localPlayer, socket);
 
         socket.on(

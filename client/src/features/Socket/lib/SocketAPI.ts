@@ -1,5 +1,5 @@
 import io, { Socket } from "socket.io-client";
-import { BASE_SERVER } from "../../../lib";
+import { BASE_SERVER } from "../../../api";
 import { SocketActions } from "../types";
 
 export class SocketAPI {
