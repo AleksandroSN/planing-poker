@@ -1,15 +1,24 @@
 import { FunctionComponent } from "react";
+import { UserAnonymous } from "../..";
 import { ChatMessage } from "../../../features/Socket/types";
 import { isReallyYou } from "../../../lib";
-import { User } from "../../User/User";
+import { User } from "../../User";
 
 export const ChatRow: FunctionComponent<ChatMessage> = ({
   messageText,
   id,
   playerData,
 }): JSX.Element => {
-  const isYou = isReallyYou(playerData.id);
+  if (playerData === undefined) {
+    return (
+      <div className="chat__row">
+        <p className="chat__user-message test-light text-s">{messageText}</p>
+        <UserAnonymous id="id" />
+      </div>
+    );
+  }
 
+  const isYou = isReallyYou(playerData.id);
   return (
     <div className="chat__row">
       <p className="chat__user-message test-light text-s">{messageText}</p>

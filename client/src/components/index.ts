@@ -16,6 +16,7 @@ import { ScrumMaster } from "./ScrumMaster";
 import { Switcher } from "./Switcher";
 import { Timer } from "./Timer";
 import { User } from "./User";
+import { UserAnonymous } from "./UserAnonymous";
 
 export {
   AddCardSection,
@@ -34,6 +35,7 @@ export {
   Switcher,
   Timer,
   User,
+  UserAnonymous,
   Header,
   Footer,
 };
