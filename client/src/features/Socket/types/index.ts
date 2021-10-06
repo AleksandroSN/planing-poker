@@ -1,6 +1,7 @@
 export enum SocketActions {
   CREATE_NEW_ROOM = "create new room", // ready
   ADD_NEW_TEAM_MEMBER = "add new team member", // ready
+  DELETE_TEAM_MEMBER = "delete team member",
   GET_LOBBY_MEMBERS = "get lobby members", // ready
   ADD_NEW_ISSUE = "add new issue", // ready
   RECIEVE_NEW_ISSUE = "recieve new issue", // ready

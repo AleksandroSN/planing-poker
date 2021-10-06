@@ -24,7 +24,8 @@ export const createNewPlayer = (
   return Promise.resolve(player);
 };
 
-export const deletePlayer = (playerId: string): Promise<Player | false> => {
+export const deletePlayer = (playerId: string): Promise<false | Player> => {
+  console.log(playerId);
   return deleteSmth(playerId, db.players);
 };
 

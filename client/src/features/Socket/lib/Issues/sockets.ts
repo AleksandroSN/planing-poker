@@ -1,4 +1,4 @@
-import { SocketAPI } from "..";
+import { SocketAPI } from "../SocketAPI";
 import { IssuesModel } from "../../../../types/interface";
 import { Issue, SocketActions } from "../../types";
 

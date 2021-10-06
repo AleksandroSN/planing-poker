@@ -1,4 +1,3 @@
-import { BASE_CLIENT, BASE_SERVER } from "./baseHost";
 import { renderUserAvatar } from "./renderAvatar";
 import { findID } from "./findUrlID";
 import { spltName } from "./splitName";
@@ -20,8 +19,6 @@ export {
   findID,
   spltName,
   uploadData,
-  BASE_SERVER,
-  BASE_CLIENT,
   CreateNewFile,
   uploadImage,
   dictErrors,

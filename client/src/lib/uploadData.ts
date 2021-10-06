@@ -1,5 +1,5 @@
 import { UploadResponse } from "../types/interface";
-import { BASE_SERVER } from "./baseHost";
+import { BASE_SERVER } from "../api";
 
 export const uploadData = async (
   data: FormData

@@ -5,7 +5,7 @@ import {
   initialStateMainPage,
   MainPageReducerActionType,
 } from "./reducer";
-import { uploadImage, BASE_SERVER } from "../../../../lib";
+import { uploadImage } from "../../../../lib";
 import { FormValues } from "../../../../types/interface";
 import { createMaster } from "../../../Socket/lib/createMaster";
 import { NewPlayer, Player } from "../../../Socket/types";
@@ -13,6 +13,7 @@ import { HandlersMainPageContextModel } from "../../types";
 import { useAppSelector, GameSettingsCurrent } from "../../../../redux/store";
 import { createMember } from "../../../Socket/lib/createMember";
 import { checkValidityLobby } from "../../../Socket/lib/checkValidityLobby";
+import { BASE_SERVER } from "../../../../api";
 
 export const useReducerProvider = (): HandlersMainPageContextModel => {
   const [MainPageState, dispatch] = useReducer(
