@@ -1,7 +1,8 @@
 import { db } from "../../db/db";
 import { v4 as uuidv4 } from "uuid";
-import { Issue, NewIssue } from "../../types";
+import { Issue, LobbySetting, NewIssue } from "../../types";
 import { deleteSmth, getSmthById, getSmthInLobby } from "../shared";
+import { getLobbySettings } from ".";
 
 export const getIssuesInLobby = (lobby: string): Promise<Issue[]> => {
   return getSmthInLobby(lobby, db.issues);
@@ -29,3 +30,28 @@ export const updateIssueMd = (issue: Issue): Promise<Issue> => {
 export const deleteIssueMd = (issueId: string): Promise<Issue | false> => {
   return deleteSmth(issueId, db.issues);
 };
+
+export const getCurrentIssue = (lobbyId: string): Promise<Issue | null> => {
+  const issuesInLobby = db.issues.filter((itm) => itm.lobbyId === lobbyId);
+  const index = issuesInLobby.findIndex((itm) => itm.status === "voting");
+  let result: Issue | null;
+  if (!index) {
+    result = null;
+  } else {
+    result = issuesInLobby[index];
+  }
+  return Promise.resolve(result);
+};
+
+export const setNewCurrentIssue = (lobbyId: string): Promise<Issue[]> => {
+  const settings = getLobbySettings(lobbyId) as unknown as LobbySetting;
+  switch (settings.appStage) {
+    case "lobby": {
+
+    }
+    case "game": {
+      
+    }
+  } 
+
+}

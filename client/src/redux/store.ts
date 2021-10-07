@@ -10,6 +10,8 @@ import { GameSettingsState } from "./GameSettingsReducer/reducer";
 import { AppState } from "./AppReducer/reducer";
 import { ChatMessagesState } from "./ChatMessagesReducer/reducer";
 import { IssuesState } from "./IssuesReducer/reducer";
+import { ResultReducer } from "./ResultReducer";
+import { ResultState } from "./ResultReducer/reducer";
 
 const rootReducer = combineReducers({
   appReducer,
@@ -17,6 +19,7 @@ const rootReducer = combineReducers({
   issuesReducer,
   chatMessagesReducer,
   gameSettingsReducer,
+  ResultReducer,
 });
 
 type WindowWithDevTools = Window & {
@@ -52,4 +55,7 @@ export const ChatMessage = (state: RootState): ChatMessagesState => {
 };
 export const IssuesRedux = (state: RootState): IssuesState => {
   return state.issuesReducer;
+};
+export const ResultRedux = (state: RootState): ResultState => {
+  return state.ResultReducer;
 };

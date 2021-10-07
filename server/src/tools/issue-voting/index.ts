@@ -8,7 +8,7 @@ type IssueVoting = {
   checkProcess: () => boolean;
 };
 
-const issueVoting = (io: Server, player: Player, timerLimit: number) => {
+const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
   const voters: Map<string, number> = new Map();
   const result: Map<number, number> = new Map();
   let startTime = 0;
@@ -26,7 +26,7 @@ const issueVoting = (io: Server, player: Player, timerLimit: number) => {
           minutes < 10 ? `0${minutes}` : `${minutes}`,
           seconds < 10 ? `0${seconds}` : `${seconds}`,
         ];
-        io.to(player.lobbyId).emit(SocketActions.TIK_TAK, time);
+        io.to(issue.lobbyId).emit(SocketActions.TIK_TAK, time);
         if (startTime >= timerLimit) {
           const votersQty = voters.size;
           voters.forEach((itm) => {
@@ -43,10 +43,11 @@ const issueVoting = (io: Server, player: Player, timerLimit: number) => {
             value = (value / votersQty) * 100;
             result.set(itm, value);
           });
-          io.to(player.lobbyId).emit(
+          io.to(issue.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_ROUND_STOP,
             result,
-            voters
+            voters,
+            issue
           );
           clearInterval(timer);
           startTime = 0;
@@ -66,14 +67,13 @@ export const issueVotingDb = (io: Server) => {
   const issuesVoting: Map<string, IssueVoting> = new Map();
   return {
     runRound: async (
-      player: Player,
       issue: Issue,
       callback: (response: { isStarted: boolean; message: string }) => void
     ) => {
-      io.to(player.lobbyId).emit("NOTIFY_ABOUT_ROUND_RUNNIG", issue);
-      const config = await getLobbySettings(player.id);
+      io.to(issue.lobbyId).emit(SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG, issue);
+      const config = await getLobbySettings(issue.lobbyId);
       const roundTime = config?.roundTime as number;
-      const voting = issueVoting(io, player, roundTime);
+      const voting = issueVoting(io, issue, roundTime);
       voting.startVoting();
       issuesVoting.set(issue.id, voting);
       callback({ isStarted: true, message: "ROUND_IS_RUN" });
