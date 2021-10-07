@@ -8,7 +8,7 @@ export const defaultLobbySettings = (lobbyId: string): LobbySetting => {
     scoreType: "",
     scoreTypeShort: "",
     roundTime: 0, // seconds
-    cardValues: [""],
+    cardValues: "",
     cardsCover: "",
     appStage: "out",
     lobbyId,

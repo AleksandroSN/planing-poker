@@ -1,3 +1,1 @@
-export interface ParamsGamePage {
-  id: string;
-}
+export {};

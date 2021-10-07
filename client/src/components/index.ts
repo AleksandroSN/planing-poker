@@ -6,6 +6,7 @@ import { ErrorWindow } from "./ErrorWindow";
 import { ExitGame } from "./ExitGame";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { InputRadio } from "./InputRadio";
 import { InputSelect } from "./InputSelect";
 import { InputText } from "./InputText";
 import { Issues } from "./Issues";
@@ -25,6 +26,7 @@ export {
   CoverSection,
   ErrorWindow,
   ExitGame,
+  InputRadio,
   InputSelect,
   InputText,
   Issues,

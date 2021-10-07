@@ -6,6 +6,7 @@ import { UpdatedSettings } from "../../types/interface";
 
 export const saveSettings = (data: FormValues): void => {
   const newSettings: UpdatedSettings = {
+    cardValues: data.cardsValue,
     masterIsPlayer: data["Scrum master as player"],
     isTimerNeed: data["Is timer needed"],
     changingCardInRoundEnd: data["Changing card in round end"],

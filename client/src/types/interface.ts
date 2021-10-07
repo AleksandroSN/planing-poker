@@ -18,6 +18,7 @@ export interface FormValues {
   "Choose file": string | FileList;
   "Connect as Observer": boolean;
   ChatMessage: string;
+  cardsValue: string;
 }
 
 export interface UploadResponse {

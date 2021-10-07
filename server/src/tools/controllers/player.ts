@@ -33,10 +33,10 @@ export const getLobbyMembers = async (
   callback(members);
 };
 
-export const deleteTeamMember = async (io: Server, player: Player) => {
-  // return deletePlayer(player.id);
-  console.log(player);
-  console.log(typeof player);
+export const deleteTeamMember = async (
+  io: Server,
+  player: Player
+): Promise<void> => {
   await deletePlayer(player.id);
   io.to(player.lobbyId).emit(SocketActions.NOTIFY_ABOUT_KICKING_MEMBER, player);
 };

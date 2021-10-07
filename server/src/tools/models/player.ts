@@ -25,7 +25,6 @@ export const createNewPlayer = (
 };
 
 export const deletePlayer = (playerId: string): Promise<false | Player> => {
-  console.log(playerId);
   return deleteSmth(playerId, db.players);
 };
 

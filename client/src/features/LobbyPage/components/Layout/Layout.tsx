@@ -38,7 +38,7 @@ import { BASE_CLIENT } from "../../../../api";
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-
+  const [isCopy, setIsCopy] = useState<boolean>(false);
   const [isMaster, setIsMaster] = useState<boolean>(false);
   const {
     register,
@@ -75,6 +75,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     }
   }, []);
 
+  const toggleCopy = () => {
+    setIsCopy(true);
+    setTimeout(() => {
+      setIsCopy(false);
+    }, 1000);
+  };
+
   const cancelGame = async () => {
     if (settings) {
       await updateSettings(defaultLobbySettings(settings.lobbyId), dispatch);
@@ -86,6 +93,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     const newSettings: UpdatedSettings = {
       masterIsPlayer: data["Scrum master as player"],
       isTimerNeed: data["Is timer needed"],
+      cardValues: data.cardsValue,
       changingCardInRoundEnd: data["Changing card in round end"],
       scoreType: data["Score type"],
       scoreTypeShort: data["Score type (Short)"],
@@ -118,15 +126,17 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                     inputClasses: "lobby-page-link__input",
                     isDisabled: true,
                   }}
-                  hookForm={{
-                    onRegister: register,
-                  }}
                 />
                 <CopyToClipboard text={`${BASE_CLIENT}${pathname}`}>
-                  <Button type="button" classes="copy-link__button">
+                  <Button
+                    type="button"
+                    classes="copy-link__button"
+                    onClick={toggleCopy}
+                  >
                     Copy
                   </Button>
                 </CopyToClipboard>
+                {isCopy && <p className="copy-link__text">Copied</p>}
               </div>
               <div className="start-game__button-block">
                 <Button type="button" onClick={handleSubmit(onSubmit)}>
@@ -190,7 +200,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               </div>
             </div>
           )}
-          {isMaster && <GameCards />}
+          {isMaster && <GameCards onRegister={register} />}
         </form>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
