@@ -11,10 +11,10 @@ export const AddCardSection: FunctionComponent = (): JSX.Element => {
   const { scoreTypeShort, cardValues } = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch();
   const updateCards = (newData: CardsValueModel): void => {
-    dispatch({
-      type: GameSettingsActions.updateSetiings,
-      payload: { cardValues: [...cardValues, newData] },
-    });
+    // dispatch({
+    //   type: GameSettingsActions.updateSetiings,
+    //   payload: { cardValues: [...cardValues, newData] },
+    // });
     setCards((old) => [...old, newData]);
   };
 

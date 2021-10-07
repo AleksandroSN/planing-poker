@@ -9,7 +9,7 @@ export interface GameSettingsState {
   scoreType: string;
   scoreTypeShort: string;
   roundTime: number;
-  cardValues: string[]; // arr CardValuesModel
+  cardValues: string; // arr CardValuesModel
   cardsCover: string;
   lobbyId: string;
   masterId: string;
@@ -23,7 +23,7 @@ const initialGameSettingsState: GameSettingsState = {
   scoreType: "story point",
   scoreTypeShort: "SP",
   roundTime: 140,
-  cardValues: [],
+  cardValues: "",
   cardsCover: "",
   lobbyId: "",
   masterId: "",

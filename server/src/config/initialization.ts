@@ -5,7 +5,7 @@ type InitialLobbySettings = {
   scoreType: string;
   scoreTypeShort: string;
   roundTime: number;
-  cardValues: string[];
+  cardValues: string;
   cardsCover: string;
   appStage: "lobby" | "game" | "out" | "";
 };
@@ -17,7 +17,7 @@ export const initialLobbySettings: InitialLobbySettings = {
   scoreType: "story point",
   scoreTypeShort: "SP",
   roundTime: 140, // seconds
-  cardValues: [""],
+  cardValues: "",
   cardsCover: "",
   appStage: "lobby",
 };
