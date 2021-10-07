@@ -16,3 +16,9 @@ img {
   width: auto;
   height: 100%;
 }
+
+#App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
