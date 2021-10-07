@@ -5,6 +5,6 @@ export enum AppReducerActions {
   kickVoteStart = "KICK_VOTE_START",
   kickVoteSuggest = "KICK_VOTE_SUGGEST",
   kickMemberNotify = "KICK_MEMBER_NOTIFY",
-  runRound = "RUN_ROUND",
-  stopRound = "STOP_ROUND",
+  controlRound = "CONTROL_ROUND",
+  tikTak = "TIK_TAK",
 }

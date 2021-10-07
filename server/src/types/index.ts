@@ -22,6 +22,7 @@ export type Issue = {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
+  status: "created" | "voting" | "voted";
 };
 
 export type NewIssue = {
@@ -29,6 +30,7 @@ export type NewIssue = {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
+  status: "created" | "voting" | "voted";
 };
 
 export type LobbySetting = {
@@ -90,4 +92,7 @@ export enum SocketActions {
   NOTIFY_ABOUT_ROUND_RUNNIG = "notify about round running",
   GIVE_A_VOTE_FOR_ISSUE = "give a vote for issue",
   NOTIFY_ABOUT_ROUND_STOP = "notify about round stop",
+  NEXT_ISSUE_FOR_VOTING = "next issue for voting",
+  RECIEVE_ALL_ISSUES = "recieve all issues",
+  ALL_ISSUES_WERE_VOTED = "all issues were voted",
 }

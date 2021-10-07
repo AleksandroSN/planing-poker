@@ -217,11 +217,10 @@ io.on("connection", function (socket: Socket) {
   socket.on(
     SocketActions.RUN_ROUND,
     async function (
-      player: Player,
       issue: Issue,
       callback: (response: { isStarted: boolean; message: string }) => void
     ) {
-      issueVoting.runRound(player, issue, callback);
+      issueVoting.runRound(issue, callback);
     }
   );
   socket.on(
@@ -235,6 +234,7 @@ io.on("connection", function (socket: Socket) {
       issueVoting.giveVoteForIssue(player, issue, score, callback);
     }
   );
+  socket.on(SocketActions.NEXT_ISSUE_FOR_VOTING, async function () {});
 });
 
 http.listen(3030, function () {

@@ -15,6 +15,7 @@ type KickSuggestStart = {
 
 type RoundControl = {
   isRun: boolean;
+  resultWaiting: boolean;
   currentIssue?: Issue;
 };
 
@@ -26,6 +27,7 @@ export type AppState = {
   kickVoteSuggest: KickSuggestStart;
   kickMemberNotify: boolean;
   roundControl: RoundControl;
+  tikTak: Array<string>;
 };
 
 const initialAppState: AppState = {
@@ -41,7 +43,9 @@ const initialAppState: AppState = {
   kickMemberNotify: false,
   roundControl: {
     isRun: false,
+    resultWaiting: false,
   },
+  tikTak: [],
 };
 
 export const appReducer = (
@@ -72,6 +76,14 @@ export const appReducer = (
     case AppReducerActions.kickMemberNotify: {
       const kickMemberNotify = action.payload as unknown as boolean;
       return { ...state, kickMemberNotify };
+    }
+    case AppReducerActions.controlRound: {
+      const roundControl = action.payload as unknown as RoundControl;
+      return { ...state, roundControl };
+    }
+    case AppReducerActions.tikTak: {
+      const tikTak = action.payload as unknown as Array<string>;
+      return { ...state, tikTak };
     }
     default:
       return state;
