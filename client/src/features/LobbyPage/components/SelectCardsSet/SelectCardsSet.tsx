@@ -8,7 +8,7 @@ export const SelectCardsSet: FunctionComponent<SelectCardsProps> = ({
 }): JSX.Element => {
   return (
     <div className="lobby-page__cards-value">
-      <h2>Choose a deck of cards</h2>
+      <h2>Choose cards deck</h2>
       <InputRadio
         labelText="cardsValue"
         idInput="fibonacciSet"

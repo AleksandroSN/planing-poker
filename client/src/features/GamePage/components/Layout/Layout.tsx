@@ -1,69 +1,74 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Chat, Timer } from "../../../../components";
+import {
+  Button,
+  Chat,
+  Issues,
+  LobbyGameTitle,
+  Timer,
+} from "../../../../components";
 import { FormValues } from "../../../../types/interface";
 import {
   AppSettings,
-  IssuesRedux,
+  GameSettingsCurrent,
+  Players,
   useAppSelector,
 } from "../../../../redux/store";
 import { ProgressBar } from "../ProgressBar";
 import { Cards } from "../../../../components/AddCardSection/Cards";
-import "../GamePageView/style.scss";
 import { ScrumMaster } from "../../../../components/ScrumMaster/ScrumMaster";
-import { AnimeChatMount } from "../../../../lib";
-import { Issue } from "../../../../components/Issues/IssueItem/Issue";
+import { AnimeChatMount, cardsSets } from "../../../../lib";
+import "./style.scss";
+
+const handleExit = () => {
+  console.log("exit");
+};
+
+const updateCards = () => {
+  console.log("Update");
+};
 
 // TODO add chat
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [isMaster, setIsMaster] = useState(true);
   const [isPlayer, setIsPlayer] = useState(false);
-  const [isStart, setIsStart] = useState(true);
+  const [isStart, setIsStart] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(true);
+  const [cardsDeck, setCardsDeck] = useState<string[]>([]);
   const { chatOpen } = useAppSelector(AppSettings);
-  const issuesFromRedux = useAppSelector(IssuesRedux);
+  const playerFromRedux = useAppSelector(Players);
+  const gameSettings = useAppSelector(GameSettingsCurrent);
 
-  /* useEffect(() => {
-    if (issuesFromRedux.issues) {
-      const activeIssue = issuesFromRedux.issues.filter(
-        (issue) => issue.status === "Active"
-      );
-      setIsActive(activeIssue);
-    }
-  }, [issuesFromRedux]);
- */
-
-  const issues = issuesFromRedux.issues.map((issue) => {
+  const gameCards = cardsDeck.map((value) => {
     return (
-      <Issue
-        id={issue.id}
-        title={issue.title}
-        link={issue.link}
-        priority={issue.priority}
-      />
+      <Cards value={value} scoreTypeShort="SP" updateCards={updateCards} />
     );
   });
 
-  const handleExit = () => {
-    console.log("exit");
-  };
-
-  const updateCards = () => {
-    console.log("Update");
-  };
-
   const { register } = useForm<FormValues>();
+
+  useEffect(() => {
+    const deck = cardsSets.filter(
+      (set) => set.category === gameSettings.cardValues
+    )[0];
+    if (deck) {
+      setCardsDeck(deck.values);
+    }
+  }, [gameSettings]);
 
   return (
     <>
       <div className="game-page__wrapper">
         <section className="game-content__wrapper">
-          <h1 className="text-xl">Issue</h1>
-          <div className="game-issues__wrapper">
-            {/* <ScrumMaster /> */}
+          <div className="game-page__title">
+            <LobbyGameTitle classNames="lobby-page__title" />
+          </div>
+          <div className="game-page__top">
+            <ScrumMaster playersFromRedux={playerFromRedux} />
             {isMaster && (
               <Button
                 type="button"
-                onClick={handleExit} // TODO add exit logic
+                onClick={handleExit} // TODO add stop game logic (redirect to result page)
                 classes="button-cancel"
               >
                 Stop Game
@@ -72,11 +77,16 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             {isPlayer && (
               <>
                 <div className="game-timer__wrapper">
-                  <Timer isSettings={false} isTimer register={register} />
+                  <Timer
+                    isSettings={false}
+                    isTimer
+                    register={register}
+                    time={["2", "19"]}
+                  />
                 </div>
                 <Button
                   type="button"
-                  onClick={handleExit}
+                  onClick={handleExit} // exit from game
                   classes="button-cancel"
                 >
                   Exit
@@ -85,25 +95,55 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             )}
           </div>
           <div className="game-issues__wrapper">
-            <div className="game-issues__block">{issues}</div>
+            <div className="game-issues__block">
+              <Issues />
+            </div>
             {isMaster && (
-              <div className="game-issues__block">
+              <div className="game-issues__control-wrapper">
                 <div className="game-timer__wrapper">
-                  <Timer isSettings={false} isTimer register={register} />
+                  <Timer
+                    isSettings={false}
+                    isTimer
+                    register={register}
+                    time={["2", "19"]}
+                  />
                 </div>
-                <Button
-                  type="submit"
-                  onClick={() => console.log("start game")} // TODO add start game logic
-                  classes="button-start"
-                >
-                  Run Round
-                </Button>
+
+                {isStart && (
+                  <Button
+                    type="submit"
+                    onClick={() => console.log("start game")} // TODO add start game logic
+                    classes="button-start"
+                  >
+                    Run Round
+                  </Button>
+                )}
+                {isWaiting && (
+                  <div className="game-issues__control">
+                    <Button
+                      type="button"
+                      onClick={() => console.log("restart game")} // TODO restart game logic
+                      classes="button-start"
+                    >
+                      Restart Round
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => console.log("next issue")} // TODO next issue logic
+                      classes="button-start"
+                    >
+                      Next issue
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
           </div>
-          {isStart && (
-            <Cards value="1" scoreTypeShort="SP" updateCards={updateCards} />
-          )}
+          {
+            isStart && (
+              <div className="game-page__cards">{gameCards}</div>
+            ) /* if game start and master can vote */
+          }
         </section>
         <ProgressBar />
       </div>
