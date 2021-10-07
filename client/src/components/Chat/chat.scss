@@ -3,6 +3,7 @@
 
 .chat {
   background-color: $colorWhite;
+  z-index: 50;
 
   &__wrapper {
     height: 50vh;
