@@ -17,7 +17,7 @@ import { IssueContextModel, IssuesModel } from "../../types/interface";
 const DEFAULT_STATE_ISSUES: IssueContextModel = {
   isOpen: false,
   isMaster: false,
-  isLobby: true,
+  appStage: "",
   lobbyId: "",
   toggleIsOpen: () => {},
   issues: [],
@@ -48,7 +48,6 @@ export const IssueContextHelper = (): IssueContextModel => {
     setIsOpen((x) => !x);
   }, []);
   const isMaster = isReallyYou(masterId);
-  const isLobby = appStage === "lobby";
   const addIssue = async (data: IssuesModel) => {
     await addNewIssue(data, dispatch);
   };
@@ -71,7 +70,7 @@ export const IssueContextHelper = (): IssueContextModel => {
   return {
     isOpen,
     isMaster,
-    isLobby,
+    appStage,
     lobbyId,
     toggleIsOpen,
     issues,
