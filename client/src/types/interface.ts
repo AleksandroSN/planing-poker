@@ -29,7 +29,7 @@ export interface UploadResponse {
 export interface IssueContextModel {
   isOpen: boolean;
   isMaster: boolean;
-  isLobby: boolean;
+  appStage: string;
   lobbyId: string;
   toggleIsOpen: () => void;
   issues: Issue[];

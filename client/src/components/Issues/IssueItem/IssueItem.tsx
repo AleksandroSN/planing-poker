@@ -15,7 +15,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   link,
   priority,
 }): JSX.Element => {
-  const { toggleIsOpen, deleteIssues, findIssue, isMaster, isLobby } =
+  const { toggleIsOpen, deleteIssues, findIssue, isMaster, appStage } =
     useContext(IssueContext);
 
   const updateIssue = () => {
@@ -23,13 +23,12 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
     toggleIsOpen();
   };
 
-  // if we on page "game result" deleteBtn disabled
   return (
     <div className="issues__item">
       <div className="issues__item-row">
         <a href={link} className="issues__item-name">{`Issue ${issueName}`}</a>
         <div className="issues__item-buttons">
-          {isLobby && (
+          {appStage === "lobby" && (
             <button type="button" onClick={updateIssue}>
               <img src="../icons/edit.svg" alt="edit issue" />
             </button>

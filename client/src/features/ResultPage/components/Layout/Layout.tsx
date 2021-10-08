@@ -1,35 +1,22 @@
-import { FunctionComponent, useEffect, useState } from "react";
-import "./style.scss";
-import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
-import { Player } from "../../../Socket/types";
-import { Chat, LobbyGameTitle } from "../../../../components";
-import { Issue } from "../../../../components/Issues/IssueItem/Issue";
+import { FunctionComponent } from "react";
+import { useAppSelector, AppSettings } from "../../../../redux/store";
+import { Button, Chat, LobbyGameTitle } from "../../../../components";
 import { AnimeChatMount } from "../../../../lib";
+import { GameResult } from "../GameResult";
+import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const { chatOpen } = useAppSelector(AppSettings);
-  const playersFromRedux = useAppSelector(Players);
-  const dealer = playersFromRedux.filter(
-    (player) => player.role === "Dealer"
-  )[0];
-  const [isMaster, setIsMaster] = useState<boolean>(false);
-
-  useEffect(() => {
-    const localPlayer = sessionStorage.getItem("player");
-    if (localPlayer) {
-      const player = JSON.parse(localPlayer) as Player;
-      const reallyMaster = player.role === "Dealer";
-      setIsMaster(reallyMaster);
-    }
-  }, []);
 
   return (
     <>
       <div className="content__wrapper">
-        <div>
+        <div className="round-result">
           <LobbyGameTitle classNames="lobby-page__title" /* fix classname */ />
-          {/* <Issue id="" link="link" title="Issue" priority="High" /> */}
-          {/* <div className="round-result__wrapper">Results</div> */}
+          <div className="round-result__wrapper">
+            <GameResult />
+            <Button type="button">DOWNLOAD</Button>
+          </div>
         </div>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
