@@ -5,6 +5,7 @@ import {
   Chat,
   Issues,
   LobbyGameTitle,
+  ResultOnCards,
   Timer,
 } from "../../../../components";
 import { FormValues } from "../../../../types/interface";
@@ -16,7 +17,7 @@ import {
 } from "../../../../redux/store";
 import { ProgressBar } from "../ProgressBar";
 import { Cards } from "../../../../components/AddCardSection/Cards";
-import { ScrumMaster } from "../../../../components/ScrumMaster/ScrumMaster";
+import { ScrumMaster } from "../../../../components/ScrumMaster";
 import { AnimeChatMount, cardsSets } from "../../../../lib";
 import "./style.scss";
 
@@ -139,6 +140,11 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               </div>
             )}
           </div>
+          {isWaiting && (
+            <div>
+              <ResultOnCards />
+            </div>
+          )}
           {
             isStart && (
               <div className="game-page__cards">{gameCards}</div>
