@@ -8,6 +8,7 @@ export const ResultOnCards: FunctionComponent = (): JSX.Element => {
   const renderCards = resultCards.map((card) => {
     return (
       <CardsWithStats
+        key={card.value}
         value={card.value}
         scoreTypeShort={card.scoreTypeShort}
         stats={card.stats}

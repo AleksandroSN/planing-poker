@@ -78,5 +78,5 @@ export type LobbySetting = {
   cardsCover: string;
   lobbyId: string;
   masterId: string;
-  appStage: "lobby" | "game" | "out" | "";
+  appStage: "lobby" | "game" | "out" | "results" | "";
 };

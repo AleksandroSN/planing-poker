@@ -9,11 +9,11 @@ export interface GameSettingsState {
   scoreType: string;
   scoreTypeShort: string;
   roundTime: number;
-  cardValues: string; // arr CardValuesModel
+  cardValues: string;
   cardsCover: string;
   lobbyId: string;
   masterId: string;
-  appStage: "lobby" | "game" | "out" | "";
+  appStage: "lobby" | "game" | "out" | "results" | "";
 }
 
 const initialGameSettingsState: GameSettingsState = {

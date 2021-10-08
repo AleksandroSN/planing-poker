@@ -7,7 +7,7 @@ type InitialLobbySettings = {
   roundTime: number;
   cardValues: string;
   cardsCover: string;
-  appStage: "lobby" | "game" | "out" | "";
+  appStage: "lobby" | "game" | "out" | "results" | "";
 };
 
 export const initialLobbySettings: InitialLobbySettings = {
