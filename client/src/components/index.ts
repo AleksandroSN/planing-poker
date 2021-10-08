@@ -1,5 +1,6 @@
 import { AddCardSection } from "./AddCardSection";
 import { Button } from "./Button";
+import { CardsWithStats } from "./CardsWithStats";
 import { Chat } from "./Chat";
 import { CoverSection } from "./CoverSection";
 import { ErrorWindow } from "./ErrorWindow";
@@ -13,6 +14,7 @@ import { Issues } from "./Issues";
 import { Loader } from "./Loader";
 import { LobbyGameTitle } from "./LobbyGameTitle";
 import { Modal } from "./Modal";
+import { ResultOnCards } from "./ResultOnCards";
 import { ScrumMaster } from "./ScrumMaster";
 import { Switcher } from "./Switcher";
 import { Timer } from "./Timer";
@@ -22,6 +24,7 @@ import { UserAnonymous } from "./UserAnonymous";
 export {
   AddCardSection,
   Button,
+  CardsWithStats,
   Chat,
   CoverSection,
   ErrorWindow,
@@ -33,6 +36,7 @@ export {
   Loader,
   LobbyGameTitle,
   Modal,
+  ResultOnCards,
   ScrumMaster,
   Switcher,
   Timer,

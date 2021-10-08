@@ -5,5 +5,5 @@ export interface TimerProps {
   time?: Array<string>;
   isSettings: boolean;
   isTimer: boolean;
-  register: UseFormRegister<FormValues>;
+  register?: UseFormRegister<FormValues>;
 }

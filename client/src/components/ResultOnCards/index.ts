@@ -1,0 +1,1 @@
+export { ResultOnCards } from "./ResultOnCards";

@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import "./style.scss";
 import { useAppSelector, AppSettings, Players } from "../../../../redux/store";
 import { Player } from "../../../Socket/types";
-import { Chat } from "../../../../components";
+import { Chat, LobbyGameTitle } from "../../../../components";
 import { Issue } from "../../../../components/Issues/IssueItem/Issue";
 import { AnimeChatMount } from "../../../../lib";
 
@@ -27,9 +27,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     <>
       <div className="content__wrapper">
         <div>
-          <h2 className="lobby-page__title text-xl">Issue</h2>
-          <Issue id="" link="link" title="Issue" priority="High" />
-          <div className="round-result__wrapper">Results</div>
+          <LobbyGameTitle classNames="lobby-page__title" /* fix classname */ />
+          {/* <Issue id="" link="link" title="Issue" priority="High" /> */}
+          {/* <div className="round-result__wrapper">Results</div> */}
         </div>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">

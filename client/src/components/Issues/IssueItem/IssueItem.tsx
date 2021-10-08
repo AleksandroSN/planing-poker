@@ -23,6 +23,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
     toggleIsOpen();
   };
 
+  // if we on page "game result" deleteBtn disabled
   return (
     <div className="issues__item">
       <div className="issues__item-row">
