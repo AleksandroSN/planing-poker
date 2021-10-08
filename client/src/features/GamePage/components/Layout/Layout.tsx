@@ -21,8 +21,8 @@ import { MemberControll } from "../MemberControlls";
 import { StopGameBtn } from "../StopGameBtn";
 import { StartGameBtn } from "../StartGameBtn";
 import { GameControll } from "../GameControll";
-import "./style.scss";
 import { GameCards } from "../GameCards";
+import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [isStart, setIsStart] = useState(true);
@@ -50,7 +50,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       <div className="game-page__wrapper">
         <section className="game-content__wrapper">
           <div className="game-page__title">
-            <LobbyGameTitle classNames="lobby-page__title" />
+            <LobbyGameTitle
+              classNames="lobby-page__title" /* fix classname */
+            />
           </div>
           <div className="game-page__top">
             <ScrumMaster playersFromRedux={playerFromRedux} />

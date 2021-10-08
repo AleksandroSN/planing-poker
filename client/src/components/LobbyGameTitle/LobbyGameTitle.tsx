@@ -5,6 +5,7 @@ import {
   IssuesRedux,
   useAppSelector,
 } from "../../redux/store";
+import { gameStatus } from "./helperLobbyGameTitle";
 import "./style.scss";
 import { LobbyGameTitleProps } from "./types";
 
@@ -14,9 +15,8 @@ export const LobbyGameTitle: FunctionComponent<LobbyGameTitleProps> = ({
   const { issues } = useAppSelector(IssuesRedux);
   const { appStage } = useAppSelector(GameSettingsCurrent);
   const issuesName = issuesArrToStr(issues);
+  const titleEl = gameStatus(appStage);
   return (
-    <h1 className={classNames}>{`Game ${
-      appStage === "lobby" ? "planning" : "start"
-    } (issues ${issuesName})`}</h1>
+    <h1 className={classNames}>{`Game ${titleEl} (issues ${issuesName})`}</h1>
   );
 };
