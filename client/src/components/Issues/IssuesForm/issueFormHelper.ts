@@ -20,6 +20,7 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
       title: data.Title,
       priority: data.Priority,
       lobbyId,
+      issueStatus: "created",
     };
     await addIssue(newIssue);
     toggleIsOpen();
@@ -31,6 +32,7 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
       link: data.Link,
       title: data.Title,
       priority: data.Priority,
+      issueStatus: "created",
       lobbyId,
     };
     await updateIssues(newIssue);
