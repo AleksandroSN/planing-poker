@@ -1,12 +1,16 @@
 import { FluxStandardAction } from "flux-standard-action";
 import { ResultReducerActions } from "./actions";
 
+type IssueId = string;
+type PlayerId = string;
+type CardValue = string;
+
 type ResultData = {
-  votes: Record<string, number>;
-  results: Record<string, number>;
+  votes: Record<PlayerId, number>;
+  results: Record<CardValue, number>;
 };
 
-export type ResultState = Record<string, ResultData>;
+export type ResultState = Record<IssueId, ResultData>;
 
 const initialResultState: ResultState = {};
 
