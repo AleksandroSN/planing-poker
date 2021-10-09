@@ -4,14 +4,20 @@ import { searchEnterKey } from "./cardsWithValueHelper";
 
 interface CardsWithValueProps {
   value: string;
+  key: number;
+  selected: boolean | null;
+  disabled: boolean | null;
   scoreTypeShort: string;
-  updateCards: (newData: CardsValueModel) => void;
+  /* updateCards: (newData: CardsValueModel) => void; */
 }
 
 export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
+  key,
   value,
+  selected,
+  disabled,
   scoreTypeShort,
-  updateCards,
+  /* updateCards, */
 }): JSX.Element => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [cardValue, setCardValue] = useState<string>("");
@@ -21,17 +27,17 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
     return () => {};
   }, [value]);
 
-  const toggleState = (): void => {
+  /* const toggleState = (): void => {
     setEditMode(false);
     updateCards({
       value: cardValue,
     });
-  };
+  }; */
 
   return (
     <div className="game-cards__cards-value-item">
       <div className="game-cards__cards-value-item__header text-s">
-        {editMode ? (
+        {/* {editMode ? (
           <input
             type="text"
             name="cardValue"
@@ -42,18 +48,16 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
             onChange={(evt) => setCardValue(evt.target.value)}
             onKeyDown={(evt) => searchEnterKey(evt, toggleState)}
           />
-        ) : (
-          <p className="game-cards__cards-value-item__header-text">
-            {cardValue}
-          </p>
-        )}
+        ) : ( */}
+        <p className="game-cards__cards-value-item__header-text">{cardValue}</p>
+        {/* )}
         <img
           src="../icons/edit.svg"
           alt="edit card icon"
           className="game-cards__cards-value-item__header-icon"
           role="none"
           onClick={() => setEditMode(true)}
-        />
+        /> */}
       </div>
       <div className="game-cards__cards-value-item__body text-xml text-bold">
         {scoreTypeShort}
