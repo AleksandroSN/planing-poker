@@ -57,6 +57,10 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
                 value: 20,
                 message: "Field cannot exceed 20 characters",
               },
+              minLength: {
+                value: 2,
+                message: "The field cannot be less than 2 characters",
+              },
               pattern: {
                 value: /^[A-Za-z]+$/i,
                 message: "Alphabetical characters only",
@@ -98,7 +102,7 @@ export const MainPageForm: FunctionComponent = (): JSX.Element => {
           }}
         />
         <div className="register-form__label register-form__label--mb">
-          Image :
+          Avatar :
           <label className="register-form__label--file" htmlFor="avatarUpload">
             {MainPageState.inputFileLabel}
             <input

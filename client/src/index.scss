@@ -1,13 +1,23 @@
-@import "./styles/base/normalize";
+// @import "./styles/base/normalize";
 @import "./styles/base/typography";
+@import "98.css";
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  // font-family: "Roboto", sans-serif;
+  font-family: "Pixelated MS Sans Serif",Arial;
+  min-height: 100vh;
 }
 
 button {
