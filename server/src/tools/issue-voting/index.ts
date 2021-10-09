@@ -11,7 +11,7 @@ type IssueVoting = {
 const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
   const voters: Map<string, number> = new Map();
   const result: Map<number, number> = new Map();
-  let startTime = 0;
+  let startTime = timerLimit;
   let isVoting = false;
   let timer: NodeJS.Timer;
   return {
@@ -27,14 +27,14 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
           seconds < 10 ? `0${seconds}` : `${seconds}`,
         ];
         io.to(issue.lobbyId).emit(SocketActions.TIK_TAK, time);
-        if (startTime >= timerLimit) {
+        if (startTime === 0) {
           const votersQty = voters.size;
           voters.forEach((itm) => {
             if (!result.has(itm)) {
               result.set(itm, 0);
             } else {
               let value = result.get(itm) as number;
-              value += 1;
+              value -= 1;
               result.set(itm, value);
             }
           });
