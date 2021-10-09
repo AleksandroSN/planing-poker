@@ -27,6 +27,8 @@
 
   &__label {
     color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
   }
 
   &__input[type="text"] {
