@@ -60,6 +60,7 @@ export type Issue = {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
+  issueStatus: "created" | "voting" | "voted";
 };
 
 export type ChatMessage = {

@@ -1,6 +1,6 @@
 import { SocketAPI } from "../SocketAPI";
-import { Issue, SocketActions } from "../../types";
+import { SocketActions } from "../../types";
 
-export const runGame = (socket: SocketAPI, issue: Issue): void => {
-  socket.emit(SocketActions.RUN_ROUND, [issue], false);
+export const emitStartGame = (socket: SocketAPI, lobbyId: string): void => {
+  socket.emit(SocketActions.RUN_ROUND, [lobbyId], false);
 };

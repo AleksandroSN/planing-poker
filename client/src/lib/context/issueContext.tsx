@@ -26,6 +26,7 @@ const DEFAULT_STATE_ISSUES: IssueContextModel = {
     title: "",
     link: "",
     priority: "Low",
+    issueStatus: "created",
     lobbyId: "",
   },
   addIssue: async () => {},

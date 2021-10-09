@@ -12,7 +12,7 @@ import {
   ScrumMaster,
   LobbyGameTitle,
 } from "../../../../components";
-import { FormValues } from "../../../../types/interface";
+import { FormValues, UpdateStatusIssue } from "../../../../types/interface";
 import {
   isReallyYou,
   AnimeChatMount,
@@ -24,6 +24,7 @@ import {
   AppSettings,
   Players,
   GameSettingsCurrent,
+  IssuesRedux,
 } from "../../../../redux/store";
 import { LobbySetting, Player } from "../../../Socket/types";
 import { GameSettings } from "../GameSettings";
@@ -34,6 +35,7 @@ import { UpdatedSettings } from "../../types/interface";
 import { defaultLobbySettings } from "../../lib";
 import { loadSettings, saveSettings } from "./layoutHelper";
 import { BASE_CLIENT } from "../../../../api";
+import { updateIssue } from "../../../Socket/lib/Issues/methods";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -49,6 +51,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   const { chatOpen } = useAppSelector(AppSettings);
   const settings = useAppSelector(GameSettingsCurrent);
   const playersFromRedux = useAppSelector(Players);
+  const { issues } = useAppSelector(IssuesRedux);
   const players = playersFromRedux
     .filter((player) => {
       return player.role !== "Dealer";
@@ -100,6 +103,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       roundTime: arrToNumber([data.minutes, data.seconds]),
       appStage: "game",
     };
+    const updatedStatus: UpdateStatusIssue = { issueStatus: "voting" };
+    const votingIssue = { ...issues[0], ...updatedStatus };
+    await updateIssue(votingIssue, dispatch);
     const allNewSettins: LobbySetting = { ...settings, ...newSettings };
     await updateSettings(allNewSettins, dispatch);
   };
