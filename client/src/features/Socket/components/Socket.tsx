@@ -40,6 +40,45 @@ export const Socket = (): JSX.Element => {
             dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
           }
         );
+        socket.on(SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG, (issue: Issue) => {
+          const payload = {
+            isRun: true,
+            currentIssue: issue,
+          };
+          dispatch({ type: "CONTROL_ROUND", payload });
+        });
+        socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
+          dispatch({ type: "TIK_TAK", payload: time });
+        });
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_ROUND_STOP,
+          (
+            result: Map<number, number>,
+            voters: Map<string, number>,
+            issue: Issue
+          ) => {
+            const votes: Record<string, number> = {};
+            const results: Record<string, number> = {};
+            result.forEach((value, key) => {
+              results[`${key}`] = value;
+            });
+            voters.forEach((value, key) => {
+              votes[key] = value;
+            });
+            const payload = {
+              issue: issue.id,
+              results: {
+                votes,
+                results,
+              },
+            };
+            dispatch({
+              type: "CONTROL_ROUND",
+              payload: { isRun: false, currentIssue: issue },
+            });
+            dispatch({ type: "UPDATE_ISSUE_VOTING_RESULT", payload });
+          }
+        );
         socket.on(
           SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
           (roundControl: RoundControl) => {

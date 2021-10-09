@@ -1,5 +1,5 @@
 import { FluxStandardAction } from "flux-standard-action";
-import { Player } from "../../features/Socket/types";
+import { Issue, Player } from "../../features/Socket/types";
 import { AppReducerActions } from "./actions";
 
 type KickVoteStart = {

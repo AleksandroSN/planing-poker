@@ -1,7 +1,8 @@
 import { db } from "../../db/db";
 import { v4 as uuidv4 } from "uuid";
-import { Issue, NewIssue } from "../../types";
+import { Issue, LobbySetting, NewIssue } from "../../types";
 import { deleteSmth, getSmthById, getSmthInLobby } from "../shared";
+import { getLobbySettings } from ".";
 
 export const getIssuesInLobby = (lobby: string): Promise<Issue[]> => {
   return getSmthInLobby(lobby, db.issues);
