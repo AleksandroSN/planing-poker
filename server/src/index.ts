@@ -228,10 +228,10 @@ io.on("connection", function (socket: Socket) {
   socket.on(
     SocketActions.RUN_ROUND,
     async function (
-      issue: Issue,
+      lobbyId: string,
       callback: (response: { isStarted: boolean; message: string }) => void
     ) {
-      issueVoting.runRound(issue, callback);
+      issueVoting.runRound(lobbyId, callback);
     }
   );
   socket.on(

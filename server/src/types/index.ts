@@ -22,7 +22,7 @@ export type Issue = {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
-  status: "created" | "voting" | "voted";
+  issueStatus: "created" | "voting" | "voted";
 };
 
 export type NewIssue = {
@@ -30,7 +30,7 @@ export type NewIssue = {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
-  status: "created" | "voting" | "voted";
+  issueStatus: "created" | "voting" | "voted";
 };
 
 export type LobbySetting = {

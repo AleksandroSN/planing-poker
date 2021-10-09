@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { Issue, Player, SocketActions } from "../../types";
-import { changeRoundStatus, getLobbySettings } from "../models";
+import { changeRoundStatus, getLobbySettings, getVotingIssue } from "../models";
 
 type IssueVoting = {
   startVoting: () => void;
@@ -72,15 +72,16 @@ export const issueVotingDb = (io: Server) => {
   const issuesVoting: Map<string, IssueVoting> = new Map();
   return {
     runRound: async (
-      issue: Issue,
+      lobbyId: string,
       callback: (response: { isStarted: boolean; message: string }) => void
     ) => {
-      const roundControl = await changeRoundStatus(issue.lobbyId, "isRun");
-      io.to(issue.lobbyId).emit(
+      const issue = await getVotingIssue(lobbyId);
+      const roundControl = await changeRoundStatus(lobbyId, "isRun");
+      io.to(lobbyId).emit(
         SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
         roundControl
       );
-      const config = await getLobbySettings(issue.lobbyId);
+      const config = await getLobbySettings(lobbyId);
       const roundTime = config?.roundTime as number;
       const voting = issueVoting(io, issue, roundTime);
       voting.startVoting();
@@ -93,7 +94,7 @@ export const issueVotingDb = (io: Server) => {
       score: number,
       callback: (response: { isVoted: boolean; message: string }) => void
     ) => {
-      const voting = issuesVoting.get(issue.id) as IssueVoting; // TODO Отправить всем информацию об этом голосе
+      const voting = issuesVoting.get(issue.id) as IssueVoting;
       if (!voting.checkProcess)
         callback({ isVoted: false, message: "VOTING_HAS_NOT_STARTED" });
       else {

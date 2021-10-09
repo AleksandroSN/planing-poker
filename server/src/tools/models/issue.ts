@@ -1,8 +1,7 @@
 import { db } from "../../db/db";
 import { v4 as uuidv4 } from "uuid";
-import { Issue, LobbySetting, NewIssue } from "../../types";
+import { Issue, NewIssue } from "../../types";
 import { deleteSmth, getSmthById, getSmthInLobby } from "../shared";
-import { getLobbySettings } from ".";
 
 export const getIssuesInLobby = (lobby: string): Promise<Issue[]> => {
   return getSmthInLobby(lobby, db.issues);
@@ -10,6 +9,14 @@ export const getIssuesInLobby = (lobby: string): Promise<Issue[]> => {
 
 export const getIssueById = (issueId: string): Promise<Issue | false> => {
   return getSmthById(issueId, db.issues);
+};
+
+export const getVotingIssue = async (lobby: string): Promise<Issue> => {
+  const issuesInLobby = await getSmthInLobby(lobby, db.issues);
+  const index = issuesInLobby.findIndex(
+    (issue) => issue.issueStatus === "voting"
+  );
+  return Promise.resolve(issuesInLobby[index]);
 };
 
 export const createNewIssue = (newIssue: NewIssue): Promise<Issue> => {
@@ -33,7 +40,7 @@ export const deleteIssueMd = (issueId: string): Promise<Issue | false> => {
 
 export const getCurrentIssue = (lobbyId: string): Promise<Issue | null> => {
   const issuesInLobby = db.issues.filter((itm) => itm.lobbyId === lobbyId);
-  const index = issuesInLobby.findIndex((itm) => itm.status === "voting");
+  const index = issuesInLobby.findIndex((itm) => itm.issueStatus === "voting");
   let result: Issue | null;
   if (!index) {
     result = null;
@@ -45,12 +52,16 @@ export const getCurrentIssue = (lobbyId: string): Promise<Issue | null> => {
 
 export const setNewCurrentIssue = (lobbyId: string): Promise<Issue[]> => {
   const issues = db.issues.filter((itm) => itm.lobbyId === lobbyId);
-  const currentVotingIndex = issues.findIndex((itm) => itm.status === "voting");
-  issues[currentVotingIndex].status = "voted";
-  const newVotingIndex = issues.findIndex((itm) => itm.status === "created");
+  const currentVotingIndex = issues.findIndex(
+    (itm) => itm.issueStatus === "voting"
+  );
+  issues[currentVotingIndex].issueStatus = "voted";
+  const newVotingIndex = issues.findIndex(
+    (itm) => itm.issueStatus === "created"
+  );
   if (newVotingIndex < 0) {
     return Promise.resolve(issues);
   }
-  issues[newVotingIndex].status = "voting";
+  issues[newVotingIndex].issueStatus = "voting";
   return Promise.resolve(issues);
 };
