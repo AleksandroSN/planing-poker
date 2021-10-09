@@ -1,5 +1,5 @@
 import { FluxStandardAction } from "flux-standard-action";
-import { Player } from "../../features/Socket/types";
+import { Issue, Player } from "../../features/Socket/types";
 import { AppReducerActions } from "./actions";
 
 type KickVoteStart = {
@@ -13,6 +13,10 @@ type KickSuggestStart = {
   victim?: Player;
 };
 
+type RoundControl = {
+  status: "default" | "isRun" | "isStoped";
+};
+
 export type AppState = {
   isLoading: boolean;
   isError: boolean;
@@ -20,6 +24,8 @@ export type AppState = {
   kickVoteStart: KickVoteStart;
   kickVoteSuggest: KickSuggestStart;
   kickMemberNotify: boolean;
+  roundControl: RoundControl;
+  tikTak: Array<string>;
 };
 
 const initialAppState: AppState = {
@@ -33,6 +39,10 @@ const initialAppState: AppState = {
     isVisible: false,
   },
   kickMemberNotify: false,
+  roundControl: {
+    status: "default",
+  },
+  tikTak: [],
 };
 
 export const appReducer = (
@@ -63,6 +73,14 @@ export const appReducer = (
     case AppReducerActions.kickMemberNotify: {
       const kickMemberNotify = action.payload as unknown as boolean;
       return { ...state, kickMemberNotify };
+    }
+    case AppReducerActions.controlRound: {
+      const roundControl = action.payload as unknown as RoundControl;
+      return { ...state, roundControl };
+    }
+    case AppReducerActions.tikTak: {
+      const tikTak = action.payload as unknown as Array<string>;
+      return { ...state, tikTak };
     }
     default:
       return state;

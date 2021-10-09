@@ -1,10 +1,17 @@
 import { Socket, Server } from "socket.io";
-import { LobbySetting, NewPlayer, Player, SocketActions } from "../../types";
+import {
+  LobbySetting,
+  NewPlayer,
+  Player,
+  SocketActions,
+  RoundControl,
+} from "../../types";
 import {
   createNewPlayer,
   deletePlayer,
   getLobbySettings,
   getPlayersInLobby,
+  getRoundControl,
 } from "../models";
 
 export const addNewTeamMember = async (
@@ -14,6 +21,7 @@ export const addNewTeamMember = async (
   callback: (response: {
     player: Player;
     initLobbySettings: LobbySetting;
+    roundControl: RoundControl | null;
   }) => void
 ): Promise<void> => {
   socket.join(lobbyId);
@@ -21,7 +29,8 @@ export const addNewTeamMember = async (
   const initLobbySettings = (await getLobbySettings(
     player.lobbyId
   )) as LobbySetting;
-  callback({ player, initLobbySettings });
+  const roundControl = await getRoundControl(lobbyId);
+  callback({ player, initLobbySettings, roundControl });
   socket.to(lobbyId).emit(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, player);
 };
 

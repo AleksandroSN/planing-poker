@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { Issue, Player, SocketActions } from "../../types";
-import { getLobbySettings } from "../models";
+import { changeRoundStatus, getLobbySettings } from "../models";
 
 type IssueVoting = {
   startVoting: () => void;
@@ -8,7 +8,7 @@ type IssueVoting = {
   checkProcess: () => boolean;
 };
 
-const issueVoting = (io: Server, player: Player, timerLimit: number) => {
+const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
   const voters: Map<string, number> = new Map();
   const result: Map<number, number> = new Map();
   let startTime = 0;
@@ -19,14 +19,14 @@ const issueVoting = (io: Server, player: Player, timerLimit: number) => {
       isVoting = true;
       voters.clear();
       result.clear();
-      timer = setInterval(() => {
+      timer = setInterval(async () => {
         const minutes = Math.floor(startTime / 60);
         const seconds = startTime - minutes * 60;
         const time = [
           minutes < 10 ? `0${minutes}` : `${minutes}`,
           seconds < 10 ? `0${seconds}` : `${seconds}`,
         ];
-        io.to(player.lobbyId).emit(SocketActions.TIK_TAK, time);
+        io.to(issue.lobbyId).emit(SocketActions.TIK_TAK, time);
         if (startTime >= timerLimit) {
           const votersQty = voters.size;
           voters.forEach((itm) => {
@@ -40,12 +40,19 @@ const issueVoting = (io: Server, player: Player, timerLimit: number) => {
           });
           result.forEach((itm) => {
             let value = result.get(itm) as number;
-            value = value / votersQty;
+            value = (value / votersQty) * 100;
             result.set(itm, value);
           });
-          io.to(player.lobbyId).emit(
+          const roundControl = await changeRoundStatus(
+            issue.lobbyId,
+            "isStoped"
+          );
+          io.to(issue.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_ROUND_STOP,
-            result
+            result,
+            voters,
+            issue,
+            roundControl
           );
           clearInterval(timer);
           startTime = 0;
@@ -65,14 +72,18 @@ export const issueVotingDb = (io: Server) => {
   const issuesVoting: Map<string, IssueVoting> = new Map();
   return {
     runRound: async (
-      player: Player,
       issue: Issue,
       callback: (response: { isStarted: boolean; message: string }) => void
     ) => {
-      io.to(player.lobbyId).emit("NOTIFY_ABOUT_ROUND_RUNNIG", issue);
-      const config = await getLobbySettings(player.id);
+      const roundControl = await changeRoundStatus(issue.lobbyId, "isRun");
+      io.to(issue.lobbyId).emit(
+        SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
+        roundControl
+      );
+      const config = await getLobbySettings(issue.lobbyId);
       const roundTime = config?.roundTime as number;
-      const voting = issueVoting(io, player, roundTime);
+      const voting = issueVoting(io, issue, roundTime);
+      voting.startVoting();
       issuesVoting.set(issue.id, voting);
       callback({ isStarted: true, message: "ROUND_IS_RUN" });
     },
@@ -82,11 +93,17 @@ export const issueVotingDb = (io: Server) => {
       score: number,
       callback: (response: { isVoted: boolean; message: string }) => void
     ) => {
-      const voting = issuesVoting.get(issue.id) as IssueVoting;
+      const voting = issuesVoting.get(issue.id) as IssueVoting; // TODO Отправить всем информацию об этом голосе
       if (!voting.checkProcess)
         callback({ isVoted: false, message: "VOTING_HAS_NOT_STARTED" });
       else {
         voting.addVoice(player, score);
+        io.to(player.id).emit(
+          SocketActions.NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE,
+          issue,
+          player,
+          score
+        );
         callback({ isVoted: true, message: "DONE" });
       }
     },

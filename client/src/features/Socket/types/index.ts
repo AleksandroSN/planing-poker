@@ -29,7 +29,11 @@ export enum SocketActions {
   RUN_ROUND = "run round",
   NOTIFY_ABOUT_ROUND_RUNNIG = "notify about round running",
   GIVE_A_VOTE_FOR_ISSUE = "give a vote for issue",
+  NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE = "notify_about_new_vote_for_issue",
   NOTIFY_ABOUT_ROUND_STOP = "notify about round stop",
+  NEXT_ISSUE_FOR_VOTING = "next issue for voting",
+  ALL_ISSUES_WERE_VOTED = "all issues were voted",
+  RECIEVE_NEXT_ROUND_DATA = "recieve next round data",
 }
 
 export type Player = {
@@ -79,4 +83,8 @@ export type LobbySetting = {
   lobbyId: string;
   masterId: string;
   appStage: "lobby" | "game" | "out" | "results" | "";
+};
+
+export type RoundControl = {
+  status: "default" | "isRun" | "isStoped";
 };

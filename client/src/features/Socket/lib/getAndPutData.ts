@@ -4,6 +4,7 @@ import {
   LobbySetting,
   NewPlayer,
   Player,
+  RoundControl,
   SocketActions,
 } from "../types";
 import { SocketAPI } from "./SocketAPI";
@@ -49,6 +50,7 @@ export const getLobbyMessages = async (
 export type LobbyResponse = {
   player: Player;
   initLobbySettings: LobbySetting;
+  roundControl: RoundControl;
 };
 
 export const createNewLobby = async (
@@ -119,6 +121,7 @@ export const reconnectToLobby = async (
 
 type ResponseLobbySettings = {
   lobbySettings: LobbySetting;
+  roundControl: RoundControl;
 };
 type ResponseLobbyNewSettings = {
   newLobbySettings: LobbySetting;
