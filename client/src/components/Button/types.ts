@@ -4,4 +4,5 @@ export interface ButtonProps {
   classes?: string | undefined;
   idForm?: string;
   children: React.ReactNode;
+  isDisabled?: boolean;
 }
