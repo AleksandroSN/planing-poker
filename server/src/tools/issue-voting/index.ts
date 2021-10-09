@@ -34,7 +34,7 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
               result.set(itm, 0);
             } else {
               let value = result.get(itm) as number;
-              value -= 1;
+              value += 1;
               result.set(itm, value);
             }
           });
@@ -55,10 +55,10 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
             roundControl
           );
           clearInterval(timer);
-          startTime = 0;
+          startTime = timerLimit;
           isVoting = false;
         }
-        startTime++;
+        startTime--;
       }, 1000);
     },
     addVoice: (player: Player, score: number) => {
