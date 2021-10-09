@@ -200,7 +200,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               </div>
             </div>
           )}
-          {isMaster && <GameCards onRegister={register} />}
+          {isMaster && <GameCards onRegister={register} errors={errors} />}
         </form>
       </div>
       <AnimeChatMount mount={chatOpen} classes="chat-wrapper">

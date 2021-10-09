@@ -1,13 +1,17 @@
 import { FunctionComponent } from "react";
 import { InputTextProps } from "./types";
-import { handlerErrors } from "./inputTextHelper";
+import { handlerErrors } from "../../lib";
 import "./inputText.scss";
 
 export const InputText: FunctionComponent<InputTextProps> = ({
   inputProps,
   hookForm,
 }: InputTextProps): JSX.Element => {
-  const errors = handlerErrors({ hookForm, inputProps });
+  const errors = handlerErrors({
+    labelText: inputProps.labelText,
+    isError: hookForm?.isError,
+    classes: "input-text__error",
+  });
   return (
     <div className="input-text">
       {errors}
@@ -31,8 +35,3 @@ export const InputText: FunctionComponent<InputTextProps> = ({
     </div>
   );
 };
-
-//   {
-//   ...hookForm!.regOptions,
-//   pattern: hookForm?.regOptions?.pattern || /^[A-Za-z]+$/i,
-// }
