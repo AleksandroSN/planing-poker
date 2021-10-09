@@ -25,10 +25,8 @@ import { GameCards } from "../GameCards";
 import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
-  const [isStart, setIsStart] = useState(true);
-  const [isWaiting, setIsWaiting] = useState(false);
   const [playerRole, setPlayerRole] = useState<string>("Observer");
-  const { chatOpen } = useAppSelector(AppSettings);
+  const { chatOpen, tikTak, roundControl } = useAppSelector(AppSettings);
   const playerFromRedux = useAppSelector(Players);
   const { appStage, lobbyId, isTimerNeed } =
     useAppSelector(GameSettingsCurrent);
@@ -67,17 +65,21 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <div className="game-issues__control-wrapper">
                 {isTimerNeed && (
                   <div className="game-timer__wrapper">
-                    <Timer isSettings={false} isTimer time={["2", "19"]} />
+                    <Timer isSettings={false} isTimer time={tikTak} />
                   </div>
                 )}
 
-                {isStart && <StartGameBtn />}
-                {isWaiting && <GameControll />}
+                {roundControl.status === "default" && <StartGameBtn />}
+                {roundControl.status === "isStoped" && <GameControll />}
               </div>
             )}
-            {playerRole === "Member" && isWaiting && <ResultOnCards />}
+            {playerRole === "Member" && roundControl.status === "isStoped" && (
+              <ResultOnCards />
+            )}
           </div>
-          {playerRole === "Dealer" && isWaiting && <ResultOnCards />}
+          {playerRole === "Dealer" && roundControl.status === "isStoped" && (
+            <ResultOnCards />
+          )}
           <GameCards role={playerRole} />
         </section>
         <ProgressBar />

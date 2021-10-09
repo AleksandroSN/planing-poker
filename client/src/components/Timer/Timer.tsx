@@ -16,7 +16,7 @@ export const Timer: FunctionComponent<TimerProps> = ({
     <div className={classes.main}>
       <div className="timer__wrapper">
         <div className="timer__minutes">
-          <InputText
+          {/* <InputText
             key="minutes"
             inputProps={{
               labelText: "minutes",
@@ -26,11 +26,12 @@ export const Timer: FunctionComponent<TimerProps> = ({
               isDisabled: isTimer,
             }}
             hookForm={register && { onRegister: register }} // need typeGuard
-          />
+          /> */}
+          <input type="text" name="" id="" value={`${time ? time[0] : ""}`} />
         </div>
         <span className="timer__splitter text-bold text-xl">:</span>
         <div className="timer__seconds">
-          <InputText
+          {/* <InputText
             key="seconds"
             inputProps={{
               labelText: "seconds",
@@ -40,7 +41,8 @@ export const Timer: FunctionComponent<TimerProps> = ({
               isDisabled: isTimer,
             }}
             hookForm={register && { onRegister: register }} // need typeGuard
-          />
+          /> */}
+          <input type="text" name="" id="" value={`${time ? time[1] : ""}`} />
         </div>
       </div>
     </div>
