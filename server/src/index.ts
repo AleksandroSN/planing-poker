@@ -11,6 +11,7 @@ import {
   NewIssue,
   NewPlayer,
   Player,
+  RoundControl,
   SocketActions,
 } from "./types";
 import {
@@ -26,6 +27,7 @@ import {
   getLobbySettingsCtr,
   reconnectToLobby,
   sendChatMessage,
+  setNextIssueForVoting,
   updateIssue,
   validateLobby,
 } from "./tools/controllers";
@@ -79,6 +81,7 @@ io.on("connection", function (socket: Socket) {
       callback: (response: {
         player: Player;
         initLobbySettings: LobbySetting;
+        roundControl: RoundControl;
       }) => void
     ) {
       await createNewRoom(socket, master, callback);
@@ -92,6 +95,7 @@ io.on("connection", function (socket: Socket) {
       callback: (response: {
         player: Player;
         initLobbySettings: LobbySetting;
+        roundControl: RoundControl | null;
       }) => void
     ) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
@@ -136,7 +140,10 @@ io.on("connection", function (socket: Socket) {
     SocketActions.GET_LOBBY_SETTINGS,
     async function (
       lobbyId: string,
-      callback: (response: { lobbySettings: LobbySetting | null }) => void
+      callback: (response: {
+        lobbySettings: LobbySetting | null;
+        roundControl: RoundControl | null;
+      }) => void
     ) {
       await getLobbySettingsCtr(lobbyId, callback);
     }
@@ -238,7 +245,12 @@ io.on("connection", function (socket: Socket) {
       issueVoting.giveVoteForIssue(player, issue, score, callback);
     }
   );
-  socket.on(SocketActions.NEXT_ISSUE_FOR_VOTING, async function () {});
+  socket.on(
+    SocketActions.NEXT_ISSUE_FOR_VOTING,
+    async function (lobbyId: string) {
+      await setNextIssueForVoting(io, lobbyId);
+    }
+  );
 });
 
 http.listen(3030, function () {

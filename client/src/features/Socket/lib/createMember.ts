@@ -7,6 +7,7 @@ import {
   LobbySetting,
   NewPlayer,
   Player,
+  RoundControl,
   SocketActions,
 } from "../types";
 import {
@@ -30,6 +31,7 @@ export const createMember = async (
   );
   dispatch({ type: "ADD_PLAYER", payload: lobby.player });
   dispatch({ type: "UPDATE_SETTINGS", payload: lobby.initLobbySettings });
+  dispatch({ type: "CONTROL_ROUND", payload: lobby.roundControl });
   const lobbyMembers = await getLobbyPlayers(socket, lobby.player);
   dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });
   const lobbyIssues = await getLobbyIssues(socket, lobby.player);
@@ -74,6 +76,63 @@ export const createMember = async (
     SocketActions.NOTIFY_ABOUT_NEW_SETTINGS,
     (newLobbySettings: LobbySetting) => {
       dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
+    }
+  );
+  socket.on(
+    SocketActions.RECIEVE_NEXT_ROUND_DATA,
+    (issues: Issue[], roundControl: RoundControl) => {
+      dispatch({ type: "UPDATE_ISSUES", payload: issues });
+      dispatch({
+        type: "CONTROL_ROUND",
+        payload: roundControl,
+      });
+    }
+  );
+  socket.on(
+    SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
+    (roundControl: RoundControl) => {
+      dispatch({ type: "CONTROL_ROUND", payload: roundControl });
+    }
+  );
+  socket.on(
+    SocketActions.NOTIFY_ABOUT_ROUND_STOP,
+    (
+      result: Map<number, number>,
+      voters: Map<string, number>,
+      issue: Issue,
+      roundControl: RoundControl
+    ) => {
+      const votes: Record<string, number> = {};
+      const results: Record<string, number> = {};
+      result.forEach((value, key) => {
+        results[`${key}`] = value;
+      });
+      voters.forEach((value, key) => {
+        votes[key] = value;
+      });
+      const payload = {
+        issue: issue.id,
+        results: {
+          votes,
+          results,
+        },
+      };
+      dispatch({
+        type: "CONTROL_ROUND",
+        payload: roundControl,
+      });
+      dispatch({ type: "UPDATE_ISSUE_VOTING_RESULT", payload });
+    }
+  );
+  socket.on(
+    SocketActions.NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE,
+    (issue: Issue, player: Player, score: number) => {
+      const payload = {
+        issue: issue.id,
+        player: player.id,
+        value: score,
+      };
+      dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
   // TO DO change game status listener

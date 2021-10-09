@@ -13,6 +13,7 @@ import {
   Issue,
   LobbySetting,
   Player,
+  RoundControl,
   SocketActions,
 } from "../types";
 
@@ -39,13 +40,12 @@ export const Socket = (): JSX.Element => {
             dispatch({ type: "UPDATE_SETTINGS", payload: newLobbySettings });
           }
         );
-        socket.on(SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG, (issue: Issue) => {
-          const payload = {
-            isRun: true,
-            currentIssue: issue,
-          };
-          dispatch({ type: "CONTROL_ROUND", payload });
-        });
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
+          (roundControl: RoundControl) => {
+            dispatch({ type: "CONTROL_ROUND", payload: roundControl });
+          }
+        );
         socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
           dispatch({ type: "TIK_TAK", payload: time });
         });
@@ -54,7 +54,8 @@ export const Socket = (): JSX.Element => {
           (
             result: Map<number, number>,
             voters: Map<string, number>,
-            issue: Issue
+            issue: Issue,
+            roundControl: RoundControl
           ) => {
             const votes: Record<string, number> = {};
             const results: Record<string, number> = {};
@@ -73,9 +74,20 @@ export const Socket = (): JSX.Element => {
             };
             dispatch({
               type: "CONTROL_ROUND",
-              payload: { isRun: false, currentIssue: issue },
+              payload: roundControl,
             });
             dispatch({ type: "UPDATE_ISSUE_VOTING_RESULT", payload });
+          }
+        );
+        socket.on(
+          SocketActions.NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE,
+          (issue: Issue, player: Player, score: number) => {
+            const payload = {
+              issue: issue.id,
+              player: player.id,
+              value: score,
+            };
+            dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
           }
         );
         socket.on(
@@ -109,6 +121,16 @@ export const Socket = (): JSX.Element => {
         socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
           dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
         }); // update messages
+        socket.on(
+          SocketActions.RECIEVE_NEXT_ROUND_DATA,
+          (issues: Issue[], roundControl: RoundControl) => {
+            dispatch({ type: "UPDATE_ISSUES", payload: issues });
+            dispatch({
+              type: "CONTROL_ROUND",
+              payload: roundControl,
+            });
+          }
+        );
         const LobbySettings = await getLobbySettings(
           socket,
           localPlayer.lobbyId
@@ -116,6 +138,10 @@ export const Socket = (): JSX.Element => {
         dispatch({
           type: "UPDATE_SETTINGS",
           payload: LobbySettings.lobbySettings,
+        });
+        dispatch({
+          type: "CONTROL_ROUND",
+          payload: LobbySettings.roundControl,
         });
         const lobbyMembers = await getLobbyPlayers(socket, localPlayer);
         dispatch({ type: "UPDATE_PLAYERS", payload: lobbyMembers });

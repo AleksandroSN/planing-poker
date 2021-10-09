@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { LobbySetting, NewPlayer, Player } from "../../types";
+import { LobbySetting, NewPlayer, Player, RoundControl } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import {
   createNewPlayer,
@@ -7,6 +7,8 @@ import {
   getPlayerById,
   setLobbySettings,
   validateLobbyMd,
+  createRoundControl,
+  getRoundControl,
 } from "../models";
 import { initialLobbySettings } from "../../config/initialization";
 
@@ -16,6 +18,7 @@ export const createNewRoom = async (
   callback: (response: {
     player: Player;
     initLobbySettings: LobbySetting;
+    roundControl: RoundControl;
   }) => void
 ): Promise<void> => {
   const newLobby = uuidv4();
@@ -26,8 +29,9 @@ export const createNewRoom = async (
     lobbyId: newLobby,
     masterId: player.id,
   };
+  const roundControl = await createRoundControl(newLobby);
   await setLobbySettings(initLobbySettings);
-  callback({ player, initLobbySettings });
+  callback({ player, initLobbySettings, roundControl });
 };
 
 export const reconnectToLobby = async (
@@ -65,8 +69,12 @@ export const validateLobby = async (
 
 export const getLobbySettingsCtr = async (
   lobbyId: string,
-  callback: (response: { lobbySettings: LobbySetting | null }) => void
+  callback: (response: {
+    lobbySettings: LobbySetting | null;
+    roundControl: RoundControl | null;
+  }) => void
 ): Promise<void> => {
   const lobbySettings = await getLobbySettings(lobbyId);
-  callback({ lobbySettings });
+  const roundControl = await getRoundControl(lobbyId);
+  callback({ lobbySettings, roundControl });
 };

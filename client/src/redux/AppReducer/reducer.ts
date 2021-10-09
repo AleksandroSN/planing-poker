@@ -1,5 +1,5 @@
 import { FluxStandardAction } from "flux-standard-action";
-import { Issue, Player } from "../../features/Socket/types";
+import { Player } from "../../features/Socket/types";
 import { AppReducerActions } from "./actions";
 
 type KickVoteStart = {
@@ -14,9 +14,7 @@ type KickSuggestStart = {
 };
 
 type RoundControl = {
-  isRun: boolean;
-  resultWaiting: boolean;
-  currentIssue?: Issue;
+  status: "default" | "isRun" | "isStoped";
 };
 
 export type AppState = {
@@ -42,8 +40,7 @@ const initialAppState: AppState = {
   },
   kickMemberNotify: false,
   roundControl: {
-    isRun: false,
-    resultWaiting: false,
+    status: "default",
   },
   tikTak: [],
 };
