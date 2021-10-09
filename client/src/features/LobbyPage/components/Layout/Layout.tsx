@@ -36,6 +36,7 @@ import { defaultLobbySettings } from "../../lib";
 import { loadSettings, saveSettings } from "./layoutHelper";
 import { BASE_CLIENT } from "../../../../api";
 import { updateIssue } from "../../../Socket/lib/Issues/methods";
+import { AppReducerActions } from "../../../../redux/AppReducer/actions";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -103,6 +104,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       roundTime: arrToNumber([data.minutes, data.seconds]),
       appStage: "game",
     };
+    dispatch({
+      type: AppReducerActions.tikTak,
+      payload: [data.minutes, data.seconds],
+    });
     const updatedStatus: UpdateStatusIssue = { issueStatus: "voting" };
     const votingIssue = { ...issues[0], ...updatedStatus };
     await updateIssue(votingIssue, dispatch);

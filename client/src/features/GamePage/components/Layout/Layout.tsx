@@ -25,6 +25,8 @@ import { GameCards } from "../GameCards";
 import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
+  const [isStart, setIsStart] = useState(true);
+  const [isWaiting, setIsWaiting] = useState(false);
   const [playerRole, setPlayerRole] = useState<string>("Observer");
   const { chatOpen, tikTak, roundControl } = useAppSelector(AppSettings);
   const playerFromRedux = useAppSelector(Players);
@@ -69,17 +71,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   </div>
                 )}
 
-                {roundControl.status === "default" && <StartGameBtn />}
-                {roundControl.status === "isStoped" && <GameControll />}
+                {isStart && <StartGameBtn />}
+                {isWaiting && <GameControll />}
               </div>
             )}
-            {playerRole === "Member" && roundControl.status === "isStoped" && (
-              <ResultOnCards />
-            )}
+            {playerRole === "Member" && isWaiting && <ResultOnCards />}
           </div>
-          {playerRole === "Dealer" && roundControl.status === "isStoped" && (
-            <ResultOnCards />
-          )}
+          {playerRole === "Dealer" && isWaiting && <ResultOnCards />}
           <GameCards role={playerRole} />
         </section>
         <ProgressBar />
