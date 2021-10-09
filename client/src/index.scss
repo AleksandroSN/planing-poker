@@ -1,6 +1,10 @@
 @import "./styles/base/normalize";
 @import "./styles/base/typography";
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;

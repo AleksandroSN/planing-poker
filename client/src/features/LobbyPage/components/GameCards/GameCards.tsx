@@ -6,13 +6,14 @@ import "./gameCards.scss";
 
 export const GameCards: FunctionComponent<GameCardsProps> = ({
   onRegister,
+  errors,
 }) => {
   return (
     <section className="game-cards">
       <h2 className="game-cards__title text-xl">Game Cards</h2>
       <CoverSection />
       {/* <AddCardSection /> */}
-      <SelectCardsSet onRegister={onRegister} />
+      <SelectCardsSet onRegister={onRegister} errors={errors} />
     </section>
   );
 };
