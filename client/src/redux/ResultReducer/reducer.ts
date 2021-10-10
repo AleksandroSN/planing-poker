@@ -32,12 +32,19 @@ export const ResultReducer = (
   switch (action.type) {
     case ResultReducerActions.addNewVoteForIssue: {
       const newData = action.payload as unknown as Vote;
+      const localState = state;
+      if (localState[newData.issue] === undefined) {
+        localState[newData.issue] = {
+          votes: {},
+          results: {},
+        };
+      }
       const newState = {
-        ...state,
+        ...localState,
         [newData.issue]: {
-          results: { ...state[newData.issue].results },
+          results: { ...localState[newData.issue].results },
           votes: {
-            ...state[newData.issue].votes,
+            ...localState[newData.issue].votes,
             [newData.player]: newData.value,
           },
         },

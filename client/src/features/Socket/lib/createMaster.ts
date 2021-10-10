@@ -98,19 +98,21 @@ export const createMaster = async (
   socket.on(
     SocketActions.NOTIFY_ABOUT_ROUND_STOP,
     (
-      result: Map<number, number>,
-      voters: Map<string, number>,
+      results: Record<string, number>,
+      votes: Record<string, string>,
       issue: Issue,
       roundControl: RoundControl
     ) => {
-      const votes: Record<string, number> = {};
+      console.log("result:", results);
+      console.log("voters:", votes);
+      /*       const votes: Record<string, number> = {};
       const results: Record<string, number> = {};
       result.forEach((value, key) => {
         results[`${key}`] = value;
       });
       voters.forEach((value, key) => {
         votes[key] = value;
-      });
+      }); */
       const payload = {
         issue: issue.id,
         results: {
@@ -133,6 +135,7 @@ export const createMaster = async (
         player: player.id,
         value: score,
       };
+      console.log("data for dispatch: ", payload);
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );

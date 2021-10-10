@@ -239,7 +239,7 @@ io.on("connection", function (socket: Socket) {
     async function (
       player: Player,
       issue: Issue,
-      score: number,
+      score: string,
       callback: (response: { isVoted: boolean; message: string }) => void
     ) {
       issueVoting.giveVoteForIssue(player, issue, score, callback);

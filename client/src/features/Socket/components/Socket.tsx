@@ -96,6 +96,8 @@ export const Socket = (): JSX.Element => {
               issue: Issue,
               roundControl: RoundControl
             ) => {
+              console.log("result:", result);
+              console.log("voters:", voters);
               const votes: Record<string, number> = {};
               const results: Record<string, number> = {};
               result.forEach((value, key) => {

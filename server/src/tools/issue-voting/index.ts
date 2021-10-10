@@ -4,13 +4,13 @@ import { changeRoundStatus, getLobbySettings, getVotingIssue } from "../models";
 
 type IssueVoting = {
   startVoting: () => void;
-  addVoice: (player: Player, score: number) => void;
+  addVoice: (player: Player, score: string) => void;
   checkProcess: () => boolean;
 };
 
 const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
-  const voters: Map<string, number> = new Map();
-  const result: Map<number, number> = new Map();
+  const voters: Map<string, string> = new Map();
+  const result: Map<string, number> = new Map();
   let startTime = timerLimit - 1;
   let isVoting = false;
   let timer: NodeJS.Timer;
@@ -29,28 +29,38 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
         io.to(issue.lobbyId).emit(SocketActions.TIK_TAK, time);
         if (startTime === 0) {
           const votersQty = voters.size;
+          console.log("votersQty", votersQty);
           voters.forEach((itm) => {
             if (!result.has(itm)) {
-              result.set(itm, 0);
+              result.set(itm, 1);
             } else {
               let value = result.get(itm) as number;
               value += 1;
               result.set(itm, value);
             }
           });
-          result.forEach((itm) => {
-            let value = result.get(itm) as number;
+          result.forEach((itm, key) => {
+            let value = itm;
             value = (value / votersQty) * 100;
-            result.set(itm, value);
+            result.set(key, value);
+            console.log("key", key, "value", value);
           });
           const roundControl = await changeRoundStatus(
             issue.lobbyId,
             "isStoped"
           );
+          const votes: Record<string, string> = {};
+          const results: Record<string, number> = {};
+          result.forEach((value, key) => {
+            results[key] = value;
+          });
+          voters.forEach((value, key) => {
+            votes[key] = value;
+          });
           io.to(issue.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_ROUND_STOP,
-            result,
-            voters,
+            results,
+            votes,
             issue,
             roundControl
           );
@@ -61,7 +71,7 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
         startTime--;
       }, 1000);
     },
-    addVoice: (player: Player, score: number) => {
+    addVoice: (player: Player, score: string) => {
       voters.set(player.id, score);
     },
     checkProcess: () => isVoting,
@@ -91,7 +101,7 @@ export const issueVotingDb = (io: Server) => {
     giveVoteForIssue: async (
       player: Player,
       issue: Issue,
-      score: number,
+      score: string,
       callback: (response: { isVoted: boolean; message: string }) => void
     ) => {
       const voting = issuesVoting.get(issue.id) as IssueVoting;
@@ -99,7 +109,8 @@ export const issueVotingDb = (io: Server) => {
         callback({ isVoted: false, message: "VOTING_HAS_NOT_STARTED" });
       else {
         voting.addVoice(player, score);
-        io.to(player.id).emit(
+        console.log("lobbyId: ", player.id);
+        io.to(player.lobbyId).emit(
           SocketActions.NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE,
           issue,
           player,
