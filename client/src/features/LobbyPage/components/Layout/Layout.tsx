@@ -18,6 +18,7 @@ import {
   AnimeChatMount,
   arrToNumber,
   exitGame,
+  handlerTime,
 } from "../../../../lib";
 import {
   useAppSelector,
@@ -90,10 +91,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     if (settings) {
       await updateSettings(defaultLobbySettings(settings.lobbyId), dispatch);
     }
-    // delete lobby on back-end
   };
 
   const onSubmit = async (data: FormValues) => {
+    if (issues.length === 0) return;
     const newSettings: UpdatedSettings = {
       masterIsPlayer: data["Scrum master as player"],
       isTimerNeed: data["Is timer needed"],
@@ -106,7 +107,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     };
     dispatch({
       type: AppReducerActions.tikTak,
-      payload: [data.minutes, data.seconds],
+      payload: handlerTime([data.minutes, data.seconds]),
     });
     const updatedStatus: UpdateStatusIssue = { issueStatus: "voting" };
     const votingIssue = { ...issues[0], ...updatedStatus };

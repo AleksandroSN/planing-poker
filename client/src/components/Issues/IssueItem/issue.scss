@@ -25,4 +25,12 @@
     line-height: 12px;
     text-align: left;
   }
+
+  &.voting {
+    background-color: #60dabf;
+  }
+
+  &.voted {
+    background-color: hsla(0, 50, 50, 0.9);
+  }
 }
