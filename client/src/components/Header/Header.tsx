@@ -1,5 +1,8 @@
+import { settings } from "cluster";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { defaultLobbySettings } from "../../features/LobbyPage/lib";
+import { updateSettings } from "../../features/Socket/lib/updateSettings";
 import { AppReducerActions } from "../../redux/AppReducer/actions";
 import {
   AppSettings,
@@ -13,7 +16,7 @@ import "./Header.scss";
 export const Header: FunctionComponent = (): JSX.Element => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const { chatOpen } = useAppSelector(AppSettings);
-  const { appStage } = useAppSelector(GameSettingsCurrent);
+  const { appStage, lobbyId } = useAppSelector(GameSettingsCurrent);
   const dispatch = useDispatch();
   const toggleChatOpen = () => {
     dispatch({
@@ -27,8 +30,8 @@ export const Header: FunctionComponent = (): JSX.Element => {
     } else setIsLogin(false);
   }, [appStage]);
 
-  const clearStorage = () => {
-    // update all settings
+  const clearStorage = async () => {
+    await updateSettings(defaultLobbySettings(lobbyId), dispatch);
     sessionStorage.clear();
   };
 

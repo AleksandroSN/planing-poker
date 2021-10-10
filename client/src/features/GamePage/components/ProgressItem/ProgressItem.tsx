@@ -1,8 +1,6 @@
 import { FunctionComponent } from "react";
 import { User } from "../../../../components/User/User";
-import { UserAnonymous } from "../../../../components/UserAnonymous/UserAnonymous";
 import { isReallyYou } from "../../../../lib/isReallyYou";
-import { ResultRedux, useAppSelector } from "../../../../redux/store";
 import { Player } from "../../../Socket/types";
 import "./progress.scss";
 
@@ -13,8 +11,7 @@ interface ProgressItemProps {
 export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
   player,
 }) => {
-  // const gameStatus = useAppSelector(ResultRedux);
-  // const playerStatus = gameStatus.
+  const isYou = isReallyYou(player.id);
   return (
     <div className="progress-item__wrapper">
       <p className="progress-item">In progress</p>
@@ -26,7 +23,7 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
         jobPosition={player.jobPosition}
         isChat
         player={player}
-        isYou={false}
+        isYou={isYou}
       />
     </div>
   );
