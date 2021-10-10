@@ -12,6 +12,9 @@ routerFiles.post("/img", async (req, res) => {
   // accessing the file
   for (const key in req.files) {
     const myFile = req.files[key] as fileUpload.UploadedFile;
+    if (myFile.size >= 512000) {
+      return res.status(507).send({ msg: "size overlimited" });
+    }
     allFiles.push({
       name: myFile.name,
       path: `/img/${myFile.name}`,
