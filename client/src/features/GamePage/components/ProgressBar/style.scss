@@ -7,6 +7,9 @@
 
   &__score,
   &__palyers {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
     text-align: center;
   }
 }
