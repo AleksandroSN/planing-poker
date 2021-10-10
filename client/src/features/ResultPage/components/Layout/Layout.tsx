@@ -20,7 +20,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
+      <AnimeChatMount mount={chatOpen} classes="chat__container">
         <Chat key="uniqChat" />
       </AnimeChatMount>
     </>
