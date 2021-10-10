@@ -17,9 +17,7 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
   // const playerStatus = gameStatus.
   return (
     <div className="progress-item__wrapper">
-      <h2>Score</h2>
       <p className="progress-item">In progress</p>
-      <h2>Player</h2>
       <User
         key={player.id}
         avatar={player.avatarImage}

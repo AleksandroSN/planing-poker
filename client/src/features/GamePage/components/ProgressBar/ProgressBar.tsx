@@ -25,11 +25,9 @@ export const ProgressBar: FunctionComponent = () => {
   return (
     <aside className="progress-bar">
       <div className="progress-bar__score">
-        {players}
-        {/* </div>
-      <div className="progress-bar__palyers">
+        <h2>Score</h2>
         <h2>Players</h2>
-        {players} */}
+        {players}
       </div>
     </aside>
   );
