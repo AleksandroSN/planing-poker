@@ -45,7 +45,7 @@ export const Cards: FunctionComponent<CardsProps> = ({
     <CardsWithValue
       value={value}
       scoreTypeShort={scoreTypeShort}
-      onClick={onClick!}
+      onClick={typeof onClick === "function" ? onClick : () => {}}
       disabled={disabled}
       selected={selected}
     />
