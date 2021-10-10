@@ -61,6 +61,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     .map((filterPlayers) => {
       return (
         <User
+          key={filterPlayers.id}
           avatar={filterPlayers.avatarImage}
           firstName={filterPlayers.firstName}
           lastName={filterPlayers.lastName}
@@ -157,7 +158,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 <Button
                   type="button"
                   onClick={cancelGame}
-                  classes="button-cancel"
+                  classes="button-start"
                 >
                   Cancel Game
                 </Button>
@@ -169,7 +170,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <Button
                 type="button"
                 onClick={() => exitGame(dispatch)}
-                classes="button-cancel"
+                classes="button-start"
               >
                 Exit
               </Button>
@@ -204,7 +205,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   <Button
                     type="button"
                     onClick={() => loadSettings(dispatch)}
-                    classes="button-cancel"
+                    classes="button-start"
                   >
                     Load settings
                   </Button>
@@ -215,7 +216,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           {isMaster && <GameCards onRegister={register} errors={errors} />}
         </form>
       </div>
-      <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
+      <AnimeChatMount mount={chatOpen} classes="chat__container">
         <Chat key="uniqChat" />
       </AnimeChatMount>
     </>

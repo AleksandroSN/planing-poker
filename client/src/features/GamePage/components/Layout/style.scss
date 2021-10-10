@@ -16,6 +16,10 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 25px;
+
+    & .button-start {
+      margin-left: 0;
+    }
   }
 
   &__cards {

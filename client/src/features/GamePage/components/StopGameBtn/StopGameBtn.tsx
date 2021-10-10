@@ -16,7 +16,7 @@ export const StopGameBtn: FunctionComponent = (): JSX.Element => {
     <Button
       type="button"
       onClick={moveToResults} // TODO add stop game logic (redirect to result page)
-      classes="button-cancel"
+      classes="button-start"
     >
       Stop Game
     </Button>

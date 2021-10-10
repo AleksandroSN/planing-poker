@@ -13,7 +13,7 @@ interface UserClassesMode {
 
 export const userClassesHelper = (chat: boolean): UserClassesMode => {
   const classes = {
-    user: chat ? "user user--chat" : "user",
+    user: chat ? "window user user--chat" : "window user",
     wrapper: chat ? "user__wrapper user__wrapper--chat" : "user__wrapper",
     avatar: chat ? "user__avatar user__avatar--chat" : "user__avatar",
     body: chat ? "user__body" : "user__body",
