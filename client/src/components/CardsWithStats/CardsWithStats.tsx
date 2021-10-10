@@ -15,7 +15,7 @@ export const CardsWithStats: FunctionComponent<CardsWithStatsProps> = ({
       <Cards
         value={value}
         scoreTypeShort={scoreTypeShort}
-        updateCards={mockFunc}
+        // updateCards={mockFunc}
       />
       <p className="game-cards__stats-percents">{`${stats} %`}</p>
     </div>

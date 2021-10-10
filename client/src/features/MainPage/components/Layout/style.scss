@@ -2,9 +2,9 @@
   &__logo {
     display: flex;
     justify-content: center;
-    padding: 130px 0 40px;
+    padding: 40px 0 40px;
     & img {
-      max-width: 551px;
+      max-width: 400px;
       width: 70vw;
     }
   }
@@ -19,7 +19,7 @@
     font-weight: bold;
     font-size: 48px;
     line-height: 56px;
-    color: #66999b;
+    color: #008080;
   }
 
   &__new-session {
@@ -37,7 +37,7 @@
       font-weight: bold;
       font-size: 64px;
       line-height: 56px;
-      color: #66999b;
+      color: #008080;
       text-align: center;
       margin-bottom: 50px;
     }
@@ -49,7 +49,7 @@
     }
 
     & span {
-      color: #66999b;
+      color: #008080;
       font-weight: bold;
     }
 
@@ -61,7 +61,7 @@
       width: 385px;
       height: 47px !important;
       background: #ffffff;
-      border: 1px solid #2b3a67;
+      border: 1px solid #010081;
       box-sizing: border-box;
       box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 0px 0px 0px 10px;

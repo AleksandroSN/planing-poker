@@ -71,7 +71,7 @@
   height: 46px !important;
   margin-top: 10px;
   background: #fff;
-  border: 1px solid #2b3a67;
+  border: 1px solid $cororWindowsBlue;
   box-sizing: border-box;
   border-radius: 0px 0px 0px 10px;
   margin-left: auto;
@@ -87,7 +87,6 @@
 }
 
 .copy-link {
-  
   &__button {
   height: 47px;
   padding: 2px 11px 0 13p;

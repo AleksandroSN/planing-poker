@@ -1,6 +1,5 @@
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { GameSettingsActions } from "../../redux/GameSettingsReducer/actions";
 import { GameSettingsCurrent, useAppSelector } from "../../redux/store";
 import { Cards } from "./Cards";
 import { CardsValueModel } from "./types";
@@ -24,19 +23,15 @@ export const AddCardSection: FunctionComponent = (): JSX.Element => {
         key={value}
         value={value}
         scoreTypeShort={scoreTypeShort}
-        updateCards={updateCards}
+        selected
+        disabled
       />
     );
   });
 
   const allItems = [
     ...arrCardsWithValue,
-    <Cards
-      key="emptyCard"
-      value=""
-      scoreTypeShort=""
-      updateCards={updateCards}
-    />,
+    <Cards key="emptyKey" value="" scoreTypeShort="" selected disabled />,
   ];
   return (
     <div className="game-cards__container">

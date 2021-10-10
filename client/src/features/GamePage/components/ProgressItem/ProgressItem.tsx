@@ -2,39 +2,33 @@ import { FunctionComponent } from "react";
 import { User } from "../../../../components/User/User";
 import { UserAnonymous } from "../../../../components/UserAnonymous/UserAnonymous";
 import { isReallyYou } from "../../../../lib/isReallyYou";
+import { ResultRedux, useAppSelector } from "../../../../redux/store";
 import { Player } from "../../../Socket/types";
 import "./progress.scss";
 
 interface ProgressItemProps {
-  gameStatus: string;
-  playerData: Player;
+  player: Player;
 }
 
 export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
-  gameStatus,
-  playerData,
+  player,
 }) => {
-  if (playerData === undefined) {
-    return (
-      <div className="progress-item__wrapper">
-        <p className="progress-item">{gameStatus}</p>
-        <UserAnonymous id="id" />
-      </div>
-    );
-  }
-
-  const isYou = isReallyYou(playerData.id);
+  // const gameStatus = useAppSelector(ResultRedux);
+  // const playerStatus = gameStatus.
   return (
     <div className="progress-item__wrapper">
-      <p className="progress-item">{gameStatus}</p>
+      <h2>Score</h2>
+      <p className="progress-item">In progress</p>
+      <h2>Player</h2>
       <User
-        avatar={playerData.avatarImage}
-        firstName={playerData.firstName}
-        lastName={playerData.lastName}
-        jobPosition={playerData.jobPosition}
-        isYou={isYou}
+        key={player.id}
+        avatar={player.avatarImage}
+        firstName={player.firstName}
+        lastName={player.lastName}
+        jobPosition={player.jobPosition}
         isChat
-        player={playerData}
+        player={player}
+        isYou={false}
       />
     </div>
   );
