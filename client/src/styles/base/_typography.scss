@@ -41,6 +41,11 @@
   @include calcLineHeight(64px);
 }
 
+.text-xml {
+  font-size: 48px;
+  @include calcLineHeight(48px);
+}
+
 .text-xl {
   font-size: 30px;
   @include calcLineHeight(30px);

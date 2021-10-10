@@ -47,9 +47,6 @@ export const Socket = (): JSX.Element => {
           };
           dispatch({ type: "CONTROL_ROUND", payload });
         });
-        socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
-          dispatch({ type: "TIK_TAK", payload: time });
-        });
         socket.on(
           SocketActions.NOTIFY_ABOUT_ROUND_STOP,
           (

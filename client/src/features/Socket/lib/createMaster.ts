@@ -129,6 +129,9 @@ export const createMaster = async (
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
+  socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
+    dispatch({ type: "TIK_TAK", payload: time });
+  });
   // TO DO change game status listener
   dispatch({ type: "IS_LOADING_DATA", payload: false });
   return lobby.player;

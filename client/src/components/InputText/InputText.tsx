@@ -24,8 +24,11 @@ export const InputText: FunctionComponent<InputTextProps> = ({
           type="text"
           id="inputText"
           className={inputProps.inputClasses || "input-text__input"}
-          defaultValue={inputProps.defaultValue}
           disabled={inputProps.isDisabled || false}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...(inputProps.isDisabled
+            ? { value: inputProps.defaultValue }
+            : { defaultValue: inputProps.defaultValue })}
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...(hookForm && {
             ...hookForm.onRegister(inputProps.labelText, hookForm.regOptions),

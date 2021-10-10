@@ -9,14 +9,30 @@ import "./issueSection.scss";
 export const IssuesSection: FunctionComponent = (): JSX.Element => {
   const { issues, isOpen, currentIssue, isMaster } = useContext(IssueContext);
   const { clearIssue } = IssueFormHelper();
-  const renderIssues = issues.map(({ id, title, link, priority }) => {
-    return (
-      <Issue key={id} id={id} title={title} link={link} priority={priority} />
-    );
-  });
+  const renderIssues = issues.map(
+    ({ id, title, link, priority, issueStatus }) => {
+      return (
+        <Issue
+          key={id}
+          id={id}
+          title={title}
+          link={link}
+          priority={priority}
+          issueStatus={issueStatus}
+        />
+      );
+    }
+  );
   const renderAll = [
     ...renderIssues,
-    <Issue key={Math.random() * 50} id="" title="" link="" priority="Low" />,
+    <Issue
+      key={Math.random() * 50}
+      id=""
+      title=""
+      link=""
+      priority="Low"
+      issueStatus="created"
+    />,
   ];
 
   const memoRenderAll = useMemo(() => renderAll, [issues]);
@@ -38,6 +54,9 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
       >
         <IssuesForm />
       </Modal>
+      {issues.length === 0 && (
+        <span className="issues__warning">Please add one or more issue</span>
+      )}
       <div className="issues__wrapper">
         {isMaster ? memoRenderAll : memoRenderIssues}
       </div>
