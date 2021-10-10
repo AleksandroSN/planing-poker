@@ -79,7 +79,8 @@ export const KickSuggestModal: FunctionComponent = (): JSX.Element => {
         onCancel={handlerCancel}
         heading="CONFIRM KICK PLAYER?"
         buttonTextConfirm="Confirm"
-        buttonTextCancel="No"
+        buttonTextCancel=""
+        buttonClassesCancel=""
       >
         <form id="kick-start-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="kick-member">
