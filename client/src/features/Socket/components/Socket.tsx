@@ -16,6 +16,7 @@ import {
   RoundControl,
   SocketActions,
 } from "../types";
+import { AppReducerActions } from "../../../redux/AppReducer/actions";
 
 export const Socket = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -160,6 +161,15 @@ export const Socket = (): JSX.Element => {
         socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
           dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
         }); // update messages
+        socket.on(
+          SocketActions.SUGGEST_ALL_TO_KICK_MEMBER,
+          (victim, requester) => {
+            dispatch({
+              type: AppReducerActions.kickVoteSuggest,
+              payload: { isVisible: true, victim, initiator: requester },
+            });
+          }
+        );
         socket.on(
           SocketActions.RECIEVE_NEXT_ROUND_DATA,
           (issues: Issue[], roundControl: RoundControl) => {

@@ -6,6 +6,7 @@ import { Player, SocketActions } from "../../features/Socket/types";
 import { AppReducerActions } from "../../redux/AppReducer/actions";
 import { AppSettings, useAppSelector } from "../../redux/store";
 import { Modal } from "../Modal";
+import "./KickStartModal.scss";
 
 interface ErrorEmit {
   state: boolean;
@@ -26,6 +27,7 @@ export const KickStartModal: FunctionComponent = (): JSX.Element => {
       type: AppReducerActions.kickVoteStart,
       payload: { isVisible: false },
     });
+    setIsError({ state: false, message: "" });
   };
 
   const onSubmit = async () => {
@@ -53,6 +55,7 @@ export const KickStartModal: FunctionComponent = (): JSX.Element => {
           type: AppReducerActions.kickVoteStart,
           payload: { isVisible: false },
         });
+        setIsError({ state: false, message: "" });
       } else {
         setIsError({
           state: true,
@@ -73,9 +76,12 @@ export const KickStartModal: FunctionComponent = (): JSX.Element => {
         buttonTextCancel="No"
       >
         <form id="kick-start-form" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            Are you really want to remove {kickVoteStart.victim?.firstName}{" "}
-            {kickVoteStart.victim?.lastName} from game session
+          <div className="kick-member">
+            Are you really want to remove{" "}
+            <span className="player-name-in-modal">
+              {kickVoteStart.victim?.firstName} {kickVoteStart.victim?.lastName}{" "}
+            </span>{" "}
+            from game session
           </div>
           {isError.state ? isError.message : ""}
         </form>
