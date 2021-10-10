@@ -46,6 +46,10 @@
     display: flex;
     margin-bottom: 25px;
     padding-bottom: 25px;
+
+    @media (max-width: 950px) {
+       flex-direction: column;
+    }
   }
 
   &__control {
@@ -57,6 +61,14 @@
     }
     &-wrapper {
       width: 45%;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      padding-top: 35px;
+
+      @media (max-width: 950px) {
+       
+      }
     }
   }
 }
