@@ -1,7 +1,6 @@
 @import "../../../../styles/utils/variables";
 
-.lobby-page{
-
+.lobby-page {
   &-wrapper {
     padding: 35px 35px 100px;
   }
@@ -71,7 +70,7 @@
   height: 46px !important;
   margin-top: 10px;
   background: #fff;
-  border: 1px solid $cororWindowsBlue;
+  border: 1px solid #496a81;
   box-sizing: border-box;
   border-radius: 0px 0px 0px 10px;
   margin-left: auto;
@@ -88,20 +87,20 @@
 
 .copy-link {
   &__button {
-  height: 47px;
-  padding: 2px 11px 0 13p;
-  margin-bottom: 15px;
-  // background: #2b3a67;
-  border: 1px solid #496a81;
-  box-sizing: border-box;
-  border-radius: 3px;
-  // color: #fff;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 30px;
-  text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+    height: 47px;
+    padding: 2px 11px 0 13p;
+    margin-bottom: 15px;
+    // background: #2b3a67;
+    border: 1px solid #496a81;
+    box-sizing: border-box;
+    border-radius: 3px;
+    // color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
   &__text {
     margin-left: 2rem;
     color: tomato;

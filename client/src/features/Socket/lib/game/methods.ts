@@ -6,6 +6,7 @@ import { sendVotedPlayer } from "./sockets";
 export const startGame = (lobbyId: string): void => {
   const socket = SocketSingleton.getInstance().getSocket();
   emitStartGame(socket, lobbyId);
+};
 
 export const sendIssueVote = (
   player: Player,

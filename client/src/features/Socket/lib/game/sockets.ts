@@ -12,4 +12,5 @@ export const sendVotedPlayer = (
     [player, issue, score],
     true
   );
+  console.log(player, issue, score);
 };

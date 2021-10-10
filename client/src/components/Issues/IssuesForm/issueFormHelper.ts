@@ -34,7 +34,6 @@ export const IssueFormHelper = (): IssueFormHelperModel => {
       priority: data.Priority,
       issueStatus: "created",
       lobbyId,
-      issueStatus: "created",
     };
     await updateIssues(newIssue);
     clearCurrentIssue();

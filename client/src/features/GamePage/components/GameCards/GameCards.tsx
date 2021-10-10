@@ -7,6 +7,7 @@ import {
   GameSettingsCurrent,
   IssuesRedux,
 } from "../../../../redux/store";
+import { sendIssueVote } from "../../../Socket/lib/game/methods";
 import { Player } from "../../../Socket/types";
 import { GameCardsProps } from "./types";
 
@@ -44,6 +45,7 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
       };
     });
     setCardsDeck(updatedData);
+    sendIssueVote(localPlayer, currentIssue, value);
   };
 
   const gameCards = cardsDeck.map((value) => {
