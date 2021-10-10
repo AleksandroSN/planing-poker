@@ -9,6 +9,7 @@ interface IssueProps {
   title: string;
   link: string;
   priority: "Low" | "Middle" | "High";
+  issueStatus: "created" | "voting" | "voted";
 }
 
 export const Issue: FunctionComponent<IssueProps> = ({
@@ -16,6 +17,7 @@ export const Issue: FunctionComponent<IssueProps> = ({
   title,
   link,
   priority,
+  issueStatus,
 }): JSX.Element => {
   const { toggleIsOpen } = useContext(IssueContext);
 
@@ -29,6 +31,7 @@ export const Issue: FunctionComponent<IssueProps> = ({
       issueName={title}
       link={link}
       priority={priority}
+      issueStatus={issueStatus}
     />
   );
 };

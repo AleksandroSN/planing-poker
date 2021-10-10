@@ -46,4 +46,7 @@ export interface IssuesModel {
   link: string;
   priority: "Low" | "Middle" | "High";
   lobbyId: string;
+  issueStatus: "created" | "voting" | "voted";
 }
+
+export type UpdateStatusIssue = Pick<IssuesModel, "issueStatus">;

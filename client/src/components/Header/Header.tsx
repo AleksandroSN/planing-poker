@@ -27,10 +27,15 @@ export const Header: FunctionComponent = (): JSX.Element => {
     } else setIsLogin(false);
   }, [appStage]);
 
+  const clearStorage = () => {
+    // update all settings
+    sessionStorage.clear();
+  };
+
   return (
     <header className="App-header">
       <div className="App-header__logo">
-        <a className="App-header__logo-lik" href="/">
+        <a className="App-header__logo-lik" href="/" onClick={clearStorage}>
           <img
             className="App-header__logo-img"
             src="../img/logo.png"

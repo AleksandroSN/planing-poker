@@ -14,6 +14,8 @@ import { arrToNumber } from "./arrToNumber";
 import { exitGame } from "./exitGame";
 import { issuesArrToStr } from "./issuesArrToStr";
 import { cardsSets } from "./cardsSets";
+import { handlerErrors } from "./validation";
+import { handlerTime } from "./handlerTime";
 
 export {
   renderUserAvatar,
@@ -33,4 +35,6 @@ export {
   exitGame,
   issuesArrToStr,
   cardsSets,
+  handlerErrors,
+  handlerTime,
 };

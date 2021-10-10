@@ -77,8 +77,9 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           open={MainPageState.openModal}
           heading="Connect to lobby"
           onCancel={toggleModal}
-          buttonTextConfirm="Confirm"
-          buttonTextCancel="Cancel"
+          buttonTextConfirm="Next"
+          buttonTextCancel=""
+          buttonClassesCancel=""
         >
           <MainPageForm />
         </Modal>
@@ -86,10 +87,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
           open={MainPageState.openModalError}
           heading="LOBBY INVALID"
           onCancel={toggleErrorModal}
-          buttonTextCancel="Close"
-          buttonTextConfirm="Close"
+          buttonTextCancel=""
+          buttonTextConfirm=""
           buttonClassesConfirm="button-start modal-error-confirm"
-          buttonClassesCancel="button-cancel modal-error-close"
+          buttonClassesCancel=""
         >
           <ErrorWindow message="Please enter an existing room id" />
         </Modal>

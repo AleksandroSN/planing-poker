@@ -2,7 +2,7 @@
 @import "../../styles/base/colorPalete";
 
 .input-text {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   position: relative;
 
   &__error {
@@ -15,6 +15,7 @@
 
   &__label {
     display: flex;
+    font-size: 24px;
   }
 
   &__input {

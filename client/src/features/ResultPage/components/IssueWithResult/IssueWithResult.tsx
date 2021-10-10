@@ -8,9 +8,16 @@ export const IssueWithResult: FunctionComponent<IssueWithResultProps> = ({
   title,
   priority,
   link,
+  // issueStatus,
 }): JSX.Element => (
   <div className="round-result__result-item">
-    <Issue id={id} title={title} priority={priority} link={link} />
+    <Issue
+      id={id}
+      title={title}
+      priority={priority}
+      link={link}
+      issueStatus="created"
+    />
     <ResultOnCards />
   </div>
 );

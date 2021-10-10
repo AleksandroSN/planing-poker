@@ -7,6 +7,7 @@ interface IssueProps {
   issueName: string;
   link: string;
   priority: "Low" | "Middle" | "High";
+  issueStatus: "created" | "voting" | "voted";
 }
 
 export const IssueItem: FunctionComponent<IssueProps> = ({
@@ -14,6 +15,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
   issueName,
   link,
   priority,
+  issueStatus,
 }): JSX.Element => {
   const { toggleIsOpen, deleteIssues, findIssue, isMaster, appStage } =
     useContext(IssueContext);
@@ -23,8 +25,18 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
     toggleIsOpen();
   };
 
+  const toggleClass = (): string => {
+    if (issueStatus === "voting") {
+      return "window issues__item voting";
+    }
+    if (issueStatus === "voted") {
+      return "window issues__item voting";
+    }
+    return "window issues__item";
+  };
+
   return (
-    <div className="issues__item">
+    <div className={toggleClass()}>
       <div className="issues__item-row">
         <a href={link} className="issues__item-name">{`Issue ${issueName}`}</a>
         <div className="issues__item-buttons">
@@ -33,7 +45,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
               <img src="../icons/edit.svg" alt="edit issue" />
             </button>
           )}
-          {isMaster && (
+          {isMaster && issueStatus !== "voting" && (
             <button type="button" onClick={() => deleteIssues(id)}>
               <img src="../icons/trash.svg" alt="delete issue" />
             </button>

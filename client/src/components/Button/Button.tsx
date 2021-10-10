@@ -8,6 +8,8 @@ export const Button: FunctionComponent<ButtonProps> = ({
   type = "button",
   classes = "button-start",
   idForm,
+  isDisabled,
+  ariaLabel,
 }): JSX.Element => {
   return (
     <button
@@ -15,6 +17,8 @@ export const Button: FunctionComponent<ButtonProps> = ({
       form={idForm}
       onClick={onClick}
       className={classes}
+      disabled={isDisabled}
+      aria-label={ariaLabel}
     >
       {children}
     </button>

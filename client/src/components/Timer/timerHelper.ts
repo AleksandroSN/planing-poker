@@ -4,7 +4,7 @@ interface TimerClassesModel {
 
 export const timerClasses = (settings: boolean): TimerClassesModel => {
   const classes = {
-    main: settings ? "timer timer--settings" : "timer",
+    main: settings ? "window timer timer--settings" : "window timer",
   };
   return classes;
 };

@@ -74,7 +74,7 @@
     }
 
     &-item {
-      width: 100px;
+      width: 90px;
       height: 160px;
       background-color: #fff;
       border: 3px solid #eeeeee;
@@ -102,6 +102,10 @@
       &__header,
       &__footer {
         text-align: left;
+      }
+
+      &__body {
+        text-align: center;
       }
 
       &__header {

@@ -21,11 +21,23 @@ export const Modal: FunctionComponent<ModalProps> = ({
   return ReactDOM.createPortal(
     <>
       <div className="modal-overlay">
-        <article className="modal">
-          <section>
-            <h2 className="modal__title">{heading}</h2>
+        <article className="modal window">
+          <section className="title-bar">
+            <div className="modal__title title-bar-text">{heading}</div>
+            <div className="title-bar-controls">
+              <button type="button" aria-label="Minimize" />
+              <button type="button" aria-label="Maximize" />
+              <Button
+                type="button"
+                onClick={onCancel}
+                classes={buttonClassesCancel}
+                ariaLabel="Close"
+              >
+                {buttonTextCancel}
+              </Button>
+            </div>
           </section>
-          <main>{children}</main>
+          <main className="modal-body">{children}</main>
           <div className="modal-buttons">
             <Button
               idForm={idForm}
@@ -34,13 +46,13 @@ export const Modal: FunctionComponent<ModalProps> = ({
             >
               {buttonTextConfirm}
             </Button>
-            <Button
+            {/* <Button
               type="button"
               onClick={onCancel}
               classes={buttonClassesCancel}
             >
               {buttonTextCancel}
-            </Button>
+            </Button> */}
           </div>
         </article>
       </div>

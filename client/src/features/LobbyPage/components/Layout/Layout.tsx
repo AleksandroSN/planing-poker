@@ -12,18 +12,20 @@ import {
   ScrumMaster,
   LobbyGameTitle,
 } from "../../../../components";
-import { FormValues } from "../../../../types/interface";
+import { FormValues, UpdateStatusIssue } from "../../../../types/interface";
 import {
   isReallyYou,
   AnimeChatMount,
   arrToNumber,
   exitGame,
+  handlerTime,
 } from "../../../../lib";
 import {
   useAppSelector,
   AppSettings,
   Players,
   GameSettingsCurrent,
+  IssuesRedux,
 } from "../../../../redux/store";
 import { LobbySetting, Player } from "../../../Socket/types";
 import { GameSettings } from "../GameSettings";
@@ -34,6 +36,8 @@ import { UpdatedSettings } from "../../types/interface";
 import { defaultLobbySettings } from "../../lib";
 import { loadSettings, saveSettings } from "./layoutHelper";
 import { BASE_CLIENT } from "../../../../api";
+import { updateIssue } from "../../../Socket/lib/Issues/methods";
+import { AppReducerActions } from "../../../../redux/AppReducer/actions";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -49,6 +53,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   const { chatOpen } = useAppSelector(AppSettings);
   const settings = useAppSelector(GameSettingsCurrent);
   const playersFromRedux = useAppSelector(Players);
+  const { issues } = useAppSelector(IssuesRedux);
   const players = playersFromRedux
     .filter((player) => {
       return player.role !== "Dealer";
@@ -56,6 +61,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     .map((filterPlayers) => {
       return (
         <User
+          key={filterPlayers.id}
           avatar={filterPlayers.avatarImage}
           firstName={filterPlayers.firstName}
           lastName={filterPlayers.lastName}
@@ -86,10 +92,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     if (settings) {
       await updateSettings(defaultLobbySettings(settings.lobbyId), dispatch);
     }
-    // delete lobby on back-end
   };
 
   const onSubmit = async (data: FormValues) => {
+    if (issues.length === 0) return;
     const newSettings: UpdatedSettings = {
       masterIsPlayer: data["Scrum master as player"],
       isTimerNeed: data["Is timer needed"],
@@ -100,6 +106,13 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       roundTime: arrToNumber([data.minutes, data.seconds]),
       appStage: "game",
     };
+    dispatch({
+      type: AppReducerActions.tikTak,
+      payload: handlerTime([data.minutes, data.seconds]),
+    });
+    const updatedStatus: UpdateStatusIssue = { issueStatus: "voting" };
+    const votingIssue = { ...issues[0], ...updatedStatus };
+    await updateIssue(votingIssue, dispatch);
     const allNewSettins: LobbySetting = { ...settings, ...newSettings };
     await updateSettings(allNewSettins, dispatch);
   };
@@ -145,7 +158,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                 <Button
                   type="button"
                   onClick={cancelGame}
-                  classes="button-cancel"
+                  classes="button-start"
                 >
                   Cancel Game
                 </Button>
@@ -157,7 +170,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               <Button
                 type="button"
                 onClick={() => exitGame(dispatch)}
-                classes="button-cancel"
+                classes="button-start"
               >
                 Exit
               </Button>
@@ -192,7 +205,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
                   <Button
                     type="button"
                     onClick={() => loadSettings(dispatch)}
-                    classes="button-cancel"
+                    classes="button-start"
                   >
                     Load settings
                   </Button>
@@ -200,10 +213,10 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               </div>
             </div>
           )}
-          {isMaster && <GameCards onRegister={register} />}
+          {isMaster && <GameCards onRegister={register} errors={errors} />}
         </form>
       </div>
-      <AnimeChatMount mount={chatOpen} classes="chat-wrapper">
+      <AnimeChatMount mount={chatOpen} classes="chat__container">
         <Chat key="uniqChat" />
       </AnimeChatMount>
     </>

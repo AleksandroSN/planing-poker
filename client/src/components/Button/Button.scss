@@ -1,32 +1,33 @@
 .button-start {
   margin-left: auto;
-  padding: 5px 25px;
-  background: #2b3a67;
+  padding: 2px 11px 0 13px;
+  // background: #2b3a67;
   border: 1px solid #496a81;
   box-sizing: border-box;
   border-radius: 3px;
-  color: #fff;
+  // color: #fff;
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 1.5rem;
+  height: 40px;
+  // line-height: 30px;
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease-out;
+  // transition: all 0.3s ease-out;
 
-  &:focus,
-  &:hover {
-    background: #66999b;
-    border: 1px solid #66999b;
-    transform: translateY(-5px) scale(1.005) translateZ(0);
-    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
-      0 24px 46px var(--box-shadow-color);
-  }
+  // &:focus,
+  // &:hover {
+  //   background: #66999b;
+  //   border: 1px solid #66999b;
+  //   transform: translateY(-5px) scale(1.005) translateZ(0);
+  //   box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+  //     0 24px 46px var(--box-shadow-color);
+  // }
 
-  &:active {
-    background: #66999b;
-    border: 1px solid #66999b;
-  }
+  // &:active {
+  //   background: #66999b;
+  //   border: 1px solid #66999b;
+  // }
 }
 
 .button-cancel {

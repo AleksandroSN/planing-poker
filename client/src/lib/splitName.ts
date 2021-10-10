@@ -6,5 +6,5 @@ export const spltName = (first: string, last: string): string => {
   if (first.length >= 2) {
     return `${first.charAt(0)}${first.charAt(x - 1)}`.toUpperCase();
   }
-  return first;
+  return "NN";
 };
