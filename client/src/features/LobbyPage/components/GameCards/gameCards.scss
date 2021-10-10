@@ -90,6 +90,18 @@
       cursor: pointer;
       position: relative;
 
+      &:hover {
+        transform: translateY(-5px) scale(1.005) translateZ(0) !important;
+        box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+          0 24px 46px var(--box-shadow-color);
+      }
+
+      &:active {
+        transform: scale(1) translateZ(0) !important;
+        box-shadow: 0 15px 24px rgba(0, 0, 0, 0.11),
+          0 15px 24px var(--box-shadow-color);
+      }
+
       &.selected {
         transform: scale(1.2);
         z-index: 5;
@@ -197,17 +209,7 @@
       }
     }
 
-    &-item:hover {
-      transform: translateY(-5px) scale(1.005) translateZ(0);
-      box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
-        0 24px 46px var(--box-shadow-color);
-    }
-
-    &-item:active {
-      transform: scale(1) translateZ(0);
-      box-shadow: 0 15px 24px rgba(0, 0, 0, 0.11),
-        0 15px 24px var(--box-shadow-color);
-    }
+    
   }
 }
 
