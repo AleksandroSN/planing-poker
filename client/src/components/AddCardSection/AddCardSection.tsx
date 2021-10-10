@@ -31,7 +31,12 @@ export const AddCardSection: FunctionComponent = (): JSX.Element => {
 
   const allItems = [
     ...arrCardsWithValue,
-    <Cards value="" scoreTypeShort="" updateCards={updateCards} />,
+    <Cards
+      key="emptyCard"
+      value=""
+      scoreTypeShort=""
+      updateCards={updateCards}
+    />,
   ];
   return (
     <div className="game-cards__container">

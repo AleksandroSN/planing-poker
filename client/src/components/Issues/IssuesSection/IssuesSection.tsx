@@ -45,7 +45,8 @@ export const IssuesSection: FunctionComponent = (): JSX.Element => {
         idForm="issue-form"
         onCancel={clearIssue}
         buttonTextConfirm={currentIssue ? `Update` : "Create"}
-        buttonTextCancel="Cancel"
+        buttonTextCancel=""
+        buttonClassesCancel=""
         heading={
           currentIssue
             ? `Update Issue ${currentIssue.title}`

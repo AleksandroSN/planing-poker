@@ -27,12 +27,12 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
 
   const toggleClass = (): string => {
     if (issueStatus === "voting") {
-      return "issues__item voting";
+      return "window issues__item voting";
     }
     if (issueStatus === "voted") {
-      return "issues__item voting";
+      return "window issues__item voting";
     }
-    return "issues__item";
+    return "window issues__item";
   };
 
   return (
@@ -45,7 +45,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
               <img src="../icons/edit.svg" alt="edit issue" />
             </button>
           )}
-          {isMaster && (
+          {isMaster && issueStatus !== "voting" && (
             <button type="button" onClick={() => deleteIssues(id)}>
               <img src="../icons/trash.svg" alt="delete issue" />
             </button>

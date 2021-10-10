@@ -55,7 +55,7 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
           onClick={() => setEditMode(true)}
         />
       </div>
-      <div className="game-cards__cards-value-item__body text-xxl text-bold">
+      <div className="game-cards__cards-value-item__body text-xml text-bold">
         {scoreTypeShort}
       </div>
       <p className="game-cards__cards-value-item__footer text-s">{cardValue}</p>

@@ -17,7 +17,12 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
   const { cardValues, masterIsPlayer } = useAppSelector(GameSettingsCurrent);
   const gameCards = cardsDeck.map((value) => {
     return (
-      <Cards value={value} scoreTypeShort="SP" updateCards={updateCards} />
+      <Cards
+        key={value}
+        value={value}
+        scoreTypeShort="SP"
+        updateCards={updateCards}
+      />
     );
   });
 

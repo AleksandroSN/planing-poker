@@ -85,6 +85,9 @@
     width: 60%;
     position: relative;
     padding-bottom: 50px;
+    & .input-text {
+      margin: 1rem 0 0 0;
+    }
     input {
       margin: 10px 0 0 0;
     }
@@ -97,10 +100,10 @@
   }
 }
 
-.modal-buttons {
-  flex: 100%;
+// .modal-buttons {
+//   flex: 100%;
 
-  button {
-    margin-left: 0;
-  }
-}
+//   button {
+//     margin-left: 0;
+//   }
+// }

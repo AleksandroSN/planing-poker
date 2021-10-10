@@ -21,7 +21,9 @@ export const ChatRow: FunctionComponent<ChatMessage> = ({
   const isYou = isReallyYou(playerData.id);
   return (
     <div className="chat__row">
-      <p className="chat__user-message test-light text-s">{messageText}</p>
+      <p className="window chat__user-message test-light text-s">
+        {messageText}
+      </p>
       <User
         key={id}
         avatar={playerData.avatarImage}
