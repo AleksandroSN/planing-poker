@@ -1,26 +1,30 @@
-import { FunctionComponent, useState } from "react";
-import {
-  CardsAddValue,
-  CardsWithoutValue,
-  CardsWithValue,
-} from "../CardsValue";
+import { FunctionComponent } from "react";
+import { useDispatch } from "react-redux";
+import { CardsWithValue } from "../CardsValue";
 import { CardsValueModel } from "../types";
 import "./style.scss";
 
 interface CardsProps {
   value: string;
   scoreTypeShort: string;
-  updateCards: (newData: CardsValueModel) => void;
+  selected?: boolean;
+  disabled?: boolean;
+  onClick?: (value: string) => void;
+  updateCards?: (newData: CardsValueModel) => void;
 }
 
 export const Cards: FunctionComponent<CardsProps> = ({
   value,
   scoreTypeShort,
   updateCards,
+  disabled,
+  selected,
+  onClick,
 }): JSX.Element => {
-  const [editMode, setEditMode] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  // const [editMode, setEditMode] = useState<boolean>(false);
 
-  const toggleEditMode = (): void => {
+  /* const toggleEditMode = (): void => {
     setEditMode((x) => !x);
   };
 
@@ -32,16 +36,18 @@ export const Cards: FunctionComponent<CardsProps> = ({
       />
     );
   }
-
-  if (!value) {
+ */
+  /* if (!value) {
     return <CardsWithoutValue toggleEditMode={toggleEditMode} />;
-  }
+  } */
 
   return (
     <CardsWithValue
       value={value}
       scoreTypeShort={scoreTypeShort}
-      updateCards={updateCards}
+      onClick={onClick!}
+      disabled={disabled}
+      selected={selected}
     />
   );
 };

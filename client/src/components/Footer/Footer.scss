@@ -1,7 +1,9 @@
+@import "../../styles/base/colorPalete";
+
 .App-footer {
   height: auto;
   width: 100%;
-  background: #2b3a67;
+  background: $cororWindowsBlue;
 
   &__wrapper {
     max-width: 1000px;

@@ -5,15 +5,21 @@ import { searchEnterKey } from "./cardsWithValueHelper";
 interface CardsWithValueProps {
   value: string;
   scoreTypeShort: string;
-  updateCards: (newData: CardsValueModel) => void;
+  /* updateCards: (newData: CardsValueModel) => void; */
+  onClick: (value: string) => void;
+  selected: boolean | undefined;
+  disabled: boolean | undefined;
 }
 
 export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
   value,
   scoreTypeShort,
-  updateCards,
+  onClick,
+  disabled,
+  selected,
+  /* updateCards, */
 }): JSX.Element => {
-  const [editMode, setEditMode] = useState<boolean>(false);
+  // const [editMode, setEditMode] = useState<boolean>(false);
   const [cardValue, setCardValue] = useState<string>("");
 
   useEffect(() => {
@@ -21,39 +27,31 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
     return () => {};
   }, [value]);
 
-  const toggleState = (): void => {
+  const toggleClass = () => {
+    if (selected === true) {
+      return "game-cards__cards-value-item selected";
+    }
+    if (disabled === true) {
+      return "game-cards__cards-value-item disabled";
+    }
+    return "game-cards__cards-value-item";
+  };
+
+  const handleClick = () => {
+    onClick(value);
+  };
+
+  /* const toggleState = (): void => {
     setEditMode(false);
     updateCards({
       value: cardValue,
     });
-  };
+  }; */
 
   return (
-    <div className="game-cards__cards-value-item">
+    <div className={toggleClass()} onClick={handleClick} role="none">
       <div className="game-cards__cards-value-item__header text-s">
-        {editMode ? (
-          <input
-            type="text"
-            name="cardValue"
-            id="cardValue"
-            className="game-cards__cards-value-item__header-input"
-            maxLength={2}
-            placeholder={cardValue}
-            onChange={(evt) => setCardValue(evt.target.value)}
-            onKeyDown={(evt) => searchEnterKey(evt, toggleState)}
-          />
-        ) : (
-          <p className="game-cards__cards-value-item__header-text">
-            {cardValue}
-          </p>
-        )}
-        <img
-          src="../icons/edit.svg"
-          alt="edit card icon"
-          className="game-cards__cards-value-item__header-icon"
-          role="none"
-          onClick={() => setEditMode(true)}
-        />
+        <p className="game-cards__cards-value-item__header-text">{cardValue}</p>
       </div>
       <div className="game-cards__cards-value-item__body text-xml text-bold">
         {scoreTypeShort}

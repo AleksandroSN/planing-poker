@@ -2,7 +2,9 @@
 @import "./styles/base/typography";
 @import "98.css";
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -17,7 +19,7 @@ body {
   margin: 0;
   // font-family: "Roboto", sans-serif;
   font-size: 1rem;
-  font-family: "Pixelated MS Sans Serif",Arial;
+  font-family: "Pixelated MS Sans Serif", Arial;
   min-height: 100vh;
 }
 
@@ -30,4 +32,10 @@ button {
 img {
   width: auto;
   height: 100%;
+}
+
+#App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

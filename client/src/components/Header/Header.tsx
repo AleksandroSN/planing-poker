@@ -38,7 +38,7 @@ export const Header: FunctionComponent = (): JSX.Element => {
         <a className="App-header__logo-lik" href="/" onClick={clearStorage}>
           <img
             className="App-header__logo-img"
-            src="../img/logo.png"
+            src="../icons/poker-planing-icon.png"
             alt="logo"
           />
         </a>

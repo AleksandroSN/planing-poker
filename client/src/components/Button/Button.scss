@@ -1,3 +1,5 @@
+@import "../../styles/base/colorPalete";
+
 .button-start {
   margin-left: auto;
   padding: 2px 11px 0 13px;
@@ -36,7 +38,7 @@
   border: 1px solid #496a81;
   box-sizing: border-box;
   border-radius: 3px;
-  color: #2b3a67;
+  color: $cororWindowsBlue;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
@@ -56,8 +58,8 @@
   }
 
   &:active {
-    background: #66999b;
-    border: 1px solid #66999b;
+    background: $colorWindowsGreen;
+    border: 1px solid $colorWindowsGreen;
     color: #fff;
   }
 }

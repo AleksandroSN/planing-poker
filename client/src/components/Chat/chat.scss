@@ -3,6 +3,7 @@
 
 .chat {
   background-color: $colorWhite;
+  z-index: 50;
 
   &__wrapper {
     height: 50vh;
@@ -35,6 +36,6 @@
     box-shadow: $mainShadow;
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #2b3a67;
+    border: 1px solid $cororWindowsBlue;
   }
 }

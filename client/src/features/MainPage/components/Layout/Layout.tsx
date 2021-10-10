@@ -35,7 +35,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     <>
       <main className="content__wrapper">
         <div className="main-page__logo">
-          <img src="../img/planning-pocker.png" alt="planning pocker" />
+          <img src="../img/poker-planing-full.png" alt="planning pocker" />
         </div>
         <div className="main-page__content">
           <h2 className="main-page__title">Start your planning:</h2>
