@@ -7,6 +7,7 @@ type KickVoting = {
   checkVoters: (player: Player) => boolean;
   checkProcess: () => boolean;
   addVoice: (members: number, player: Player) => void;
+  setVictim: (victim: Player) => void;
 };
 
 const kickVoting = (io: Server, victim: Player) => {
@@ -14,7 +15,11 @@ const kickVoting = (io: Server, victim: Player) => {
   let isVoting = false;
   let votes = 0;
   let timer: NodeJS.Timer;
+  let victimLocal = victim;
   return {
+    setVictim: (victim: Player) => {
+      victimLocal = victim;
+    },
     startVoting: () => {
       votes = 1;
       isVoting = true;
@@ -30,16 +35,16 @@ const kickVoting = (io: Server, victim: Player) => {
     addVoice: async (members: number, player: Player) => {
       if (!voters.has(player.id)) {
         voters.add(player.id);
-        console.log("Votes:", votes);
         votes += 1;
         if (votes >= members * 0.5) {
           isVoting = false;
           votes = 0;
+          voters.clear();
           clearTimeout(timer);
-          await deletePlayer(victim.id);
-          io.to(victim.lobbyId).emit(
+          await deletePlayer(victimLocal.id);
+          io.to(victimLocal.lobbyId).emit(
             SocketActions.NOTIFY_ABOUT_KICKING_MEMBER,
-            victim
+            victimLocal
           );
         }
       }
@@ -67,7 +72,10 @@ export const kickDb = (io: Server) => {
         case "Member": {
           const playerQty = await getPlayersQtyInLobby(requester.lobbyId);
           if (playerQty <= 4) {
-            callback({ isStarted: false, message: "NOT_ENOUGH_PLAYERS" });
+            callback({
+              isStarted: false,
+              message: "THERE ARE NOT ENOUGH PLAYERS FOR MAKING DECISION",
+            });
             break;
           }
           if (!kicks.has(requester.lobbyId)) {
@@ -86,10 +94,14 @@ export const kickDb = (io: Server) => {
             .get(requester.lobbyId)
             ?.checkProcess() as boolean;
           if (vProcess) {
-            callback({ isStarted: false, message: "VOTING_ALREADY_STARTED" });
+            callback({
+              isStarted: false,
+              message: "VOTING HAS ALREADY STARTED",
+            });
             break;
           } else {
             const kick = kicks.get(requester.lobbyId) as KickVoting;
+            kick.setVictim(victim);
             kick.startVoting();
             callback({ isStarted: true, message: "VOTING_STARTED" });
             io.to(requester.lobbyId).emit(
@@ -108,23 +120,28 @@ export const kickDb = (io: Server) => {
     ) => {
       const playerQty = await getPlayersQtyInLobby(player.lobbyId);
       if (playerQty <= 4) {
-        callback({ isVoted: false, message: "NOT_ENOUGH_PLAYERS" });
+        callback({
+          isVoted: false,
+          message: "THERE ARE NOT ENOUGH PLAYERS FOR MAKING DECISION",
+        });
         return;
       }
       if (!kicks.has(player.lobbyId)) {
-        callback({ isVoted: false, message: "VOTING_DOES_NOT_EXIST" });
+        callback({ isVoted: false, message: "VOTING DOES NOT EXIST" });
         return;
       }
       const kick = kicks.get(player.lobbyId) as KickVoting;
       if (!kick.checkProcess()) {
-        callback({ isVoted: false, message: "VOTING_DOES_NOT_START" });
+        callback({
+          isVoted: false,
+          message: "VOTING DOES NOT START OR HAS ALREADY FINISHED",
+        });
         return;
       }
       if (kick.checkVoters(player)) {
-        callback({ isVoted: false, message: "PLAYER_HAS_ALREADY_VOTED" });
+        callback({ isVoted: false, message: "YOU HAVE ALREADY VOTED" });
         return;
       }
-      console.log("playerQty: ", playerQty);
       kick.addVoice(playerQty, player);
       callback({ isVoted: true, message: "VOTED" });
     },

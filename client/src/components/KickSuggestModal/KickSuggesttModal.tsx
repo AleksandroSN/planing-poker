@@ -4,8 +4,13 @@ import { useDispatch } from "react-redux";
 import { SocketSingleton } from "../../features/Socket/lib";
 import { Player, SocketActions } from "../../features/Socket/types";
 import { AppReducerActions } from "../../redux/AppReducer/actions";
-import { AppSettings, useAppSelector } from "../../redux/store";
+import {
+  AppSettings,
+  GameSettingsCurrent,
+  useAppSelector,
+} from "../../redux/store";
 import { Modal } from "../Modal";
+import "./KickSuggesttModal.scss";
 
 interface ErrorEmit {
   state: boolean;
@@ -14,9 +19,22 @@ interface ErrorEmit {
 
 export const KickSuggestModal: FunctionComponent = (): JSX.Element => {
   const { kickVoteSuggest } = useAppSelector(AppSettings);
+  const { appStage } = useAppSelector(GameSettingsCurrent);
   const { handleSubmit } = useForm();
   const dispatch = useDispatch();
   const socket = SocketSingleton.getInstance().getSocket();
+  let localPlayer: Player = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    jobPosition: "",
+    avatarImage: "",
+    role: "Observer",
+    lobbyId: "",
+  };
+  if (sessionStorage.player) {
+    localPlayer = JSON.parse(sessionStorage.player) as Player;
+  }
   const [isError, setIsError] = useState<ErrorEmit>({
     state: false,
     message: "",
@@ -26,21 +44,20 @@ export const KickSuggestModal: FunctionComponent = (): JSX.Element => {
       type: AppReducerActions.kickVoteSuggest,
       payload: { isVisible: false },
     });
+    setIsError({ state: false, message: "" });
   };
-
   const onSubmit = async () => {
-    const localPlayer = JSON.parse(sessionStorage.player) as Player;
-
     const result = (await socket.emit(
       SocketActions.CONFIRM_TO_KICK_MEMBER,
       [localPlayer],
       true
-    )) as { isStarted: boolean; message: string };
-    if (result.isStarted) {
+    )) as { isVoted: boolean; message: string };
+    if (result.isVoted) {
       dispatch({
         type: AppReducerActions.kickVoteSuggest,
         payload: { isVisible: false },
       });
+      setIsError({ state: false, message: "" });
     } else {
       setIsError({
         state: true,
@@ -53,18 +70,30 @@ export const KickSuggestModal: FunctionComponent = (): JSX.Element => {
     <>
       <Modal
         idForm="kick-start-form"
-        open={kickVoteSuggest.isVisible}
+        open={
+          kickVoteSuggest.isVisible &&
+          localPlayer.id !== kickVoteSuggest.initiator?.id &&
+          localPlayer.id !== kickVoteSuggest.victim?.id &&
+          (appStage === "lobby" || appStage === "game")
+        }
         onCancel={handlerCancel}
         heading="CONFIRM KICK PLAYER?"
         buttonTextConfirm="Confirm"
         buttonTextCancel="No"
       >
         <form id="kick-start-form" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            {kickVoteSuggest.initiator?.firstName}{" "}
-            {kickVoteSuggest.initiator?.lastName}{" "}
-            {kickVoteSuggest.victim?.firstName}{" "}
-            {kickVoteSuggest.victim?.lastName}
+          <div className="kick-member">
+            <span className="player-name-in-modal">
+              {kickVoteSuggest.initiator?.firstName}{" "}
+              {kickVoteSuggest.initiator?.lastName}
+            </span>{" "}
+            want to kick member{" "}
+            <span className="player-name-in-modal">
+              {" "}
+              {kickVoteSuggest.victim?.firstName}{" "}
+              {kickVoteSuggest.victim?.lastName}
+            </span>
+            . Do you agree with it?
           </div>
           {isError.state ? isError.message : ""}
         </form>

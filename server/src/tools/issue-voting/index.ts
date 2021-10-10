@@ -11,7 +11,7 @@ type IssueVoting = {
 const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
   const voters: Map<string, number> = new Map();
   const result: Map<number, number> = new Map();
-  let startTime = timerLimit;
+  let startTime = timerLimit - 1;
   let isVoting = false;
   let timer: NodeJS.Timer;
   return {
