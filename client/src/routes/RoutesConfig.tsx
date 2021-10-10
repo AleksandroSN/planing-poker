@@ -30,7 +30,7 @@ export const RoutesConfig: FunctionComponent = (): JSX.Element => {
 
   const transitions = useTransition(location, {
     from: { opacity: 0, left: -4000 },
-    enter: { opacity: 1, position: "relative", left: 0 },
+    enter: { opacity: 1, left: 0 },
     leave: { opacity: 0 },
   });
   return transitions((styles, item) => (
