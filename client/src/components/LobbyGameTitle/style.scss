@@ -1,0 +1,9 @@
+.page__title {
+  text-align: center;
+  margin: 0 auto 2rem;
+  font-size: 3rem;
+
+  @media screen and (max-width: 770px) {
+    font-size: 2rem;
+  }
+}

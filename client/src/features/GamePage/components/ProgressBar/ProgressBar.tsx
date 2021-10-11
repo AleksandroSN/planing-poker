@@ -11,16 +11,16 @@ export const ProgressBar: FunctionComponent = () => {
   const playersFromRedux = useAppSelector(Players);
   const { masterIsPlayer } = useAppSelector(GameSettingsCurrent);
   const players = masterIsPlayer
-    ? playersFromRedux
+    ? playersFromRedux.map((gamePlayer) => {
+        return <ProgressItem player={gamePlayer} />;
+      })
+    : playersFromRedux
         .filter((player) => {
           return player.role !== "Dealer";
         })
         .map((filterPlayer) => {
           return <ProgressItem player={filterPlayer} />;
-        })
-    : playersFromRedux.map((gamePlayer) => {
-        return <ProgressItem player={gamePlayer} />;
-      });
+        });
 
   return (
     <aside className="progress-bar">
