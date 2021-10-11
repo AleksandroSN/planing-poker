@@ -28,16 +28,13 @@ import "./style.scss";
 
 export const Layout: FunctionComponent = (): JSX.Element => {
   const [playerRole, setPlayerRole] = useState<string>("Observer");
+  const [issueId, setIssueId] = useState<string>("");
   const { chatOpen, tikTak, roundControl } = useAppSelector(AppSettings);
   const playerFromRedux = useAppSelector(Players);
   const { appStage, lobbyId, isTimerNeed } =
     useAppSelector(GameSettingsCurrent);
   const issueResults = useAppSelector(ResultRedux);
   const { issues } = useAppSelector(IssuesRedux);
-  const votingIssueIdx = issues.findIndex(
-    (issue) => issue.issueStatus === "voting"
-  );
-  const { id } = issues[votingIssueIdx];
 
   useEffect(() => {
     const player = sessionStorage.getItem("player");
@@ -46,6 +43,16 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       setPlayerRole(role);
     }
   }, [playerRole]);
+
+  useEffect(() => {
+    const votingIssueIdx = issues.findIndex(
+      (issue) => issue.issueStatus === "voting"
+    );
+    if (votingIssueIdx > 0) {
+      const curIssue = issues[votingIssueIdx];
+      setIssueId(curIssue.id);
+    }
+  }, [issues]);
 
   if (appStage === "results") {
     return <Redirect to={`/result/${lobbyId}`} />;
@@ -84,14 +91,14 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             {playerRole === "Member" && roundControl.status === "isStoped" && (
               <>
                 <h2>Statistics</h2>
-                <ResultOnCards issueResults={issueResults} issueId={id} />
+                <ResultOnCards issueResults={issueResults} issueId={issueId} />
               </>
             )}
           </div>
           {playerRole === "Dealer" && roundControl.status === "isStoped" && (
             <>
               <h2>Statistics</h2>
-              <ResultOnCards issueResults={issueResults} issueId={id} />
+              <ResultOnCards issueResults={issueResults} issueId={issueId} />
             </>
           )}
           <GameCards role={playerRole} />

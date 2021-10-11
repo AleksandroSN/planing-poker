@@ -28,11 +28,13 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
     const votingIssueIdx = issues.findIndex(
       (issue) => issue.issueStatus === "voting"
     );
-    const { id } = issues[votingIssueIdx];
-    const currentRound = results[id];
-    if (currentRound) {
-      const playerVote = currentRound.votes[player.id];
-      setVote(playerVote);
+    if (votingIssueIdx > 0) {
+      const { id } = issues[votingIssueIdx];
+      const currentRound = results[id];
+      if (currentRound) {
+        const playerVote = currentRound.votes[player.id];
+        setVote(playerVote);
+      }
     }
   }, [results]);
 

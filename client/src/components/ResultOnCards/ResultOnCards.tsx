@@ -25,12 +25,12 @@ export const ResultOnCards: FunctionComponent<ResultOnCardsProps> = ({
   const [resultCards, setResultCards] = useState<ResultsData[]>([]);
   const { scoreTypeShort } = useAppSelector(GameSettingsCurrent);
   const { issues } = useAppSelector(IssuesRedux);
-  const votingIssueIdx = issues.findIndex((issue) => issue.id === issueId);
-  const votingIssue = issues[votingIssueIdx];
-  const issueWithResults = issueResults[votingIssue.id];
   useEffect(() => {
     const resArr: ResultsData[] = [];
-    if (issueWithResults) {
+    if (issueId) {
+      const votingIssueIdx = issues.findIndex((issue) => issue.id === issueId);
+      const votingIssue = issues[votingIssueIdx];
+      const issueWithResults = issueResults[votingIssue.id];
       Object.keys(issueWithResults.results).forEach((cardValue) => {
         const resultObj = {
           value: cardValue,
