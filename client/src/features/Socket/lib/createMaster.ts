@@ -108,16 +108,6 @@ export const createMaster = async (
       issue: Issue,
       roundControl: RoundControl
     ) => {
-      // console.log("result:", results);
-      // console.log("voters:", votes);
-      /*       const votes: Record<string, number> = {};
-      const results: Record<string, number> = {};
-      result.forEach((value, key) => {
-        results[`${key}`] = value;
-      });
-      voters.forEach((value, key) => {
-        votes[key] = value;
-      }); */
       const payload = {
         issue: issue.id,
         results: {

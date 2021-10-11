@@ -251,6 +251,7 @@ io.on("connection", function (socket: Socket) {
       await setNextIssueForVoting(io, lobbyId);
     }
   );
+  /* socket.on(SocketActions.GET_VOTING_RESULTS, function (lobbyId: string) {}); */
 });
 
 http.listen(3030, function () {
