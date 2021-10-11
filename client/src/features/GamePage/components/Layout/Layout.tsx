@@ -11,7 +11,9 @@ import {
 import {
   AppSettings,
   GameSettingsCurrent,
+  IssuesRedux,
   Players,
+  ResultRedux,
   useAppSelector,
 } from "../../../../redux/store";
 import { AnimeChatMount } from "../../../../lib";
@@ -30,6 +32,12 @@ export const Layout: FunctionComponent = (): JSX.Element => {
   const playerFromRedux = useAppSelector(Players);
   const { appStage, lobbyId, isTimerNeed } =
     useAppSelector(GameSettingsCurrent);
+  const issueResults = useAppSelector(ResultRedux);
+  const { issues } = useAppSelector(IssuesRedux);
+  const votingIssueIdx = issues.findIndex(
+    (issue) => issue.issueStatus === "voting"
+  );
+  const { id } = issues[votingIssueIdx];
 
   useEffect(() => {
     const player = sessionStorage.getItem("player");
@@ -76,14 +84,14 @@ export const Layout: FunctionComponent = (): JSX.Element => {
             {playerRole === "Member" && roundControl.status === "isStoped" && (
               <>
                 <h2>Statistics</h2>
-                <ResultOnCards />
+                <ResultOnCards issueResults={issueResults} issueId={id} />
               </>
             )}
           </div>
           {playerRole === "Dealer" && roundControl.status === "isStoped" && (
             <>
               <h2>Statistics</h2>
-              <ResultOnCards />
+              <ResultOnCards issueResults={issueResults} issueId={id} />
             </>
           )}
           <GameCards role={playerRole} />

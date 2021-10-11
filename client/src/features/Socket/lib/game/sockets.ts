@@ -12,5 +12,5 @@ export const sendVotedPlayer = (
     .then((data) => {
       console.log("callback: ", data);
     });
-  console.log(player, issue, score);
+  // console.log(player, issue, score);
 };

@@ -17,6 +17,8 @@ export const LobbyGameTitle: FunctionComponent<LobbyGameTitleProps> = ({
   const issuesName = issuesArrToStr(issues);
   const titleEl = gameStatus(appStage);
   return (
-    <h1 className={classNames}>{`Game ${titleEl} (issues ${issuesName})`}</h1>
+    <h1
+      className={`page__title ${classNames}`}
+    >{`Game ${titleEl} (issues ${issuesName})`}</h1>
   );
 };

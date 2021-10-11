@@ -1,17 +1,27 @@
 import { FunctionComponent } from "react";
-import { IssueWithResult } from "../IssueWithResult";
-import { mockData } from "./gameResultsMock";
+import { ResultOnCards } from "../../../../components";
+import { Issue } from "../../../../components/Issues/IssueItem/Issue";
+import {
+  useAppSelector,
+  ResultRedux,
+  IssuesRedux,
+} from "../../../../redux/store";
 
 export const GameResult: FunctionComponent = (): JSX.Element => {
-  const result = mockData.map((issue) => {
+  const issueResults = useAppSelector(ResultRedux);
+  const { issues } = useAppSelector(IssuesRedux);
+  const result = issues.map((issue) => {
     return (
-      <IssueWithResult
-        key={issue.id}
-        id={issue.id}
-        title={issue.title}
-        link={issue.link}
-        priority={issue.priority}
-      />
+      <div className="round-result__result-item">
+        <Issue
+          id={issue.id}
+          title={issue.title}
+          priority={issue.priority}
+          link={issue.link}
+          issueStatus="created"
+        />
+        <ResultOnCards issueResults={issueResults} issueId={issue.id} />
+      </div>
     );
   });
   return <>{result}</>;

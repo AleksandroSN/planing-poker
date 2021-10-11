@@ -1,41 +1,19 @@
 import { FunctionComponent } from "react";
 import { CSVDownloader } from "react-papaparse";
+import { convertResult } from "../../../../lib";
+import {
+  IssuesRedux,
+  ResultRedux,
+  useAppSelector,
+} from "../../../../redux/store";
 
 export const DownloadResultBtn: FunctionComponent = (): JSX.Element => {
+  const result = useAppSelector(ResultRedux);
+  const { issues } = useAppSelector(IssuesRedux);
+  const data = convertResult(result, issues);
   return (
     <CSVDownloader
-      data={[
-        {
-          "Issue first": "1",
-          Card: 22,
-          Percents: "22%",
-        },
-        {
-          "Issue first": "1",
-          Card: 33,
-          Percents: "33%",
-        },
-        {
-          "Issue first": "1",
-          Card: 44,
-          Percents: "22%",
-        },
-        {
-          "Issue first": "2",
-          Card: 66,
-          Percents: "22%",
-        },
-        {
-          "Issue first": "2",
-          Card: 77,
-          Percents: "33%",
-        },
-        {
-          "Issue first": "2",
-          Card: 99,
-          Percents: "22%",
-        },
-      ]}
+      data={data}
       type="button"
       filename="result"
       className="button-start"

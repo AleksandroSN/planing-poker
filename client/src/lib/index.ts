@@ -16,6 +16,7 @@ import { issuesArrToStr } from "./issuesArrToStr";
 import { cardsSets } from "./cardsSets";
 import { handlerErrors } from "./validation";
 import { handlerTime } from "./handlerTime";
+import { convertResult } from "./convertResult";
 
 export {
   renderUserAvatar,
@@ -37,4 +38,5 @@ export {
   cardsSets,
   handlerErrors,
   handlerTime,
+  convertResult,
 };

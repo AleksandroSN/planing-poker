@@ -108,8 +108,8 @@ export const createMaster = async (
       issue: Issue,
       roundControl: RoundControl
     ) => {
-      console.log("result:", results);
-      console.log("voters:", votes);
+      // console.log("result:", results);
+      // console.log("voters:", votes);
       /*       const votes: Record<string, number> = {};
       const results: Record<string, number> = {};
       result.forEach((value, key) => {
@@ -140,7 +140,7 @@ export const createMaster = async (
         player: player.id,
         value: score,
       };
-      console.log("data for dispatch: ", payload);
+      // console.log("data for dispatch: ", payload);
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
