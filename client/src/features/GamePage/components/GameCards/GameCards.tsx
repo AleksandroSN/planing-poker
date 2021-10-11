@@ -22,7 +22,8 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
   role,
 }): JSX.Element => {
   const [cardsDeck, setCardsDeck] = useState<IValue[]>(mockState.value);
-  const { cardValues, masterIsPlayer } = useAppSelector(GameSettingsCurrent);
+  const { cardValues, masterIsPlayer, scoreTypeShort } =
+    useAppSelector(GameSettingsCurrent);
   const { roundControl } = useAppSelector(AppSettings);
   const { issues } = useAppSelector(IssuesRedux);
   const localPlayer = JSON.parse(
@@ -57,7 +58,7 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
       <Cards
         key={cardValue}
         value={cardValue}
-        scoreTypeShort="SP"
+        scoreTypeShort={scoreTypeShort}
         disabled={value.disabled}
         selected={value.selected}
         onClick={handleClick}

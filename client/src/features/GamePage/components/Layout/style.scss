@@ -66,15 +66,17 @@
       flex-direction: column;
       padding-top: 35px;
 
-      @media (max-width: 950px) {
-       
-      }
+      
     }
   }
 }
 
 .game-issues__block {
   width: 45%;
+
+  @media (max-width: 950px) {
+    width: 100%;
+   }
 }
 
 .game-issues__block:nth-child(2) {
