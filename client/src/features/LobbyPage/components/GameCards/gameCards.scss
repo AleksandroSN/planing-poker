@@ -23,7 +23,7 @@
     }
 
     &-item {
-      width: 100px;
+      width: 90px;
       height: 160px;
       overflow: hidden;
       border-radius: 15px;
@@ -40,6 +40,7 @@
           height: 100%;
           background-color: rgba(96, 218, 191, 0.46);
           z-index: 10;
+          border-radius: 15px;
         }
         &::before {
           content: "";

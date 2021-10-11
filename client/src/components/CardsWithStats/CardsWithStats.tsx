@@ -3,8 +3,6 @@ import { Cards } from "../AddCardSection/Cards";
 import { CardsWithStatsProps } from "./types";
 import "./style.scss";
 
-const mockFunc = () => {};
-
 export const CardsWithStats: FunctionComponent<CardsWithStatsProps> = ({
   value,
   scoreTypeShort,
@@ -12,12 +10,8 @@ export const CardsWithStats: FunctionComponent<CardsWithStatsProps> = ({
 }): JSX.Element => {
   return (
     <div className="game-cards__stats-container">
-      <Cards
-        value={value}
-        scoreTypeShort={scoreTypeShort}
-        // updateCards={mockFunc}
-      />
-      <p className="game-cards__stats-percents">{`${stats} %`}</p>
+      <Cards value={value} scoreTypeShort={scoreTypeShort} />
+      <p className="game-cards__stats-percents">{`${stats.toFixed(2)} %`}</p>
     </div>
   );
 };

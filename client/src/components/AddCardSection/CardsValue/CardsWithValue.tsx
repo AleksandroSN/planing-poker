@@ -43,11 +43,13 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
   }, [value]);
 
   useEffect(() => {
-    if (roundControl.status === "isRun") {
+    if (roundControl.status !== "default") {
       setIsFlipped(true);
     }
+    if (roundControl.status === "default") {
+      setIsFlipped(false);
+    }
   }, [roundControl]);
-
   const toggleClass = () => {
     if (selected === true) {
       return "game-cards__cards-value-item selected";
@@ -79,7 +81,7 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
           <img src={`.${cardsCover}`} alt="card cover" />
         </a.div>
       )}
-      {roundControl.status === "isRun" && (
+      {roundControl.status !== "default" && (
         <a.div
           className={toggleClass()}
           onClick={handleClick}

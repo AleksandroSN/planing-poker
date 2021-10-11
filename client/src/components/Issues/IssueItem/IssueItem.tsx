@@ -30,7 +30,7 @@ export const IssueItem: FunctionComponent<IssueProps> = ({
       return "window issues__item voting";
     }
     if (issueStatus === "voted") {
-      return "window issues__item voting";
+      return "window issues__item voted";
     }
     return "window issues__item";
   };

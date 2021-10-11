@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { SocketMethods, SocketSingleton } from ".";
+import { numberToArr } from "../../../lib";
 import { AppReducerActions } from "../../../redux/AppReducer/actions";
 import {
   ChatMessage,
@@ -38,6 +39,10 @@ export const createMember = async (
   dispatch({ type: "UPDATE_ISSUES", payload: lobbyIssues });
   const lobbyMessages = await getLobbyMessages(socket, lobby.player, "0", 20);
   dispatch({ type: "UPDATE_CHAT_MESSAGES", payload: lobbyMessages });
+  dispatch({
+    type: "TIK_TAK",
+    payload: numberToArr(lobby.initLobbySettings.roundTime),
+  });
   socket.on(SocketActions.NOTIFY_ABOUT_NEW_MEMBER, (player: Player) => {
     dispatch({ type: "ADD_PLAYER", payload: player });
   }); // update members

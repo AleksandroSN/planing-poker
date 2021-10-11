@@ -74,11 +74,17 @@ export const Layout: FunctionComponent = (): JSX.Element => {
               </div>
             )}
             {playerRole === "Member" && roundControl.status === "isStoped" && (
-              <ResultOnCards />
+              <>
+                <h2>Statistics</h2>
+                <ResultOnCards />
+              </>
             )}
           </div>
           {playerRole === "Dealer" && roundControl.status === "isStoped" && (
-            <ResultOnCards />
+            <>
+              <h2>Statistics</h2>
+              <ResultOnCards />
+            </>
           )}
           <GameCards role={playerRole} />
         </section>
