@@ -150,7 +150,7 @@ export const getVotingResult = (
   const issues = db.issues.filter((issue) => issue.lobbyId === lobbyId);
   issues.forEach((issue) => {
     if (voting.get(issue.id)) {
-      const res = voting.get(issue.id)?.getResults as unknown as Res;
+      const res = voting.get(issue.id)?.getResults() as unknown as Res;
       const votes: Record<string, string> = {};
       const results: Record<string, number> = {};
       res.result.forEach((value, key) => {

@@ -7,10 +7,9 @@ export const sendVotedPlayer = (
   issue: Issue,
   score: string
 ): void => {
-  socket
-    .emit(SocketActions.GIVE_A_VOTE_FOR_ISSUE, [player, issue, score], true)
-    .then((data) => {
-      console.log("callback: ", data);
-    });
-  // console.log(player, issue, score);
+  socket.emit(
+    SocketActions.GIVE_A_VOTE_FOR_ISSUE,
+    [player, issue, score],
+    true
+  );
 };

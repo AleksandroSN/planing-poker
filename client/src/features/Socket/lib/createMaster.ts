@@ -127,10 +127,15 @@ export const createMaster = async (
         player: player.id,
         value: score,
       };
-      // console.log("data for dispatch: ", payload);
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
+  const votingResult = await socket.emit(
+    SocketActions.GET_VOTING_RESULTS,
+    [lobby.player.lobbyId],
+    true
+  );
+  dispatch({ type: "UPDATE_ISSUES_VOTING_RESULT", payload: votingResult });
   socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
     dispatch({ type: "TIK_TAK", payload: time });
   });

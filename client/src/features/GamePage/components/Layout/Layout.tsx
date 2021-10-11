@@ -48,7 +48,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
     const votingIssueIdx = issues.findIndex(
       (issue) => issue.issueStatus === "voting"
     );
-    if (votingIssueIdx > 0) {
+    if (votingIssueIdx >= 0) {
       const curIssue = issues[votingIssueIdx];
       setIssueId(curIssue.id);
     }
