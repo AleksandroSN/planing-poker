@@ -29,7 +29,6 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
         io.to(issue.lobbyId).emit(SocketActions.TIK_TAK, time);
         if (startTime === 0) {
           const votersQty = voters.size;
-          console.log("votersQty", votersQty);
           voters.forEach((itm) => {
             if (!result.has(itm)) {
               result.set(itm, 1);
@@ -43,7 +42,6 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
             let value = itm;
             value = (value / votersQty) * 100;
             result.set(key, value);
-            console.log("key", key, "value", value);
           });
           const roundControl = await changeRoundStatus(
             issue.lobbyId,
@@ -109,7 +107,6 @@ export const issueVotingDb = (io: Server) => {
         callback({ isVoted: false, message: "VOTING_HAS_NOT_STARTED" });
       else {
         voting.addVoice(player, score);
-        console.log("lobbyId: ", player.id);
         io.to(player.lobbyId).emit(
           SocketActions.NOTIFY_ABOUT_NEW_VOTE_FOR_ISSUE,
           issue,
