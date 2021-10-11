@@ -22,7 +22,7 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
   const { roundControl } = useAppSelector(AppSettings);
   const { issues } = useAppSelector(IssuesRedux);
   const results = useAppSelector(ResultRedux);
-  const [vote, setVote] = useState<number>();
+  const [vote, setVote] = useState<string>();
 
   useEffect(() => {
     const votingIssueIdx = issues.findIndex(

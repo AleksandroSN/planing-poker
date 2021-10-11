@@ -34,6 +34,7 @@ export enum SocketActions {
   NEXT_ISSUE_FOR_VOTING = "next issue for voting",
   ALL_ISSUES_WERE_VOTED = "all issues were voted",
   RECIEVE_NEXT_ROUND_DATA = "recieve next round data",
+  GET_VOTING_RESULTS = "get voting results",
 }
 
 export type Player = {

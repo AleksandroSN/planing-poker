@@ -6,7 +6,7 @@ type PlayerId = string;
 type CardValue = string;
 
 type ResultData = {
-  votes: Record<PlayerId, number>;
+  votes: Record<PlayerId, string>;
   results: Record<CardValue, number>;
 };
 
@@ -17,7 +17,7 @@ const initialResultState: ResultState = {};
 type Vote = {
   issue: string;
   player: string;
-  value: number;
+  value: string;
 };
 
 type IssueResult = {

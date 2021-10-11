@@ -79,6 +79,15 @@ export const Socket = (): JSX.Element => {
               dispatch({ type: "UPDATE_ISSUE_VOTING_RESULT", payload });
             }
           );
+          const votingResult = await socket.emit(
+            SocketActions.GET_VOTING_RESULTS,
+            [localPlayer.lobbyId],
+            true
+          );
+          dispatch({
+            type: "UPDATE_ISSUES_VOTING_RESULT",
+            payload: votingResult,
+          });
           socket.on(
             SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
             (roundControl: RoundControl) => {

@@ -1,11 +1,18 @@
 import { Server } from "socket.io";
 import { Issue, Player, SocketActions } from "../../types";
 import { changeRoundStatus, getLobbySettings, getVotingIssue } from "../models";
+import { db } from "../../db/db";
+
+type Res = {
+  voters: Map<string, string>;
+  result: Map<string, number>;
+};
 
 type IssueVoting = {
   startVoting: () => void;
   addVoice: (player: Player, score: string) => void;
   checkProcess: () => boolean;
+  getResults: () => Res;
 };
 
 const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
@@ -15,6 +22,9 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
   let isVoting = false;
   let timer: NodeJS.Timer;
   return {
+    getResults: () => {
+      return { voters, result };
+    },
     startVoting: () => {
       isVoting = true;
       voters.clear();
@@ -79,6 +89,7 @@ const issueVoting = (io: Server, issue: Issue, timerLimit: number) => {
 export const issueVotingDb = (io: Server) => {
   const issuesVoting: Map<string, IssueVoting> = new Map();
   return {
+    getVotes: () => issuesVoting,
     runRound: async (
       lobbyId: string,
       callback: (response: { isStarted: boolean; message: string }) => void
@@ -117,4 +128,39 @@ export const issueVotingDb = (io: Server) => {
       }
     },
   };
+};
+
+type IssueId = string;
+type PlayerId = string;
+type CardValue = string;
+
+export type ResultData = {
+  votes: Record<PlayerId, string>;
+  results: Record<CardValue, number>;
+};
+
+export type ResultState = Record<IssueId, ResultData>;
+
+export const getVotingResult = (
+  voting: Map<string, IssueVoting>,
+  lobbyId: string,
+  callback: (data: ResultState) => void
+) => {
+  const data: ResultState = {};
+  const issues = db.issues.filter((issue) => issue.lobbyId === lobbyId);
+  issues.forEach((issue) => {
+    if (voting.get(issue.id)) {
+      const res = voting.get(issue.id)?.getResults as unknown as Res;
+      const votes: Record<string, string> = {};
+      const results: Record<string, number> = {};
+      res.result.forEach((value, key) => {
+        results[key] = value;
+      });
+      res.voters.forEach((value, key) => {
+        votes[key] = value;
+      });
+      data[issue.id] = { results, votes };
+    }
+  });
+  callback(data);
 };

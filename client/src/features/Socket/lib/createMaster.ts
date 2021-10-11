@@ -66,9 +66,6 @@ export const createMaster = async (
   socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, (issue: Issue) => {
     dispatch({ type: "UPDATE_ISSUE", payload: issue });
   }); // update issue
-  socket.on(SocketActions.RECIEVE_DELETED_ISSUE, (issue: Issue) => {
-    dispatch({ type: "DELETE_ISSUE", payload: issue });
-  }); // update issue
   socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
     dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
   }); // update messages
