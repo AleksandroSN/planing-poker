@@ -50,35 +50,15 @@ export const Socket = (): JSX.Element => {
             };
             dispatch({ type: "CONTROL_ROUND", payload });
           });
-          socket.on(
-            SocketActions.NOTIFY_ABOUT_ROUND_STOP,
-            (
-              result: Map<number, number>,
-              voters: Map<string, number>,
-              issue: Issue
-            ) => {
-              const votes: Record<string, number> = {};
-              const results: Record<string, number> = {};
-              result.forEach((value, key) => {
-                results[`${key}`] = value;
-              });
-              voters.forEach((value, key) => {
-                votes[key] = value;
-              });
-              const payload = {
-                issue: issue.id,
-                results: {
-                  votes,
-                  results,
-                },
-              };
-              dispatch({
-                type: "CONTROL_ROUND",
-                payload: { isRun: false, currentIssue: issue },
-              });
-              dispatch({ type: "UPDATE_ISSUE_VOTING_RESULT", payload });
-            }
+          const votingResult = await socket.emit(
+            SocketActions.GET_VOTING_RESULTS,
+            [localPlayer.lobbyId],
+            true
           );
+          dispatch({
+            type: "UPDATE_ISSUES_VOTING_RESULT",
+            payload: votingResult,
+          });
           socket.on(
             SocketActions.NOTIFY_ABOUT_ROUND_RUNNIG,
             (roundControl: RoundControl) => {
@@ -91,19 +71,11 @@ export const Socket = (): JSX.Element => {
           socket.on(
             SocketActions.NOTIFY_ABOUT_ROUND_STOP,
             (
-              result: Map<number, number>,
-              voters: Map<string, number>,
+              results: Record<string, number>,
+              votes: Record<string, string>,
               issue: Issue,
               roundControl: RoundControl
             ) => {
-              const votes: Record<string, number> = {};
-              const results: Record<string, number> = {};
-              result.forEach((value, key) => {
-                results[`${key}`] = value;
-              });
-              voters.forEach((value, key) => {
-                votes[key] = value;
-              });
               const payload = {
                 issue: issue.id,
                 results: {

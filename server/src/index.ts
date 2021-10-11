@@ -35,7 +35,11 @@ import { timersDb } from "./tools/timeCounter.ts";
 import fileUpload from "express-fileupload";
 import { routerFiles } from "./tools/controllers/router-file";
 import { kickDb } from "./tools/kick-voting";
-import { issueVotingDb } from "./tools/issue-voting";
+import {
+  getVotingResult,
+  issueVotingDb,
+  ResultState,
+} from "./tools/issue-voting";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
@@ -249,6 +253,12 @@ io.on("connection", function (socket: Socket) {
     SocketActions.NEXT_ISSUE_FOR_VOTING,
     async function (lobbyId: string) {
       await setNextIssueForVoting(io, lobbyId);
+    }
+  );
+  socket.on(
+    SocketActions.GET_VOTING_RESULTS,
+    function (lobbyId: string, callback: (data: ResultState) => void) {
+      getVotingResult(issueVoting.getVotes(), lobbyId, callback);
     }
   );
 });

@@ -40,7 +40,7 @@ export const ResultOnCards: FunctionComponent<ResultOnCardsProps> = ({
       });
     }
     setResultCards(resArr);
-  }, [issueResults]);
+  }, [issueId]);
 
   const renderCards = resultCards.map((card) => {
     return (

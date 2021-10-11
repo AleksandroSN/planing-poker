@@ -102,19 +102,11 @@ export const createMember = async (
   socket.on(
     SocketActions.NOTIFY_ABOUT_ROUND_STOP,
     (
-      result: Map<number, number>,
-      voters: Map<string, number>,
+      results: Record<string, number>,
+      votes: Record<string, string>,
       issue: Issue,
       roundControl: RoundControl
     ) => {
-      const votes: Record<string, number> = {};
-      const results: Record<string, number> = {};
-      result.forEach((value, key) => {
-        results[`${key}`] = value;
-      });
-      voters.forEach((value, key) => {
-        votes[key] = value;
-      });
       const payload = {
         issue: issue.id,
         results: {
@@ -140,6 +132,12 @@ export const createMember = async (
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
+  const votingResult = await socket.emit(
+    SocketActions.GET_VOTING_RESULTS,
+    [lobby.player.lobbyId],
+    true
+  );
+  dispatch({ type: "UPDATE_ISSUES_VOTING_RESULT", payload: votingResult });
   socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
     dispatch({ type: "TIK_TAK", payload: time });
   });

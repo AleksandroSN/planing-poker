@@ -22,13 +22,13 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
   const { roundControl } = useAppSelector(AppSettings);
   const { issues } = useAppSelector(IssuesRedux);
   const results = useAppSelector(ResultRedux);
-  const [vote, setVote] = useState<number>();
+  const [vote, setVote] = useState<string>("In progress");
 
   useEffect(() => {
     const votingIssueIdx = issues.findIndex(
       (issue) => issue.issueStatus === "voting"
     );
-    if (votingIssueIdx > 0) {
+    if (votingIssueIdx >= 0) {
       const { id } = issues[votingIssueIdx];
       const currentRound = results[id];
       if (currentRound) {
@@ -36,7 +36,7 @@ export const ProgressItem: FunctionComponent<ProgressItemProps> = ({
         setVote(playerVote);
       }
     }
-  }, [results]);
+  }, [results, issues]);
 
   const flipVoteCard = () => {
     if (changingCardInRoundEnd && roundControl.status === "isStoped") {

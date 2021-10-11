@@ -66,9 +66,6 @@ export const createMaster = async (
   socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, (issue: Issue) => {
     dispatch({ type: "UPDATE_ISSUE", payload: issue });
   }); // update issue
-  socket.on(SocketActions.RECIEVE_DELETED_ISSUE, (issue: Issue) => {
-    dispatch({ type: "DELETE_ISSUE", payload: issue });
-  }); // update issue
   socket.on(SocketActions.RECIEVE_NEW_MESSAGE, (message: ChatMessage) => {
     dispatch({ type: "ADD_CHAT_MESSAGE", payload: message });
   }); // update messages
@@ -108,16 +105,6 @@ export const createMaster = async (
       issue: Issue,
       roundControl: RoundControl
     ) => {
-      // console.log("result:", results);
-      // console.log("voters:", votes);
-      /*       const votes: Record<string, number> = {};
-      const results: Record<string, number> = {};
-      result.forEach((value, key) => {
-        results[`${key}`] = value;
-      });
-      voters.forEach((value, key) => {
-        votes[key] = value;
-      }); */
       const payload = {
         issue: issue.id,
         results: {
@@ -140,10 +127,15 @@ export const createMaster = async (
         player: player.id,
         value: score,
       };
-      // console.log("data for dispatch: ", payload);
       dispatch({ type: "ADD_NEW_VOTE_FOR_ISSUE", payload });
     }
   );
+  const votingResult = await socket.emit(
+    SocketActions.GET_VOTING_RESULTS,
+    [lobby.player.lobbyId],
+    true
+  );
+  dispatch({ type: "UPDATE_ISSUES_VOTING_RESULT", payload: votingResult });
   socket.on(SocketActions.TIK_TAK, (time: Array<string>) => {
     dispatch({ type: "TIK_TAK", payload: time });
   });
