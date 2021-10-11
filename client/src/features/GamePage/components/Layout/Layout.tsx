@@ -52,7 +52,7 @@ export const Layout: FunctionComponent = (): JSX.Element => {
       const curIssue = issues[votingIssueIdx];
       setIssueId(curIssue.id);
     }
-  }, [issues]);
+  }, [issues, issueResults]);
 
   if (appStage === "results") {
     return <Redirect to={`/result/${lobbyId}`} />;
