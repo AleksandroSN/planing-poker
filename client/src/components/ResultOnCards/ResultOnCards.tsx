@@ -1,6 +1,8 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import {
+  AppSettings,
   GameSettingsCurrent,
+  IssuesRedux,
   ResultRedux,
   useAppSelector,
 } from "../../redux/store";
@@ -16,22 +18,23 @@ export const ResultOnCards: FunctionComponent = (): JSX.Element => {
   const [resultCards, setResultCards] = useState<ResultsData[]>([]);
   const issueResults = useAppSelector(ResultRedux);
   const { scoreTypeShort } = useAppSelector(GameSettingsCurrent);
-
+  const { issues } = useAppSelector(IssuesRedux);
+  const votingIssueIdx = issues.findIndex(
+    (issue) => issue.issueStatus === "voting"
+  );
+  const votingIssue = issues[votingIssueIdx];
+  const issueWithResults = issueResults[votingIssue.id];
   useEffect(() => {
     const resArr: ResultsData[] = [];
-    Object.keys(issueResults).forEach((issue) => {
-      Object.keys(issueResults[issue].results).forEach((cardValue) => {
-        const resultObj = {
-          value: cardValue,
-          stat: issueResults[issue].results[cardValue],
-        };
-        resArr.push(resultObj);
-      });
+    Object.keys(issueWithResults.results).forEach((cardValue) => {
+      const resultObj = {
+        value: cardValue,
+        stat: issueWithResults.results[cardValue],
+      };
+      resArr.push(resultObj);
     });
     setResultCards(resArr);
   }, [issueResults]);
-
-  // clear after start round
 
   const renderCards = resultCards.map((card) => {
     return (

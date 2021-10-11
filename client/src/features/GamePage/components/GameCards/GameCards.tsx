@@ -6,6 +6,7 @@ import {
   useAppSelector,
   GameSettingsCurrent,
   IssuesRedux,
+  AppSettings,
 } from "../../../../redux/store";
 import { sendIssueVote } from "../../../Socket/lib/game/methods";
 import { Player } from "../../../Socket/types";
@@ -22,6 +23,7 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
 }): JSX.Element => {
   const [cardsDeck, setCardsDeck] = useState<IValue[]>(mockState.value);
   const { cardValues, masterIsPlayer } = useAppSelector(GameSettingsCurrent);
+  const { roundControl } = useAppSelector(AppSettings);
   const { issues } = useAppSelector(IssuesRedux);
   const localPlayer = JSON.parse(
     sessionStorage.getItem("player") as string
@@ -29,6 +31,7 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
   const index = issues.findIndex((issue) => issue.issueStatus === "voting");
   const currentIssue = issues[index];
   const handleClick = (value: string): void => {
+    if (roundControl.status !== "isRun") return;
     const updatedData = cardsDeck.map((data) => {
       if (data.cardValue === value) {
         return {
@@ -84,7 +87,10 @@ export const GameCards: FunctionComponent<GameCardsProps> = ({
     if (deck) {
       setCardsDeck(deck.value);
     }
-  }, [cardValues]);
+    if (deck && roundControl.status === "isRun") {
+      setCardsDeck(deck.value);
+    }
+  }, [cardValues, roundControl]);
 
   if (role !== "Dealer") {
     return (

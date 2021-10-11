@@ -11,7 +11,7 @@ export const CardsWithStats: FunctionComponent<CardsWithStatsProps> = ({
   return (
     <div className="game-cards__stats-container">
       <Cards value={value} scoreTypeShort={scoreTypeShort} />
-      <p className="game-cards__stats-percents">{`${stats} %`}</p>
+      <p className="game-cards__stats-percents">{`${stats.toFixed(2)} %`}</p>
     </div>
   );
 };
