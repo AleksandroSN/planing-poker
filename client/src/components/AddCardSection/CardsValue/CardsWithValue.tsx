@@ -78,7 +78,11 @@ export const CardsWithValue: FunctionComponent<CardsWithValueProps> = ({
           className="game-cards__cover-item"
           style={{ opacity: opacity.to((o) => 1 - o), transform }}
         >
-          <img src={`.${cardsCover}`} alt="card cover" />
+          {cardsCover.length === 0 ? (
+            <img src="../img/cover6.png" alt="card cover" />
+          ) : (
+            <img src={`.${cardsCover}`} alt="card cover" />
+          )}
         </a.div>
       )}
       {roundControl.status !== "default" && (
