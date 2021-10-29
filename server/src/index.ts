@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 import { Server, Socket } from "socket.io";
 import * as path from "path";
 import { createServer } from "http";
@@ -10,38 +11,82 @@ import {
   NewIssue,
   NewPlayer,
   Player,
+  RoundControl,
   SocketActions,
 } from "./types";
 import {
   addNewIssue,
   addNewTeamMember,
+  changeLobbySettings,
   createNewRoom,
+  deleteIssue,
+  deleteTeamMember,
   getChatMessages,
   getLobbyIssues,
   getLobbyMembers,
+  getLobbySettingsCtr,
   reconnectToLobby,
   sendChatMessage,
-} from "./tools/constrollers";
+  setNextIssueForVoting,
+  updateIssue,
+  validateLobby,
+} from "./tools/controllers";
+import { timersDb } from "./tools/timeCounter.ts";
+import fileUpload from "express-fileupload";
+import { routerFiles } from "./tools/controllers/router-file";
+import { kickDb } from "./tools/kick-voting";
+import {
+  getVotingResult,
+  issueVotingDb,
+  ResultState,
+} from "./tools/issue-voting";
 
 const app = express();
 app.set("port", process.env.PORT || 3030);
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const http = createServer(app);
 // set up socket.io and bind it to our
 // http server.
-const io = new Server(http);
+const io = new Server(http, {
+  cors: {
+    origin: "*",
+  },
+});
+
+const staticFilesPath = path.resolve(__dirname, "../wwwroot");
+
+app.use(fileUpload());
+
+app.use("/", express.static(staticFilesPath));
+
+app.use("/upload", routerFiles);
 
 app.get("/", (req: Request, res: Response) => {
   console.log("http connection happened");
-  res.sendFile(path.resolve("./client/index.html"));
+  res.sendFile(path.resolve("../client/index.html"));
 });
+
+const timers = timersDb(io);
+
+const kickVoting = kickDb(io);
+
+const issueVoting = issueVotingDb(io);
 
 io.on("connection", function (socket: Socket) {
   socket.on(
     SocketActions.CREATE_NEW_ROOM,
     async function (
       master: NewPlayer,
-      callback: (player: Player, initLobbySettings: LobbySetting) => void
+      callback: (response: {
+        player: Player;
+        initLobbySettings: LobbySetting;
+        roundControl: RoundControl;
+      }) => void
     ) {
       await createNewRoom(socket, master, callback);
     }
@@ -51,19 +96,32 @@ io.on("connection", function (socket: Socket) {
     async function (
       newTeamMember: NewPlayer,
       lobbyId: string,
-      callback: (player: Player, initLobbySettings: LobbySetting | null) => void
+      callback: (response: {
+        player: Player;
+        initLobbySettings: LobbySetting;
+        roundControl: RoundControl | null;
+      }) => void
     ) {
       await addNewTeamMember(socket, newTeamMember, lobbyId, callback);
     }
   );
+  socket.on(SocketActions.DELETE_TEAM_MEMBER, async function (player: Player) {
+    await deleteTeamMember(io, player);
+  });
   socket.on(
     SocketActions.GET_LOBBY_MEMBERS,
-    async function (lobbyId: string, callback: (members: Player[]) => void) {
-      await getLobbyMembers(lobbyId, callback);
+    async function (player: Player, callback: (members: Player[]) => void) {
+      await getLobbyMembers(player, callback);
     }
   );
   socket.on(SocketActions.ADD_NEW_ISSUE, async function (newIssie: NewIssue) {
     await addNewIssue(io, newIssie);
+  });
+  socket.on(SocketActions.RECIEVE_UPDATED_ISSUE, async function (issue: Issue) {
+    await updateIssue(io, issue);
+  });
+  socket.on(SocketActions.RECIEVE_DELETED_ISSUE, async function (issue: Issue) {
+    await deleteIssue(io, issue);
   });
   socket.on(
     SocketActions.GET_LOBBY_ISSUES,
@@ -83,6 +141,18 @@ io.on("connection", function (socket: Socket) {
     }
   );
   socket.on(
+    SocketActions.GET_LOBBY_SETTINGS,
+    async function (
+      lobbyId: string,
+      callback: (response: {
+        lobbySettings: LobbySetting | null;
+        roundControl: RoundControl | null;
+      }) => void
+    ) {
+      await getLobbySettingsCtr(lobbyId, callback);
+    }
+  );
+  socket.on(
     SocketActions.SEND_CHAT_MESSAGE,
     async function (newMessage: NewChatMessage) {
       await sendChatMessage(newMessage, io);
@@ -92,6 +162,103 @@ io.on("connection", function (socket: Socket) {
     SocketActions.RECONNECT_TO_LOBBY,
     async function (player: Player, callback: (success: boolean) => void) {
       await reconnectToLobby(socket, player, callback);
+    }
+  );
+  socket.on(
+    SocketActions.MANAGE_TIMER,
+    function (
+      manager: { command: "start" | "stop" | "pause"; timerLimit?: number },
+      player: Player
+    ) {
+      timers(player.lobbyId, manager.command, manager.timerLimit);
+    }
+  );
+  socket.on(
+    SocketActions.UPDATE_SETTINGS,
+    async function (
+      newSettings: LobbySetting,
+      callback: (response: { newLobbySettings: LobbySetting } | null) => void
+    ) {
+      await changeLobbySettings(
+        socket,
+        newSettings,
+        callback,
+        SocketActions.NOTIFY_ABOUT_NEW_SETTINGS
+      );
+    }
+  );
+  socket.on(
+    SocketActions.CHANGE_APP_STAGE,
+    async function (
+      newSettings: LobbySetting,
+      callback: (response: { newLobbySettings: LobbySetting } | null) => void
+    ) {
+      await changeLobbySettings(
+        socket,
+        newSettings,
+        callback,
+        SocketActions.NOTIFY_ABOUT_APP_STAGE
+      );
+    }
+  );
+  socket.on(
+    SocketActions.VALIDATE_LOBBY,
+    async function (
+      lobbyId: string,
+      callback: (response: { isValidate: boolean }) => void
+    ) {
+      await validateLobby(lobbyId, callback);
+    }
+  );
+  socket.on(
+    SocketActions.KICK_MEMBER,
+    async function (
+      requester: Player,
+      victim: Player,
+      callback: (response: { isStarted: boolean; message: string }) => void
+    ) {
+      kickVoting.kickMember(requester, victim, callback);
+    }
+  );
+  socket.on(
+    SocketActions.CONFIRM_TO_KICK_MEMBER,
+    async function (
+      player: Player,
+      callback: (response: { isVoted: boolean; message: string }) => void
+    ) {
+      kickVoting.voteForKicking(player, callback);
+    }
+  );
+  socket.on(
+    SocketActions.RUN_ROUND,
+    async function (
+      lobbyId: string,
+      callback: (response: { isStarted: boolean; message: string }) => void
+    ) {
+      issueVoting.runRound(lobbyId, callback);
+    }
+  );
+  socket.on(
+    SocketActions.GIVE_A_VOTE_FOR_ISSUE,
+    async function (
+      player: Player,
+      issue: Issue,
+      score: string,
+      callback: (response: { isVoted: boolean; message: string }) => void
+    ) {
+      issueVoting.giveVoteForIssue(player, issue, score, callback);
+    }
+  );
+  socket.on(
+    SocketActions.NEXT_ISSUE_FOR_VOTING,
+    async function (lobbyId: string) {
+      await setNextIssueForVoting(io, lobbyId);
+    }
+  );
+  socket.on(
+    SocketActions.GET_VOTING_RESULTS,
+    function (lobbyId: string, callback: (data: ResultState) => void) {
+      getVotingResult(issueVoting.getVotes(), lobbyId, callback);
     }
   );
 });

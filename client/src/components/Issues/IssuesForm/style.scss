@@ -1,0 +1,21 @@
+@import "../../../styles/utils/variables";
+@import "../../../styles/utils/mixins";
+@import "../../../styles//base/colorPalete";
+
+.issue__form {
+  padding: 10px 30px;
+
+  &-label {
+    display: flex;
+    font-weight: bold;
+    font-size: 24px;
+    @include calcLineHeight(24px);
+  }
+
+  &-input {
+    width: 70%;
+    margin-left: auto;
+    border: 1px solid $cororWindowsBlue;
+    box-shadow: inset $mainShadow;
+  }
+}

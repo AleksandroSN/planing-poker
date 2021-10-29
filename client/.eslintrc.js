@@ -24,6 +24,7 @@ module.exports = {
     "jsx-quotes": [1, "prefer-double"],
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
+    "react-hooks/exhaustive-deps": "off",
     "import/prefer-default-export": "off",
   },
 };

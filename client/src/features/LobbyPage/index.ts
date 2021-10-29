@@ -1,3 +1,3 @@
-import { GameSettings } from "./components/GameSettings/GameSettings";
+import { LobbyPageView as LobbyPage } from "./components";
 
-export { GameSettings };
+export { LobbyPage };

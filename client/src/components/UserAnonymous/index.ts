@@ -1,0 +1,1 @@
+export { UserAnonymous } from "./UserAnonymous";

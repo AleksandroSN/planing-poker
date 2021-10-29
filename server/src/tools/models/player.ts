@@ -24,6 +24,14 @@ export const createNewPlayer = (
   return Promise.resolve(player);
 };
 
-export const deletePlayer = (playerId: string): Promise<Player | false> => {
+export const deletePlayer = (playerId: string): Promise<false | Player> => {
   return deleteSmth(playerId, db.players);
+};
+
+export const getPlayersQtyInLobby = (lobbyId: string): Promise<number> => {
+  const qty = db.players.reduce((ret, itm) => {
+    if (itm.lobbyId === lobbyId) ret += 1;
+    return ret;
+  }, 0);
+  return Promise.resolve(qty);
 };

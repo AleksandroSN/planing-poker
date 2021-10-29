@@ -1,0 +1,80 @@
+import { Socket } from "socket.io";
+import { LobbySetting, NewPlayer, Player, RoundControl } from "../../types";
+import { v4 as uuidv4 } from "uuid";
+import {
+  createNewPlayer,
+  getLobbySettings,
+  getPlayerById,
+  setLobbySettings,
+  validateLobbyMd,
+  createRoundControl,
+  getRoundControl,
+} from "../models";
+import { initialLobbySettings } from "../../config/initialization";
+
+export const createNewRoom = async (
+  socket: Socket,
+  master: NewPlayer,
+  callback: (response: {
+    player: Player;
+    initLobbySettings: LobbySetting;
+    roundControl: RoundControl;
+  }) => void
+): Promise<void> => {
+  const newLobby = uuidv4();
+  socket.join(newLobby);
+  const player = await createNewPlayer(master, newLobby);
+  const initLobbySettings = {
+    ...initialLobbySettings,
+    lobbyId: newLobby,
+    masterId: player.id,
+  };
+  const roundControl = await createRoundControl(newLobby);
+  await setLobbySettings(initLobbySettings);
+  callback({ player, initLobbySettings, roundControl });
+};
+
+export const reconnectToLobby = async (
+  socket: Socket,
+  player: Player,
+  callback: (success: boolean) => void
+): Promise<void> => {
+  const checkPlaer = await getPlayerById(player.id);
+  if (checkPlaer) {
+    socket.join(player.lobbyId);
+    callback(true);
+  } else callback(false);
+};
+
+export const changeLobbySettings = async (
+  socket: Socket,
+  lobbySettings: LobbySetting,
+  callback: (response: { newLobbySettings: LobbySetting } | null) => void,
+  emitter: string
+): Promise<void> => {
+  const isChanged = await setLobbySettings(lobbySettings);
+  if (isChanged) {
+    callback({ newLobbySettings: lobbySettings });
+  } else callback(null);
+  socket.to(lobbySettings.lobbyId).emit(emitter, lobbySettings);
+};
+
+export const validateLobby = async (
+  lobbyId: string,
+  callback: (response: { isValidate: boolean }) => void
+): Promise<void> => {
+  const isValidate = await validateLobbyMd(lobbyId);
+  callback({ isValidate });
+};
+
+export const getLobbySettingsCtr = async (
+  lobbyId: string,
+  callback: (response: {
+    lobbySettings: LobbySetting | null;
+    roundControl: RoundControl | null;
+  }) => void
+): Promise<void> => {
+  const lobbySettings = await getLobbySettings(lobbyId);
+  const roundControl = await getRoundControl(lobbyId);
+  callback({ lobbySettings, roundControl });
+};

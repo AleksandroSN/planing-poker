@@ -1,0 +1,17 @@
+.round-result {
+  padding: 1rem 0;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 65px;
+    width: 100%;
+
+    @media screen and (max-width: 770px) {
+      padding: 0;
+    }
+  }
+
+  &__result-item {
+    margin-bottom: 1rem;
+  }
+}

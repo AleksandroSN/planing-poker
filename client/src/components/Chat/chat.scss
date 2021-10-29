@@ -1,9 +1,15 @@
 @import "../../styles/base/colorPalete";
-@import "../../styles//base/typography";
 @import "../../styles/utils/variables";
 
 .chat {
   background-color: $colorWhite;
+  z-index: 50;
+
+  &__wrapper {
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom: 1rem;
+  }
 
   &__row {
     display: flex;
@@ -14,8 +20,22 @@
   &__user-message {
     flex: 0 1 50%;
     text-align: left;
-    padding: 10px 5px;
+    padding: 10px 5px !important;
     box-shadow: $mainShadow;
     border-radius: 4px;
+    word-break: break-word;
+  }
+
+  &__label {
+    font-size: 0;
+  }
+
+  &__input {
+    width: 100%;
+    border-width: 0;
+    box-shadow: $mainShadow;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid $cororWindowsBlue;
   }
 }

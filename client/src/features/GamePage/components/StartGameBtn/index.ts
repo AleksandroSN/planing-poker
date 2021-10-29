@@ -1,0 +1,1 @@
+export { StartGameBtn } from "./StartGameBtn";

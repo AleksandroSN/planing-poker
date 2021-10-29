@@ -1,0 +1,36 @@
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 35%;
+  padding: 35px 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.5);
+
+  &__score,
+  &__palyers {
+    // display: flex;
+    // width: 100%;
+    // justify-content: space-between;
+    // text-align: center;
+    flex: 1;
+  }
+
+  &__heading {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 1024px) {
+  .progress-bar {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 810px) {
+  .progress-bar {
+    width: 100%;
+    flex-direction: row;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+  }
+}

@@ -1,0 +1,152 @@
+import {
+  ChatMessage,
+  Issue,
+  LobbySetting,
+  NewPlayer,
+  Player,
+  RoundControl,
+  SocketActions,
+} from "../types";
+import { SocketAPI } from "./SocketAPI";
+
+export const getLobbyPlayers = async (
+  socket: SocketAPI,
+  player: Player
+): Promise<Player[]> => {
+  const promise = socket.emit(
+    SocketActions.GET_LOBBY_MEMBERS,
+    [player],
+    true
+  ) as Promise<Player[]>;
+  return promise;
+};
+
+export const getLobbyIssues = async (
+  socket: SocketAPI,
+  player: Player
+): Promise<Issue[]> => {
+  const promise = socket.emit(
+    SocketActions.GET_LOBBY_ISSUES,
+    [player.lobbyId],
+    true
+  ) as Promise<Issue[]>;
+  return promise;
+};
+
+export const getLobbyMessages = async (
+  socket: SocketAPI,
+  player: Player,
+  lastMessageId: string,
+  messageQty: number
+): Promise<ChatMessage[]> => {
+  const promise = socket.emit(
+    SocketActions.GET_CHAT_MESSAGES,
+    [player.lobbyId, lastMessageId, messageQty],
+    true
+  ) as Promise<ChatMessage[]>;
+  return promise;
+};
+
+export type LobbyResponse = {
+  player: Player;
+  initLobbySettings: LobbySetting;
+  roundControl: RoundControl;
+};
+
+export const createNewLobby = async (
+  socket: SocketAPI,
+  master: NewPlayer
+): Promise<LobbyResponse> => {
+  const promise = socket.emit(
+    SocketActions.CREATE_NEW_ROOM,
+    [master],
+    true
+  ) as Promise<LobbyResponse>;
+  return promise;
+};
+
+export const connectToLobby = async (
+  socket: SocketAPI,
+  newPlayer: NewPlayer,
+  lobby: LobbySetting
+): Promise<LobbyResponse> => {
+  const promise = socket.emit(
+    SocketActions.ADD_NEW_TEAM_MEMBER,
+    [newPlayer, lobby.lobbyId],
+    true
+  ) as Promise<LobbyResponse>;
+  return promise;
+};
+
+export type ValidateResponse = {
+  isValidate: boolean;
+};
+
+export const validateLobby = async (
+  lobbyID: string,
+  socket: SocketAPI
+): Promise<ValidateResponse> => {
+  const promise = socket.emit(
+    SocketActions.VALIDATE_LOBBY,
+    [lobbyID],
+    true
+  ) as Promise<ValidateResponse>;
+  return promise;
+};
+
+export type NewChatMessage = {
+  messageText: string;
+  playerId: string;
+  lobbyId: string;
+};
+
+export const sendChatMessage = (
+  newMessage: NewChatMessage,
+  socket: SocketAPI
+): void => {
+  socket.emit(SocketActions.SEND_CHAT_MESSAGE, [newMessage], false);
+};
+
+export const reconnectToLobby = async (
+  player: Player,
+  socket: SocketAPI
+): Promise<boolean> => {
+  const promise = socket.emit(
+    SocketActions.RECONNECT_TO_LOBBY,
+    [player],
+    true
+  ) as Promise<boolean>;
+  return promise;
+};
+
+type ResponseLobbySettings = {
+  lobbySettings: LobbySetting;
+  roundControl: RoundControl;
+};
+type ResponseLobbyNewSettings = {
+  newLobbySettings: LobbySetting;
+};
+
+export const sendNewSettings = async (
+  socket: SocketAPI,
+  newSettings: LobbySetting
+): Promise<ResponseLobbyNewSettings> => {
+  const promise = socket.emit(
+    SocketActions.UPDATE_SETTINGS,
+    [newSettings],
+    true
+  ) as Promise<ResponseLobbyNewSettings>;
+  return promise;
+};
+
+export const getLobbySettings = async (
+  socket: SocketAPI,
+  lobbyId: string
+): Promise<ResponseLobbySettings> => {
+  const promise = socket.emit(
+    SocketActions.GET_LOBBY_SETTINGS,
+    [lobbyId],
+    true
+  ) as Promise<ResponseLobbySettings>;
+  return promise;
+};

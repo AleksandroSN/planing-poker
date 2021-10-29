@@ -13,7 +13,7 @@ interface UserClassesMode {
 
 export const userClassesHelper = (chat: boolean): UserClassesMode => {
   const classes = {
-    user: chat ? "user user--chat" : "user",
+    user: chat ? "window user user--chat" : "window user",
     wrapper: chat ? "user__wrapper user__wrapper--chat" : "user__wrapper",
     avatar: chat ? "user__avatar user__avatar--chat" : "user__avatar",
     body: chat ? "user__body" : "user__body",
@@ -22,7 +22,7 @@ export const userClassesHelper = (chat: boolean): UserClassesMode => {
       : "user__valid-user text-bold",
     name: chat
       ? "user__name text-l text-light"
-      : "user__name text-xl text-light",
+      : "user__name text-l text-light",
     job: chat ? "user__job text-xs text-light" : "user__job text-xs text-light",
     button: chat ? "user__button" : "user__button",
     buttonBody: chat ? "user__button-body" : "user__button-body",
@@ -31,15 +31,4 @@ export const userClassesHelper = (chat: boolean): UserClassesMode => {
       : "user__button-img",
   };
   return classes;
-};
-
-export const renderUserAvatar = (avatar: string): JSX.Element => {
-  if (avatar.length === 2) {
-    return (
-      <span className="user__avatar--span text-xl text-bold">{`${avatar}`}</span>
-    );
-  }
-  return (
-    <img src={`${avatar}`} alt="Your avatar" className="user__avatar--img" />
-  );
 };

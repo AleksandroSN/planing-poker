@@ -2,10 +2,20 @@
 @import "../../styles/base/colorPalete";
 
 .input-text {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
+  position: relative;
+
+  &__error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 5px;
+    position: absolute;
+    right: 5px;
+  }
 
   &__label {
     display: flex;
+    font-size: 24px;
   }
 
   &__input {

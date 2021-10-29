@@ -2,10 +2,10 @@
 @import "../../styles/utils/mixins";
 
 .user {
-  max-width: 500px;
+  max-width: 290px;
   width: 100%;
-  background-color: #fff;
-  box-shadow: $mainShadow;
+  // background-color: #fff;
+  // box-shadow: $mainShadow;
   border-radius: 4px;
   color: #000;
   display: flex;
@@ -31,7 +31,7 @@
   }
 
   &__avatar {
-    // background-color: $random-color;
+    overflow: hidden;
     box-shadow: inset $mainShadow;
     border-radius: 50%;
     width: 62px;
@@ -39,6 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    object-fit: fill;
 
     &--chat {
       height: 52px;
@@ -51,9 +52,13 @@
     }
   }
 
+  &__name {
+    text-transform: capitalize;
+  }
+
   &__body {
-    text-align: left;
-    white-space: nowrap;
+    // text-align: left;
+    // white-space: nowrap;
   }
 
   &__button {
@@ -63,6 +68,8 @@
       opacity: 0.7;
       display: flex;
       align-items: center;
+      min-width: 20px;
+      padding: 2px;
     }
 
     &-img {

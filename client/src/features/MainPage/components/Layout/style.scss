@@ -1,0 +1,95 @@
+.main-page {
+  &__logo {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 40px;
+    & img {
+      max-width: 400px;
+      width: 70vw;
+    }
+  }
+
+  &__content {
+    padding-left: 26px;
+    padding-bottom: 232px;
+    max-width: 550px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    color: #008080;
+  }
+
+  &__new-session {
+    display: flex;
+    padding-top: 90px;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  &__connect-game {
+    padding-top: 35px;
+
+    &__choose {
+      font-weight: bold;
+      font-size: 64px;
+      line-height: 56px;
+      color: #008080;
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    &__title {
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    & span {
+      color: #008080;
+      font-weight: bold;
+    }
+
+    & input {
+      padding-left: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 10px;
+      width: 385px;
+      height: 47px !important;
+      background: #ffffff;
+      border: 1px solid #010081;
+      box-sizing: border-box;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 0px 0px 0px 10px;
+
+      @media screen and (max-width: 770px) {
+        width: 150px;
+      }
+    }
+
+    &__input {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    & button {
+      margin-left: 0;
+      height: 47px;
+      border: 1px solid #496a81;
+      box-sizing: border-box;
+      border-radius: 0px 3px 3px 0px;
+    }
+  }
+}
+
+.button-start {
+  @media screen and (max-width: 1200px) {
+    width: 50%;
+    margin-left: 40px;
+    font-size: 1rem;
+  }
+}

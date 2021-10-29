@@ -13,3 +13,8 @@ export const getLobbySettings = (
     return Promise.resolve(db.lobbySettings.get(lobbyId) as LobbySetting);
   } else return Promise.resolve(null);
 };
+
+export const validateLobbyMd = (lobbyId: string): Promise<boolean> => {
+  if (db.lobbySettings.has(lobbyId)) return Promise.resolve(true);
+  else return Promise.resolve(false);
+};

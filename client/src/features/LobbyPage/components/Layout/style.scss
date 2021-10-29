@@ -1,0 +1,154 @@
+@import "../../../../styles/utils/variables";
+
+.lobby-page {
+  &-wrapper {
+    padding: 35px 35px 100px;
+
+    @media screen and (max-width: 770px) {
+      padding: 35px 0;
+    }
+  }
+}
+
+.chat__container {
+  position: fixed; // graphic bag if absolute
+  top: $headerHeight;
+  width: calc((1903px - 1000px) / 2);
+  padding-left: 5px;
+
+  @media screen and (max-width: 770px) {
+    width: 400px;
+  }
+  @media screen and (max-width: 450px) {
+    width: 300px;
+  }
+}
+
+.master-card__title {
+  text-align: left;
+}
+
+.master-card,
+.members__block,
+.issues__block,
+.start-game__block {
+  margin-bottom: 65px;
+}
+
+.master-card {
+  flex: 0 1 25%;
+}
+
+.members {
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+.start-game__button-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.start-game__button-block button {
+  margin-left: 0;
+}
+
+.link__block {
+  display: flex;
+  margin-bottom: 30px;
+  align-items: flex-end;
+
+  & .input-text {
+    margin-bottom: 15px;
+  }
+}
+
+.link__block button {
+  margin-left: 0;
+}
+
+.lobby-page-link__input {
+  width: 270px;
+  height: 46px !important;
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #496a81;
+  box-sizing: border-box;
+  border-radius: 0px 0px 0px 10px;
+  margin-left: auto;
+  padding: 13px 0;
+
+  @media screen and (max-width: 770px) {
+    width: 150px;
+  }
+}
+
+.lobby-link__label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.copy-link {
+  &__button {
+    height: 47px;
+    padding: 2px 11px 0 13p;
+    margin-bottom: 15px;
+    // background: #2b3a67;
+    border: 1px solid #496a81;
+    box-sizing: border-box;
+    border-radius: 3px;
+    // color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__text {
+    margin-left: 2rem;
+    color: tomato;
+    font-size: 4rem;
+    align-self: center;
+  }
+}
+
+.settings__block {
+  margin-bottom: 40px;
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: 992px) {
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    @media screen and (max-width: 992px) {
+      flex-direction: row;
+      flex: 100%;
+
+      .button-start {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.exit-game__block {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 65px;
+}

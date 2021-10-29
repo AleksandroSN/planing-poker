@@ -1,0 +1,108 @@
+.game-page__wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+
+  @media (max-width: 810px) {
+    flex-direction: column;
+  }
+}
+
+.game-page {
+  margin: 0px;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+
+    & .button-start {
+      margin-left: 0;
+    }
+  }
+
+  &__cards {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+}
+
+.game-content__wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0 65px;
+  width: 100%;
+}
+
+.game-page__block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-issues {
+  &__wrapper {
+    display: flex;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+
+    @media (max-width: 950px) {
+      flex-direction: column;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+
+    & button {
+      margin-left: 0;
+    }
+    &-wrapper {
+      width: 45%;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      padding-top: 35px;
+    }
+  }
+}
+
+.game-issues__block {
+  width: 45%;
+
+  @media (max-width: 950px) {
+    width: 100%;
+  }
+}
+
+.game-issues__block:nth-child(2) {
+  padding-top: 45px;
+  padding-left: 50px;
+
+  @media (max-width: 570px) {
+    padding: 0;
+  }
+}
+
+.game-timer__wrapper {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 810px) {
+  .game-content__wrapper {
+    padding: 0 30px 30px;
+  }
+}
+
+@media (max-width: 570px) {
+  .game-issues__wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .game-timer__wrapper {
+    margin: 20px 0;
+  }
+}

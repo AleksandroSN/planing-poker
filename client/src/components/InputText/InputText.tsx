@@ -1,34 +1,38 @@
 import { FunctionComponent } from "react";
+import { InputTextProps } from "./types";
+import { handlerErrors } from "../../lib";
 import "./inputText.scss";
 
-interface InputTextProps {
-  labelText: string;
-  updateMessages?: (text: string) => void;
-}
-
 export const InputText: FunctionComponent<InputTextProps> = ({
-  labelText,
-  updateMessages,
+  inputProps,
+  hookForm,
 }: InputTextProps): JSX.Element => {
-  const getInputValue = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    if (ev.key !== "Enter") return;
-    const inputValue = (ev.target as HTMLInputElement).value;
-    if (updateMessages) {
-      updateMessages(inputValue);
-    }
-    // eslint-disable-next-line no-param-reassign
-    (ev.target as HTMLInputElement).value = "";
-  };
-
+  const errors = handlerErrors({
+    labelText: inputProps.labelText,
+    isError: hookForm?.isError,
+    classes: "input-text__error",
+  });
   return (
     <div className="input-text">
-      <label htmlFor="inputText" className="input-text__label">
-        {labelText}
+      {errors}
+      <label
+        htmlFor="inputText"
+        className={inputProps.labelClasses || "input-text__label"}
+      >
+        {inputProps.labelText} :
         <input
           type="text"
-          name="inputText"
-          className="input-text__input"
-          onKeyDown={(ev) => getInputValue(ev)}
+          id="inputText"
+          className={inputProps.inputClasses || "input-text__input"}
+          disabled={inputProps.isDisabled || false}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...(inputProps.isDisabled
+            ? { value: inputProps.defaultValue }
+            : { defaultValue: inputProps.defaultValue })}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...(hookForm && {
+            ...hookForm.onRegister(inputProps.labelText, hookForm.regOptions),
+          })}
         />
       </label>
     </div>

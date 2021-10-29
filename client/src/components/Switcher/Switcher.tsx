@@ -1,29 +1,28 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
+import { SwitcherProps } from "./types";
 import "./switcher.scss";
-
-interface SwitcherProps {
-  labelText: string;
-}
 
 export const Switcher: FunctionComponent<SwitcherProps> = ({
   labelText,
+  id,
+  defaultValue,
+  register,
+  toggle,
 }: SwitcherProps): JSX.Element => {
-  const [isObserver, setIsObserver] = useState<boolean>(false);
   return (
     <div className="switcher">
       <p className="switcher__text">{labelText}</p>
-      <label htmlFor="switcherBox" className="switcher__label">
+      <label htmlFor={id} className="switcher__label">
         <input
           type="checkbox"
-          name="switcherBox"
+          id={id}
           className="switcher__input"
-          checked={isObserver}
+          checked={defaultValue}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...register(labelText)}
+          onChange={toggle}
         />
-        <span
-          className="switcher__slider round"
-          onClick={() => setIsObserver((prev) => !prev)}
-          role="none"
-        >
+        <span className="switcher__slider round" role="none">
           switch
         </span>
       </label>
